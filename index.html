@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lucas Xavier — Dev</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #2563ff;
+    --blue-light: #4f8aff;
+    --blue-dim: #1a3a99;
+    --blue-glow: rgba(37,99,255,0.18);
+    --black: #04070f;
+    --dark: #080e1a;
+    --card: #0b1120;
+    --card2: #0f1828;
+    --border: #16213a;
+    --border2: #1e2e50;
+    --text: #dce6f8;
+    --muted: #4a5c80;
+    --muted2: #7a90b8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* Grid bg */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 64px 64px;
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Glow orb */
+  .orb {
+    position: fixed;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(37,99,255,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    top: -200px; right: -200px;
+    animation: orbFloat 8s ease-in-out infinite;
+  }
+
+  @keyframes orbFloat {
+    0%,100% { transform: translate(0,0); }
+    50% { transform: translate(-40px, 40px); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  @keyframes scanline {
+    0% { top: -4px; }
+    100% { top: 100%; }
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 48px;
+    backdrop-filter: blur(12px);
+    background: rgba(4,7,15,0.7);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: var(--blue);
+    letter-spacing: 0.15em;
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--muted2); }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    transition: color 0.2s;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0;
+    width: 0; height: 1px;
+    background: var(--blue);
+    transition: width 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 48px 80px;
+    z-index: 1;
+  }
+
+  .hero-content { max-width: 860px; }
+
+  .hero-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--blue);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    animation: fadeUp 0.7s ease both;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 40px; height: 1px;
+    background: var(--blue);
+    display: block;
+  }
+
+  .hero-name {
+    font-size: clamp(52px, 9vw, 110px);
+    font-weight: 800;
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    animation: fadeUp 0.7s 0.1s ease both;
+  }
+
+  .hero-name .blue { color: var(--blue); }
+  .hero-name .dim  { color: var(--muted); font-weight: 400; }
+
+  .hero-desc {
+    margin-top: 32px;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: var(--muted2);
+    line-height: 1.9;
+    max-width: 560px;
+    animation: fadeUp 0.7s 0.2s ease both;
+  }
+
+  .hero-desc strong { color: var(--blue-light); font-weight: 400; }
+
+  .hero-badges {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 28px;
+    animation: fadeUp 0.7s 0.25s ease both;
+  }
+
+  .badge {
+    background: var(--card);
+    border: 1px solid var(--border2);
+    color: var(--muted2);
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    padding: 6px 14px;
+    text-transform: uppercase;
+  }
+
+  .badge.blue {
+    border-color: var(--blue-dim);
+    color: var(--blue-light);
+    background: rgba(37,99,255,0.07);
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+
+  .btn {
+    padding: 14px 30px;
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.22s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--blue);
+    color: #fff;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  }
+  .btn-primary:hover { background: var(--blue-light); transform: translateY(-2px); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--muted2);
+    border: 1px solid var(--border2);
+  }
+  .btn-ghost:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-2px); }
+
+  /* Corner decoration */
+  .hero-corner {
+    position: absolute;
+    bottom: 60px; right: 48px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    animation: fadeIn 1s 0.5s ease both;
+  }
+
+  .hero-corner::before {
+    content: '';
+    width: 1px; height: 60px;
+    background: linear-gradient(transparent, var(--border2));
+    margin-left: auto;
+  }
+
+  /* SECTION BASE */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 100px 48px;
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--blue);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 28px; height: 1px;
+    background: var(--blue);
+  }
+
+  .section-title {
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 56px;
+  }
+
+  /* SERVICES */
+  #servicos { background: var(--dark); }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2px;
+  }
+
+  .service-card {
+    background: var(--card);
+    padding: 40px 36px;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--blue);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+
+  .service-card:hover { background: var(--card2); border-color: var(--border2); }
+  .service-card:hover::before { transform: scaleX(1); }
+
+  .service-icon {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+
+  .service-num {
+    position: absolute;
+    top: 24px; right: 28px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--border2);
+    letter-spacing: 0.1em;
+  }
+
+  .service-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--text);
+  }
+
+  .service-desc {
+    font-size: 13px;
+    color: var(--muted2);
+    line-height: 1.7;
+    font-family: 'Space Mono', monospace;
+  }
+
+  .service-price {
+    margin-top: 24px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--blue-light);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .service-price::before {
+    content: '';
+    width: 20px; height: 1px;
+    background: var(--blue-dim);
+  }
+
+  /* ABOUT */
+  #sobre {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .about-text p {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: var(--muted2);
+    line-height: 1.9;
+    margin-bottom: 16px;
+  }
+
+  .about-text p strong { color: var(--blue-light); font-weight: 400; }
+
+  .about-edu {
+    margin-top: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .edu-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 20px 24px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--blue);
+    transition: all 0.2s;
+  }
+
+  .edu-item:hover { background: var(--card2); }
+
+  .edu-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+
+  .edu-course {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .edu-school {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--blue-light);
+    margin-bottom: 4px;
+  }
+
+  .edu-status {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  /* Stats */
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  .stat-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 32px 28px;
+    text-align: center;
+    transition: all 0.2s;
+  }
+
+  .stat-box:hover { background: var(--card2); border-color: var(--border2); }
+
+  .stat-num {
+    font-size: 48px;
+    font-weight: 800;
+    color: var(--blue);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  /* PORTFOLIO */
+  #portfolio { background: var(--dark); }
+
+  .portfolio-note {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--blue-dim);
+    padding: 14px 20px;
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2px;
+  }
+
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 36px 32px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+
+  .project-card:hover {
+    background: var(--card2);
+    border-color: var(--border2);
+    transform: translateY(-4px);
+  }
+
+  .project-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--blue), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .project-card:hover::after { opacity: 1; }
+
+  .project-type {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--blue);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .project-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  .project-desc {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--muted2);
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tag {
+    background: rgba(37,99,255,0.08);
+    border: 1px solid var(--blue-dim);
+    color: var(--blue-light);
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    padding: 4px 10px;
+    text-transform: uppercase;
+  }
+
+  .project-coming {
+    position: absolute;
+    top: 20px; right: 20px;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    background: var(--card2);
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+  }
+
+  /* CONTACT */
+  #contato {
+    text-align: center;
+    padding: 120px 48px;
+  }
+
+  .contact-inner {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .contact-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: var(--muted2);
+    line-height: 1.9;
+    margin-bottom: 48px;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 48px;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 28px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .contact-link:hover {
+    background: var(--card2);
+    border-color: var(--blue);
+    transform: translateX(4px);
+  }
+
+  .contact-link-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .contact-link-icon { font-size: 18px; }
+
+  .contact-link-name {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--text);
+    letter-spacing: 0.08em;
+  }
+
+  .contact-link-handle {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--blue-light);
+  }
+
+  .contact-link-arrow {
+    color: var(--muted);
+    font-size: 16px;
+    transition: transform 0.2s;
+  }
+
+  .contact-link:hover .contact-link-arrow { transform: translateX(4px); color: var(--blue); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 28px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  .footer-text span { color: var(--blue); }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border2), transparent);
+    margin: 0 48px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { padding: 100px 24px 60px; }
+    section { padding: 80px 24px; }
+    #sobre { grid-template-columns: 1fr; gap: 48px; }
+    footer { padding: 24px; flex-direction: column; gap: 8px; text-align: center; }
+    .divider { margin: 0 24px; }
+    #contato { padding: 80px 24px; }
+    .hero-corner { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="orb"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#"><span>//</span> LX.DEV</a>
+  <ul class="nav-links">
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#portfolio">Portfólio</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-tag">Disponível para projetos</div>
+
+    <h1 class="hero-name">
+      LUCAS<br>
+      <span class="blue">XAVIER</span>
+    </h1>
+
+    <p class="hero-desc">
+      Desenvolvedor focado em <strong>Landing Pages</strong> e <strong>Sites Institucionais</strong>.<br>
+      Técnico em Informática · Eng. de Software em andamento.<br>
+      Baseado em <strong>Campinas / Paulínia — SP</strong>.
+    </p>
+
+    <div class="hero-badges">
+      <span class="badge blue">JavaScript</span>
+      <span class="badge blue">HTML & CSS</span>
+      <span class="badge blue">Eng. de Software</span>
+      <span class="badge">Campinas · SP</span>
+      <span class="badge">Freelancer</span>
+    </div>
+
+    <div class="hero-cta">
+      <a href="#contato" class="btn btn-primary">Solicitar orçamento →</a>
+      <a href="#portfolio" class="btn btn-ghost">Ver projetos</a>
+    </div>
+  </div>
+
+  <div class="hero-corner">
+    <span>Paulínia · SP · Brasil</span>
+    <span>lucaxaviers</span>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SERVIÇOS -->
+<section id="servicos">
+  <div class="section-label">O que eu faço</div>
+  <h2 class="section-title">Serviços</h2>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <span class="service-num">01</span>
+      <div class="service-icon">⚡</div>
+      <h3 class="service-title">Landing Page</h3>
+      <p class="service-desc">Página única de alta conversão para divulgar seu negócio, produto ou serviço. Design moderno, responsivo e rápido.</p>
+      <div class="service-price">A partir de R$ 400</div>
+    </div>
+
+    <div class="service-card">
+      <span class="service-num">02</span>
+      <div class="service-icon">🏢</div>
+      <h3 class="service-title">Site Institucional</h3>
+      <p class="service-desc">Site completo para sua empresa com múltiplas páginas, apresentação profissional e integração com WhatsApp e Google Maps.</p>
+      <div class="service-price">A partir de R$ 800</div>
+    </div>
+
+    <div class="service-card">
+      <span class="service-num">03</span>
+      <div class="service-icon">📱</div>
+      <h3 class="service-title">Design Responsivo</h3>
+      <p class="service-desc">Todos os projetos funcionam perfeitamente no celular, tablet e computador. Experiência fluida em qualquer tela.</p>
+      <div class="service-price">Incluso em todos os planos</div>
+    </div>
+
+    <div class="service-card">
+      <span class="service-num">04</span>
+      <div class="service-icon">🔧</div>
+      <h3 class="service-title">Manutenção & Suporte</h3>
+      <p class="service-desc">Atualização de conteúdo, correção de problemas e suporte técnico contínuo para seu site.</p>
+      <div class="service-price">A partir de R$ 150/mês</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SOBRE -->
+<section id="sobre">
+  <div>
+    <div class="section-label">Quem sou</div>
+    <h2 class="section-title">Sobre mim</h2>
+
+    <div class="about-text">
+      <p>Sou <strong>Lucas Xavier</strong>, desenvolvedor de Campinas com foco em criar presença digital para negócios locais da região de <strong>Paulínia e Campinas — SP</strong>.</p>
+      <p>Combino conhecimento técnico sólido com atenção ao design para entregar sites que representam bem o seu negócio e atraem clientes.</p>
+    </div>
+
+    <div class="about-edu">
+      <div class="edu-item">
+        <div class="edu-icon">🎓</div>
+        <div class="edu-info">
+          <div class="edu-course">Técnico em Informática</div>
+          <div class="edu-school">ETEC Bento Quirino — Campinas</div>
+          <div class="edu-status">EM FORMAÇÃO</div>
+        </div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-icon">🏛️</div>
+        <div class="edu-info">
+          <div class="edu-course">Engenharia de Software</div>
+          <div class="edu-school">PUC-Campinas</div>
+          <div class="edu-status">CURSANDO</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-stats">
+    <div class="stat-box">
+      <div class="stat-num">2</div>
+      <div class="stat-label">Formações em andamento</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">5<span style="font-size:24px;color:var(--muted)">d</span></div>
+      <div class="stat-label">Prazo médio de entrega</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">PIX</div>
+      <div class="stat-label">Pagamento facilitado</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">∞</div>
+      <div class="stat-label">Suporte pós-entrega</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="section-label">Meus trabalhos</div>
+  <h2 class="section-title">Portfólio</h2>
+
+  <div class="projects-grid" style="grid-template-columns:1fr; gap: 48px;">
+
+    <!-- SALÃO -->
+    <div class="project-card" style="padding:0; overflow:hidden; display:grid; grid-template-columns: 1fr 340px;">
+      <div class="mockup-preview" style="position:relative; height:420px; overflow:hidden; border-right:1px solid var(--border); background:var(--dark);">
+        <iframe src="mockup-salao.html" style="width:1280px; height:900px; border:none; transform:scale(0.52); transform-origin:top left; pointer-events:none;" scrolling="no"></iframe>
+        <div class="preview-overlay" style="position:absolute;inset:0;background:linear-gradient(to right, transparent 70%, var(--card));"></div>
+      </div>
+      <div style="padding:40px 36px; display:flex; flex-direction:column; justify-content:center;">
+        <div class="project-type" style="margin-bottom:10px;">💇‍♀️ Site Institucional</div>
+        <h3 class="project-title" style="font-size:26px; margin-bottom:12px;">Studio Élise</h3>
+        <p class="project-desc" style="margin-bottom:24px;">Site completo para salão de beleza premium. Design elegante em tons rose e dourado, galeria de transformações, lista de serviços com preços e botão de agendamento via WhatsApp.</p>
+        <div class="project-tags" style="margin-bottom:28px;">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">Responsivo</span>
+          <span class="tag">WhatsApp</span>
+        </div>
+        <a href="mockup-salao.html" target="_blank" class="btn btn-primary" style="width:fit-content; font-size:12px;">Ver site completo →</a>
+      </div>
+    </div>
+
+    <!-- PAPELARIA -->
+    <div class="project-card" style="padding:0; overflow:hidden; display:grid; grid-template-columns: 340px 1fr;">
+      <div style="padding:40px 36px; display:flex; flex-direction:column; justify-content:center; border-right:1px solid var(--border);">
+        <div class="project-type" style="margin-bottom:10px;">✏️ E-commerce</div>
+        <h3 class="project-title" style="font-size:26px; margin-bottom:12px;">Papel & Ponto</h3>
+        <p class="project-desc" style="margin-bottom:24px;">Loja online de papelaria com catálogo de produtos, categorias interativas, banner promocional e seção institucional. Visual amarelo e tinta com estilo editorial moderno.</p>
+        <div class="project-tags" style="margin-bottom:28px;">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">E-commerce</span>
+        </div>
+        <a href="mockup-papelaria.html" target="_blank" class="btn btn-primary" style="width:fit-content; font-size:12px;">Ver site completo →</a>
+      </div>
+      <div class="mockup-preview" style="position:relative; height:420px; overflow:hidden; background:var(--dark);">
+        <iframe src="mockup-papelaria.html" style="width:1280px; height:900px; border:none; transform:scale(0.52); transform-origin:top left; pointer-events:none;" scrolling="no"></iframe>
+        <div class="preview-overlay" style="position:absolute;inset:0;background:linear-gradient(to left, transparent 70%, var(--card));"></div>
+      </div>
+    </div>
+
+    <!-- RESTAURANTE -->
+    <div class="project-card" style="padding:0; overflow:hidden; display:grid; grid-template-columns: 1fr 340px;">
+      <div class="mockup-preview" style="position:relative; height:420px; overflow:hidden; border-right:1px solid var(--border); background:var(--dark);">
+        <iframe src="mockup-restaurante.html" style="width:1280px; height:900px; border:none; transform:scale(0.52); transform-origin:top left; pointer-events:none;" scrolling="no"></iframe>
+        <div class="preview-overlay" style="position:absolute;inset:0;background:linear-gradient(to right, transparent 70%, var(--card));"></div>
+      </div>
+      <div style="padding:40px 36px; display:flex; flex-direction:column; justify-content:center;">
+        <div class="project-type" style="margin-bottom:10px;">🍽️ Site Institucional</div>
+        <h3 class="project-title" style="font-size:26px; margin-bottom:12px;">Cantina Brasa</h3>
+        <p class="project-desc" style="margin-bottom:24px;">Site premium para restaurante italiano com cardápio interativo, galeria de ambiente, formulário de reserva de mesa e animação de brasas. Visual escuro e sofisticado.</p>
+        <div class="project-tags" style="margin-bottom:28px;">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">Animações</span>
+          <span class="tag">Formulário</span>
+        </div>
+        <a href="mockup-restaurante.html" target="_blank" class="btn btn-primary" style="width:fit-content; font-size:12px;">Ver site completo →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTATO -->
+<section id="contato">
+  <div class="contact-inner">
+    <div class="section-label" style="justify-content:center">Bora conversar</div>
+    <h2 class="section-title">Contato</h2>
+
+    <p class="contact-text">
+      Tem um negócio em Paulínia ou Campinas e precisa de um site profissional?<br>
+      Me chama — respondo rápido e faço um orçamento sem compromisso.
+    </p>
+
+    <a href="https://wa.me/5519981400709" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="margin: 0 auto; display:inline-flex;">
+      💬 Chamar no WhatsApp
+    </a>
+
+    <div class="contact-links">
+      <a href="https://instagram.com/lucaxaviers" target="_blank" rel="noopener noreferrer" class="contact-link">
+        <div class="contact-link-left">
+          <span class="contact-link-icon">📸</span>
+          <div>
+            <div class="contact-link-name">Instagram</div>
+            <div class="contact-link-handle">@lucaxaviers</div>
+          </div>
+        </div>
+        <span class="contact-link-arrow">→</span>
+      </a>
+
+      <a href="https://github.com/lucaxaviers" target="_blank" rel="noopener noreferrer" class="contact-link">
+        <div class="contact-link-left">
+          <span class="contact-link-icon">💻</span>
+          <div>
+            <div class="contact-link-name">GitHub</div>
+            <div class="contact-link-handle">github.com/lucaxaviers</div>
+          </div>
+        </div>
+        <span class="contact-link-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-text">© 2026 <span>Lucas Xavier</span> — Todos os direitos reservados</div>
+  <div class="footer-text">Campinas · Paulínia · SP · Brasil</div>
+</footer>
+
+</body>
+</html>
