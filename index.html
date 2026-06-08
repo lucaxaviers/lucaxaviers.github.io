@@ -6,7 +6,11 @@
     <title>Lucas Xavier — Engenharia de Software & Dev</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
+        /* ==========================================================================
+           VARIÁVEIS DE COR (DARK / LIGHT MODE)
+           ========================================================================== */
         :root {
+            /* Tema Padrão (Dark Mode) */
             --blue: #2563ff;
             --blue-light: #4f8aff;
             --blue-dim: #1a3a99;
@@ -19,8 +23,31 @@
             --text: #dce6f8;
             --muted: #4a5c80;
             --muted2: #7a90b8;
+            --orb-opacity: 0.08;
+            --grid-opacity: 0.2;
         }
 
+        :root[data-theme="light"] {
+            /* Tema Alternativo (Light Mode - Premium Classic) */
+            --blue: #2563ff;
+            --blue-light: #1a4ec4;
+            --blue-dim: #d1e0ff;
+            --black: #f3f6fc;      /* Branco Gelo */
+            --dark: #e4eaf5;       /* Cinza Claro */
+            --card: #ffffff;       /* Fundo puro para cards */
+            --card2: #f8faff;
+            --border: #d2daf0;
+            --border2: #b0c2f0;
+            --text: #0b1120;       /* Texto escuro marinho */
+            --muted: #7a90b8;
+            --muted2: #4a5c80;
+            --orb-opacity: 0.04;
+            --grid-opacity: 0.4;
+        }
+
+        /* ==========================================================================
+           ESTILOS GERAIS E ESTRUTURA
+           ========================================================================== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
 
@@ -29,8 +56,10 @@
             color: var(--text);
             font-family: 'Syne', sans-serif;
             overflow-x: hidden;
+            transition: background 0.4s ease, color 0.4s ease;
         }
 
+        /* Grade geométrica de fundo */
         body::before {
             content: '';
             position: fixed;
@@ -39,25 +68,46 @@
                 linear-gradient(var(--border) 1px, transparent 1px),
                 linear-gradient(90deg, var(--border) 1px, transparent 1px);
             background-size: 64px 64px;
-            opacity: 0.2;
+            opacity: var(--grid-opacity);
             pointer-events: none;
             z-index: 0;
+            transition: opacity 0.4s ease;
         }
 
+        /* Efeito de brilho flutuante de fundo (Orb) */
         .orb {
             position: fixed;
             width: 600px; height: 600px;
-            background: radial-gradient(circle, rgba(37,99,255,0.08) 0%, transparent 70%);
+            background: radial-gradient(circle, var(--blue) 0%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
             z-index: 0;
             top: -100px; right: -100px;
+            opacity: var(--orb-opacity);
             animation: orbFloat 10s ease-in-out infinite;
+            transition: opacity 0.4s ease;
         }
 
+        /* ==========================================================================
+           ANIMAÇÕES CSS (FADE IN & SCROLL REVEAL)
+           ========================================================================== */
         @keyframes orbFloat { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-30px, 30px); } }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* Classes utilitárias para reveal suave no scroll da tela */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1), transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ==========================================================================
+           BARRA DE NAVEGAÇÃO
+           ========================================================================== */
         nav {
             position: fixed;
             top: 0; left: 0; right: 0;
@@ -69,8 +119,13 @@
             backdrop-filter: blur(12px);
             background: rgba(4,7,15,0.8);
             border-bottom: 1px solid var(--border);
+            transition: background 0.4s ease, border-color 0.4s ease;
+        }
+        root[data-theme="light"] nav {
+            background: rgba(243, 246, 252, 0.8);
         }
 
+        .nav-right-container { display: flex; align-items: center; gap: 32px; }
         .nav-logo { font-family: 'Space Mono', monospace; font-size: 14px; color: var(--blue); letter-spacing: 0.1em; text-decoration: none; font-weight: 700; }
         .nav-links { display: flex; gap: 32px; list-style: none; }
         .nav-links a {
@@ -79,10 +134,32 @@
             font-size: 12px;
             font-family: 'Space Mono', monospace;
             text-transform: uppercase;
-            transition: 0.3s;
+            transition: color 0.3s ease;
         }
         .nav-links a:hover { color: var(--blue-light); }
 
+        /* Botão do alternador de tema (Dark/Light) */
+        .theme-toggle {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .theme-toggle:hover {
+            border-color: var(--blue);
+            background: var(--card2);
+        }
+
+        /* ==========================================================================
+           HERO SECTION (APRESENTAÇÃO PRINCIPAL)
+           ========================================================================== */
         .hero { 
             position: relative; 
             min-height: 100vh; 
@@ -114,40 +191,39 @@
             background: var(--card);
             box-shadow: 0 20px 40px rgba(0,0,0,0.4);
             transform: rotate(3deg);
-            transition: 0.5s;
+            transition: all 0.5s ease;
         }
         .hero-photo:hover { transform: rotate(0deg) scale(1.05); border-color: var(--blue); }
 
         .hero-desc { font-family: 'Space Mono', monospace; font-size: 14px; color: var(--muted2); line-height: 1.8; margin-bottom: 32px; animation: fadeUp 0.8s 0.3s ease both; }
 
+        /* CONTAINER DA GRADE DE TECNOLOGIAS */
         .tech-icons-container {
             margin-top: 40px;
             padding: 25px 20px;
-            background: rgba(11,17,32,0.5);
+            background: rgba(11,17,32,0.4);
             border: 1px solid var(--border);
             border-radius: 20px;
             animation: fadeUp 0.8s 0.4s ease both;
+            transition: background 0.4s ease, border-color 0.4s ease;
         }
+        :root[data-theme="light"] .tech-icons-container { background: rgba(255,255,255,0.6); }
+        
         .tech-icons-title { font-family: 'Space Mono', monospace; font-size: 10px; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; display: block; }
         .tech-icons-grid { display: flex; flex-wrap: wrap; gap: 16px; position: relative; }
         
-        .tech-item {
-            position: relative;
-            display: inline-block;
-        }
-
+        .tech-item { position: relative; display: inline-block; }
         .tech-icons-grid img { 
-            height: 42px; 
-            width: 42px;
+            height: 42px; width: 42px;
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
             filter: grayscale(1) opacity(0.35);
         }
         
+        /* Balões informativos (Tooltips) */
         .tech-item::after {
             content: attr(data-title);
             position: absolute;
-            bottom: 130%;
-            left: 50%;
+            bottom: 130%; left: 50%;
             transform: translateX(-50%) translateY(5px);
             background: var(--card2);
             border: 1px solid var(--blue);
@@ -163,10 +239,11 @@
             z-index: 10;
         }
 
+        /* Efeito de interação combinada com a rotação reversa no PC */
         @media (min-width: 969px) {
             .tech-item:hover img { 
                 filter: grayscale(0) opacity(1); 
-                transform: translateY(-6px) scale(1.1);
+                transform: translateY(-6px) scale(1.15);
             }
             .tech-item:hover::after {
                 opacity: 1;
@@ -174,46 +251,48 @@
             }
         }
 
-        .tech-icons-grid.mobile-active img {
-            filter: grayscale(0) opacity(1) !important;
-        }
-        .tech-item.show-tooltip::after {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
+        /* Classes controladas por JS para acendimento via Mobile */
+        .tech-icons-grid.mobile-active img { filter: grayscale(0) opacity(1) !important; }
+        .tech-item.show-tooltip::after { opacity: 1; transform: translateX(-50%) translateY(0); }
 
+        /* ==========================================================================
+           ESTRUTURA GERAL DE SEÇÕES
+           ========================================================================== */
         section { padding: 100px 8%; position: relative; z-index: 1; }
         .section-label { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--blue); letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 16px; display: block; }
         .section-title { font-size: clamp(30px, 4vw, 48px); font-weight: 800; margin-bottom: 60px; }
 
+        /* SEÇÃO FORMAÇÃO (ESTILO TIMELINE / HISTÓRICO GERENCIAL) */
         .cv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
         .cv-item { 
             background: var(--card); 
             padding: 32px; 
             border: 1px solid var(--border); 
             border-left: 4px solid var(--blue);
-            transition: 0.3s;
+            transition: all 0.3s ease;
         }
-        .cv-item:hover { background: var(--card2); border-color: var(--border2); }
+        .cv-item:hover { background: var(--card2); border-color: var(--border2); transform: translateY(-4px); }
         .cv-date { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--blue-light); margin-bottom: 10px; display: block; }
         .cv-title { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
         .cv-org { font-family: 'Space Mono', monospace; font-size: 13px; color: var(--muted2); }
 
+        /* SEÇÃO CERTIFICAÇÕES */
         .certifications-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
         .cert-card {
             background: var(--card);
             border: 1px solid var(--border);
             padding: 24px;
             position: relative;
-            transition: 0.3s;
+            transition: all 0.3s ease;
         }
-        .cert-card:hover { border-color: var(--border2); background: var(--card2); }
+        .cert-card:hover { border-color: var(--border2); background: var(--card2); transform: translateY(-4px); }
         .cert-status { font-family: 'Space Mono', monospace; font-size: 9px; padding: 2px 8px; border-radius: 4px; position: absolute; top: 20px; right: 20px; text-transform: uppercase; }
         .cert-status.done { background: rgba(74, 222, 128, 0.1); color: #4ade80; border: 1px solid rgba(74, 222, 128, 0.2); }
         .cert-status.ongoing { background: rgba(37, 99, 255, 0.1); color: var(--blue-light); border: 1px solid var(--blue-dim); }
         .cert-institution { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--blue-light); margin-bottom: 6px; display: block; }
         .cert-name { font-size: 16px; font-weight: 700; color: var(--text); padding-right: 60px; }
 
+        /* SEÇÃO PORTFÓLIO DE PROJETOS */
         .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
         .project-card { 
             background: var(--card); 
@@ -222,11 +301,11 @@
             display: flex; 
             flex-direction: column; 
             justify-content: space-between;
-            transition: 0.4s;
+            transition: all 0.4s ease;
             border-radius: 4px;
             min-height: 280px;
         }
-        .project-card:hover { border-color: var(--blue); transform: translateY(-5px); }
+        .project-card:hover { border-color: var(--blue); transform: translateY(-8px); }
         .project-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
         .tag { font-family: 'Space Mono', monospace; font-size: 10px; padding: 4px 10px; background: var(--border); color: var(--muted2); border-radius: 4px; }
         .project-title { font-size: 24px; font-weight: 800; margin-bottom: 15px; }
@@ -246,24 +325,28 @@
         }
         .btn-link:hover { gap: 15px; color: var(--text); }
 
+        /* SEÇÃO CONTATO E LINKS SOCIAIS */
         .contact-box {
             background: var(--card);
             border: 1px solid var(--border);
             padding: 40px 20px;
             text-align: center;
             border-radius: 20px;
+            transition: background 0.4s ease, border-color 0.4s ease;
         }
         .social-links { display: flex; flex-direction: column; align-items: center; gap: 16px; margin-top: 40px; }
-        .social-links a { width: 100%; max-width: 280px; text-align: center; padding: 14px; background: var(--card2); border: 1px solid var(--border2); color: var(--text); text-decoration: none; font-family: 'Space Mono', monospace; font-size: 13px; transition: 0.3s; }
-        .social-links a:hover { color: var(--blue-light); border-color: var(--blue); }
+        .social-links a { width: 100%; max-width: 280px; text-align: center; padding: 14px; background: var(--card2); border: 1px solid var(--border2); color: var(--text); text-decoration: none; font-family: 'Space Mono', monospace; font-size: 13px; transition: all 0.3s ease; }
+        .social-links a:hover { color: var(--blue-light); border-color: var(--blue); transform: scale(1.02); }
 
         footer { padding: 40px 8%; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 12px; text-align: center; font-family: 'Space Mono', monospace; font-size: 11px; color: var(--muted); }
-
         .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); margin: 0 8%; }
 
+        /* ==========================================================================
+           REGRAS DE RESPONSIVIDADE E ADAPTAÇÃO MOBILE (89% DO FLUXO DE TRÁFEGO)
+           ========================================================================== */
         @media (max-width: 968px) {
             nav { padding: 16px 20px; }
-            .nav-links { display: none; }
+            .nav-links { display: none; } /* Esconde links redundantes em prol do fluxo de leitura vertical */
             
             .hero { 
                 grid-template-columns: 1fr; 
@@ -283,9 +366,7 @@
             .section-title { margin-bottom: 40px; }
             
             .cert-name { padding-right: 0; margin-top: 20px; }
-            
             .social-links { width: 100%; }
-            footer { flex-direction: column; align-items: center; }
         }
     </style>
 </head>
@@ -295,12 +376,15 @@
 
 <nav>
     <a class="nav-logo" href="#">LUCAS_XAVIER.DEV</a>
-    <ul class="nav-links">
-        <li><a href="#sobre">Formação</a></li>
-        <li><a href="#certificacoes">Certificados</a></li>
-        <li><a href="#projetos">Projetos</a></li>
-        <li><a href="#contato">Contato</a></li>
-    </ul>
+    <div class="nav-right-container">
+        <ul class="nav-links">
+            <li><a href="#sobre">Formação</a></li>
+            <li><a href="#certificacoes">Certificados</a></li>
+            <li><a href="#projetos">Projetos</a></li>
+            <li><a href="#contato">Contato</a></li>
+        </ul>
+        <button class="theme-toggle" id="themeToggle" aria-label="Alternar Tema">🌙</button>
+    </div>
 </nav>
 
 <section class="hero">
@@ -339,7 +423,7 @@
 
 <div class="divider"></div>
 
-<section id="sobre">
+<section id="sobre" class="scroll-reveal">
     <span class="section-label">01. Perfil Acadêmico</span>
     <h2 class="section-title">Formação</h2>
     <div class="cv-grid">
@@ -363,7 +447,7 @@
 
 <div class="divider"></div>
 
-<section id="certificacoes">
+<section id="certificacoes" class="scroll-reveal">
     <span class="section-label">02. Especializações</span>
     <h2 class="section-title">Certificações Técnicas</h2>
     <div class="certifications-grid">
@@ -402,7 +486,7 @@
 
 <div class="divider"></div>
 
-<section id="projetos">
+<section id="projetos" class="scroll-reveal">
     <span class="section-label">03. Portfolio Técnico</span>
     <h2 class="section-title">Projetos em Destaque</h2>
     <div class="portfolio-grid">
@@ -432,7 +516,7 @@
 
 <div class="divider"></div>
 
-<section id="contato">
+<section id="contato" class="scroll-reveal">
     <div class="contact-box">
         <span class="section-label">04. Networking</span>
         <h2 class="section-title" style="margin-bottom: 20px;">Vamos nos conectar?</h2>
@@ -454,13 +538,54 @@
 </footer>
 
 <script>
+    // Seleção de elementos estruturais essenciais
     const techGrid = document.getElementById('techGrid');
     const techItems = document.querySelectorAll('.tech-item');
+    const themeToggle = document.getElementById('themeToggle');
+    const htmlElement = document.documentElement;
 
+    // Detecta se o dispositivo possui capacidades touch nativas (Mobile/Tablet)
     const isMobile = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
+    /* ==========================================================================
+       LÓGICA DO INTERRUPTOR DE TEMA (DARK / LIGHT MODE)
+       ========================================================================== */
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    htmlElement.setAttribute('data-theme', savedTheme);
+    themeToggle.textContent = savedTheme === 'dark' ? '🌙' : '☀️';
+
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = htmlElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        // Aplica o novo tema e atualiza o estado do ícone do botão
+        htmlElement.setAttribute('data-theme', newTheme);
+        themeToggle.textContent = newTheme === 'dark' ? '🌙' : '☀️';
+        localStorage.setItem('theme', newTheme);
+    });
+
+    /* ==========================================================================
+       LÓGICA DE ANIMAÇÃO NO SCROLL DA TELA (REVEAL SECTIONS)
+       ========================================================================== */
+    const scrollRevealItems = document.querySelectorAll('.scroll-reveal');
+    
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            // Quando a seção entra em 15% de visibilidade, adiciona a classe que dispara a animação CSS
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, { threshold: 0.15 });
+
+    scrollRevealItems.forEach(item => revealObserver.observe(item));
+
+    /* ==========================================================================
+       COMPORTAMENTO DINÂMICO PARA AS STACKS TECNOLÓGICAS (MOBILE VS PC)
+       ========================================================================== */
     if (isMobile) {
-        const observer = new IntersectionObserver((entries) => {
+        // Observer dedicado para acender toda a grade de tecnologias automaticamente no mobile
+        const techObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     techGrid.classList.add('mobile-active');
@@ -468,16 +593,22 @@
             });
         }, { threshold: 0.3 });
 
-        observer.observe(techGrid);
+        techObserver.observe(techGrid);
 
+        // Controla a exibição dos balões (tooltips) via toque individual sem quebrar o layout
         techItems.forEach(item => {
             item.addEventListener('touchstart', (e) => {
-                e.stopPropagation(); 
+                e.stopPropagation(); // Impede o fechamento imediato no tratador global de eventos
+                
+                // Fecha qualquer outra tooltip que por ventura esteja aberta antes de abrir a nova
                 techItems.forEach(i => { if(i !== item) i.classList.remove('show-tooltip'); });
+                
+                // Alterna o balão atual
                 item.classList.toggle('show-tooltip');
             });
         });
 
+        // Evento global para fechar qualquer tooltip ativa caso o usuário dê um toque fora dos ícones
         document.addEventListener('touchstart', () => {
             techItems.forEach(item => item.classList.remove('show-tooltip'));
         });
