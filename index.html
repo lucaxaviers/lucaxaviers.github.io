@@ -7,10 +7,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         /* ==========================================================================
-           VARIÁVEIS DE COR (DARK / LIGHT MODE)
+           VARIÁVEIS DE COR E IDENTIDADE VISUAL (DARK / LIGHT MODE)
            ========================================================================== */
         :root {
-            /* Tema Padrão (Dark Mode) */
+            /* Paleta Padrão: Premium Dark Cyber */
             --blue: #2563ff;
             --blue-light: #4f8aff;
             --blue-dim: #1a3a99;
@@ -28,17 +28,17 @@
         }
 
         :root[data-theme="light"] {
-            /* Tema Alternativo (Light Mode - Premium Classic) */
+            /* Paleta Alternativa: Premium Classic Minimal */
             --blue: #2563ff;
             --blue-light: #1a4ec4;
             --blue-dim: #d1e0ff;
             --black: #f3f6fc;      /* Branco Gelo */
             --dark: #e4eaf5;       /* Cinza Claro */
-            --card: #ffffff;       /* Fundo puro para cards */
+            --card: #ffffff;       /* Cards Puros */
             --card2: #f8faff;
             --border: #d2daf0;
             --border2: #b0c2f0;
-            --text: #0b1120;       /* Texto escuro marinho */
+            --text: #0b1120;       /* Azul Marinho Fechado */
             --muted: #7a90b8;
             --muted2: #4a5c80;
             --orb-opacity: 0.04;
@@ -46,7 +46,7 @@
         }
 
         /* ==========================================================================
-           ESTILOS GERAIS E ESTRUTURA
+           ESTILOS GERAIS E ARQUITETURA GEOMÉTRICA
            ========================================================================== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
@@ -56,10 +56,10 @@
             color: var(--text);
             font-family: 'Syne', sans-serif;
             overflow-x: hidden;
-            transition: background 0.4s ease, color 0.4s ease;
+            transition: background 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Grade geométrica de fundo */
+        /* Linhas estruturais em malha (Fundo Técnico) */
         body::before {
             content: '';
             position: fixed;
@@ -74,7 +74,7 @@
             transition: opacity 0.4s ease;
         }
 
-        /* Efeito de brilho flutuante de fundo (Orb) */
+        /* Elemento Esférico de Iluminação (Orb Atmosférico) */
         .orb {
             position: fixed;
             width: 600px; height: 600px;
@@ -89,16 +89,25 @@
         }
 
         /* ==========================================================================
-           ANIMAÇÕES CSS (FADE IN & SCROLL REVEAL)
+           ANIMAÇÕES DINÂMICAS (SCROLL REVEAL & MICRO-INTERAÇÕES)
            ========================================================================== */
         @keyframes orbFloat { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-30px, 30px); } }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Classes utilitárias para reveal suave no scroll da tela */
+        /* Animação Física de Oscilação (Balanço Clean Baseado na Foto de Perfil) */
+        @keyframes techWobble {
+            0% { transform: translateY(-6px) rotate(0deg) scale(1.1); }
+            33% { transform: translateY(-6px) rotate(1.5deg) scale(1.1); }
+            66% { transform: translateY(-6px) rotate(-1.5deg) scale(1.1); }
+            100% { transform: translateY(-6px) rotate(0deg) scale(1.1); }
+        }
+
+        /* Classes de interceptação do Scroll (Efeito de carregamento com mola suave) */
         .scroll-reveal {
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1), transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+            transform: translateY(45px);
+            transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, opacity; /* Otimização de GPU para o Mobile */
         }
         .scroll-reveal.active {
             opacity: 1;
@@ -106,7 +115,7 @@
         }
 
         /* ==========================================================================
-           BARRA DE NAVEGAÇÃO
+           BARRA DE NAVEGAÇÃO E CONTROLE DE INTERRUPÇÃO (NAV & THEME SWITCHER)
            ========================================================================== */
         nav {
             position: fixed;
@@ -121,7 +130,7 @@
             border-bottom: 1px solid var(--border);
             transition: background 0.4s ease, border-color 0.4s ease;
         }
-        root[data-theme="light"] nav {
+        :root[data-theme="light"] nav {
             background: rgba(243, 246, 252, 0.8);
         }
 
@@ -138,27 +147,38 @@
         }
         .nav-links a:hover { color: var(--blue-light); }
 
-        /* Botão do alternador de tema (Dark/Light) */
+        /* Botão do Alternador (Suporte a SVGs sem distorção) */
         .theme-toggle {
             background: transparent;
             border: 1px solid var(--border);
             color: var(--text);
             cursor: pointer;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 14px;
+            padding: 10px;
+            border-radius: 10px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .theme-toggle:hover {
             border-color: var(--blue);
             background: var(--card2);
         }
+        .theme-toggle svg {
+            width: 16px; height: 16px;
+            fill: currentColor;
+            transition: transform 0.4s ease;
+        }
+        .theme-toggle:hover svg { transform: rotate(15deg); }
+
+        /* Alternância interna das camadas do SVG do botão */
+        :root[data-theme="light"] .theme-toggle .moon-icon,
+        :root[data-theme="dark"] .theme-toggle .sun-icon {
+            display: none;
+        }
 
         /* ==========================================================================
-           HERO SECTION (APRESENTAÇÃO PRINCIPAL)
+           HERO SECTION E INTERATIVIDADE DA STACK DE TECNOLOGIAS
            ========================================================================== */
         .hero { 
             position: relative; 
@@ -191,13 +211,12 @@
             background: var(--card);
             box-shadow: 0 20px 40px rgba(0,0,0,0.4);
             transform: rotate(3deg);
-            transition: all 0.5s ease;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .hero-photo:hover { transform: rotate(0deg) scale(1.05); border-color: var(--blue); }
 
         .hero-desc { font-family: 'Space Mono', monospace; font-size: 14px; color: var(--muted2); line-height: 1.8; margin-bottom: 32px; animation: fadeUp 0.8s 0.3s ease both; }
 
-        /* CONTAINER DA GRADE DE TECNOLOGIAS */
         .tech-icons-container {
             margin-top: 40px;
             padding: 25px 20px;
@@ -207,7 +226,6 @@
             animation: fadeUp 0.8s 0.4s ease both;
             transition: background 0.4s ease, border-color 0.4s ease;
         }
-        :root[data-theme="light"] .tech-icons-container { background: rgba(255,255,255,0.6); }
         
         .tech-icons-title { font-family: 'Space Mono', monospace; font-size: 10px; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; display: block; }
         .tech-icons-grid { display: flex; flex-wrap: wrap; gap: 16px; position: relative; }
@@ -219,11 +237,11 @@
             filter: grayscale(1) opacity(0.35);
         }
         
-        /* Balões informativos (Tooltips) */
+        /* Tooltips customizadas nativas */
         .tech-item::after {
             content: attr(data-title);
             position: absolute;
-            bottom: 130%; left: 50%;
+            bottom: 135%; left: 50%;
             transform: translateX(-50%) translateY(5px);
             background: var(--card2);
             border: 1px solid var(--blue);
@@ -235,15 +253,15 @@
             white-space: nowrap;
             opacity: 0;
             pointer-events: none;
-            transition: all 0.2s ease;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
             z-index: 10;
         }
 
-        /* Efeito de interação combinada com a rotação reversa no PC */
+        /* Acoplamento da Balançadinha (Wobble) no PC */
         @media (min-width: 969px) {
             .tech-item:hover img { 
                 filter: grayscale(0) opacity(1); 
-                transform: translateY(-6px) scale(1.15);
+                animation: techWobble 0.6s ease-in-out infinite;
             }
             .tech-item:hover::after {
                 opacity: 1;
@@ -251,39 +269,40 @@
             }
         }
 
-        /* Classes controladas por JS para acendimento via Mobile */
+        /* Comportamento controlado por hardware (Mobile Activation) */
         .tech-icons-grid.mobile-active img { filter: grayscale(0) opacity(1) !important; }
+        
+        /* Dispara o balanço e a visualização da palavra ao ser acionada no mobile */
+        .tech-item.show-tooltip img { animation: techWobble 0.6s ease-in-out infinite; filter: grayscale(0) opacity(1); }
         .tech-item.show-tooltip::after { opacity: 1; transform: translateX(-50%) translateY(0); }
 
         /* ==========================================================================
-           ESTRUTURA GERAL DE SEÇÕES
+           SEÇÕES SECUNDÁRIAS E COMPONENTES DE INTERFACE
            ========================================================================== */
         section { padding: 100px 8%; position: relative; z-index: 1; }
         .section-label { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--blue); letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 16px; display: block; }
         .section-title { font-size: clamp(30px, 4vw, 48px); font-weight: 800; margin-bottom: 60px; }
 
-        /* SEÇÃO FORMAÇÃO (ESTILO TIMELINE / HISTÓRICO GERENCIAL) */
         .cv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
         .cv-item { 
             background: var(--card); 
             padding: 32px; 
             border: 1px solid var(--border); 
             border-left: 4px solid var(--blue);
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .cv-item:hover { background: var(--card2); border-color: var(--border2); transform: translateY(-4px); }
         .cv-date { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--blue-light); margin-bottom: 10px; display: block; }
         .cv-title { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
         .cv-org { font-family: 'Space Mono', monospace; font-size: 13px; color: var(--muted2); }
 
-        /* SEÇÃO CERTIFICAÇÕES */
         .certifications-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
         .cert-card {
             background: var(--card);
             border: 1px solid var(--border);
             padding: 24px;
             position: relative;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .cert-card:hover { border-color: var(--border2); background: var(--card2); transform: translateY(-4px); }
         .cert-status { font-family: 'Space Mono', monospace; font-size: 9px; padding: 2px 8px; border-radius: 4px; position: absolute; top: 20px; right: 20px; text-transform: uppercase; }
@@ -292,7 +311,6 @@
         .cert-institution { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--blue-light); margin-bottom: 6px; display: block; }
         .cert-name { font-size: 16px; font-weight: 700; color: var(--text); padding-right: 60px; }
 
-        /* SEÇÃO PORTFÓLIO DE PROJETOS */
         .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
         .project-card { 
             background: var(--card); 
@@ -301,7 +319,7 @@
             display: flex; 
             flex-direction: column; 
             justify-content: space-between;
-            transition: all 0.4s ease;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             border-radius: 4px;
             min-height: 280px;
         }
@@ -325,7 +343,6 @@
         }
         .btn-link:hover { gap: 15px; color: var(--text); }
 
-        /* SEÇÃO CONTATO E LINKS SOCIAIS */
         .contact-box {
             background: var(--card);
             border: 1px solid var(--border);
@@ -342,11 +359,11 @@
         .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); margin: 0 8%; }
 
         /* ==========================================================================
-           REGRAS DE RESPONSIVIDADE E ADAPTAÇÃO MOBILE (89% DO FLUXO DE TRÁFEGO)
+           OTIMIZAÇÕES EXCLUSIVAS MOBILE (MÉTRICA ALVO: 89% DE RETENÇÃO)
            ========================================================================== */
         @media (max-width: 968px) {
             nav { padding: 16px 20px; }
-            .nav-links { display: none; } /* Esconde links redundantes em prol do fluxo de leitura vertical */
+            .nav-links { display: none; }
             
             .hero { 
                 grid-template-columns: 1fr; 
@@ -383,7 +400,10 @@
             <li><a href="#projetos">Projetos</a></li>
             <li><a href="#contato">Contato</a></li>
         </ul>
-        <button class="theme-toggle" id="themeToggle" aria-label="Alternar Tema">🌙</button>
+        <button class="theme-toggle" id="themeToggle" aria-label="Alternar Tema">
+            <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.22" x2="5.64" y2="17.78"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        </button>
     </div>
 </nav>
 
@@ -538,53 +558,40 @@
 </footer>
 
 <script>
-    // Seleção de elementos estruturais essenciais
     const techGrid = document.getElementById('techGrid');
     const techItems = document.querySelectorAll('.tech-item');
     const themeToggle = document.getElementById('themeToggle');
     const htmlElement = document.documentElement;
 
-    // Detecta se o dispositivo possui capacidades touch nativas (Mobile/Tablet)
     const isMobile = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
-    /* ==========================================================================
-       LÓGICA DO INTERRUPTOR DE TEMA (DARK / LIGHT MODE)
-       ========================================================================== */
+    /* --- GESTÃO DE TEMA (APLICAÇÃO DE SUCESSÃO DE ESTADOS) --- */
     const savedTheme = localStorage.getItem('theme') || 'dark';
     htmlElement.setAttribute('data-theme', savedTheme);
-    themeToggle.textContent = savedTheme === 'dark' ? '🌙' : '☀️';
 
     themeToggle.addEventListener('click', () => {
         const currentTheme = htmlElement.getAttribute('data-theme');
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
         
-        // Aplica o novo tema e atualiza o estado do ícone do botão
         htmlElement.setAttribute('data-theme', newTheme);
-        themeToggle.textContent = newTheme === 'dark' ? '🌙' : '☀️';
         localStorage.setItem('theme', newTheme);
     });
 
-    /* ==========================================================================
-       LÓGICA DE ANIMAÇÃO NO SCROLL DA TELA (REVEAL SECTIONS)
-       ========================================================================== */
+    /* --- INTERCEPTADOR DE ROLAGEM (SCROLL REVEAL POTENCIALIZADO) --- */
     const scrollRevealItems = document.querySelectorAll('.scroll-reveal');
     
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            // Quando a seção entra em 15% de visibilidade, adiciona a classe que dispara a animação CSS
             if (entry.isIntersecting) {
                 entry.target.classList.add('active');
             }
         });
-    }, { threshold: 0.15 });
+    }, { threshold: 0.12 }); // Dispara ligeiramente antes para maior agilidade no mobile
 
     scrollRevealItems.forEach(item => revealObserver.observe(item));
 
-    /* ==========================================================================
-       COMPORTAMENTO DINÂMICO PARA AS STACKS TECNOLÓGICAS (MOBILE VS PC)
-       ========================================================================== */
+    /* --- FILTRO DE ENTRADA TOUCH (TRATAMENTO DE EVENTOS MOBILE) --- */
     if (isMobile) {
-        // Observer dedicado para acender toda a grade de tecnologias automaticamente no mobile
         const techObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -595,20 +602,20 @@
 
         techObserver.observe(techGrid);
 
-        // Controla a exibição dos balões (tooltips) via toque individual sem quebrar o layout
         techItems.forEach(item => {
             item.addEventListener('touchstart', (e) => {
-                e.stopPropagation(); // Impede o fechamento imediato no tratador global de eventos
+                e.stopPropagation(); 
                 
-                // Fecha qualquer outra tooltip que por ventura esteja aberta antes de abrir a nova
-                techItems.forEach(i => { if(i !== item) i.classList.remove('show-tooltip'); });
+                // Se tocar em um ícone que já está aberto, ele fecha. Se tocar em outro, alterna.
+                const isActive = item.classList.contains('show-tooltip');
+                techItems.forEach(i => i.classList.remove('show-tooltip'));
                 
-                // Alterna o balão atual
-                item.classList.toggle('show-tooltip');
+                if (!isActive) {
+                    item.classList.add('show-tooltip');
+                }
             });
         });
 
-        // Evento global para fechar qualquer tooltip ativa caso o usuário dê um toque fora dos ícones
         document.addEventListener('touchstart', () => {
             techItems.forEach(item => item.classList.remove('show-tooltip'));
         });
