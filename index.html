@@ -54,11 +54,9 @@
             color: var(--text);
             font-family: 'Syne', sans-serif;
             overflow-x: hidden;
-            /* Suaviza as transições de cor das propriedades de texto e bordas */
             transition: color 0.3s ease, border-color 0.3s ease;
         }
 
-        /* Transição de Onda de Choque para mudança de tema */
         .theme-transitioning {
             transition: background 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
@@ -103,14 +101,13 @@
             100% { transform: translateY(-6px) rotate(0deg) scale(1.1); }
         }
 
-        /* Nova física de Scroll Reveal: Efeito Magnético com Encaixe Pesado */
         .scroll-reveal {
             opacity: 0;
             transform: translateY(60px) scale(0.96) rotateX(-4deg);
             transform-origin: top center;
             transition: opacity 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), 
                         transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-            will-change: transform, opacity; /* Força aceleração por hardware (GPU) */
+            will-change: transform, opacity; 
             perspective: 1000px;
         }
         
@@ -120,7 +117,7 @@
         }
 
         /* ==========================================================================
-           BARRA DE NAVEGAÇÃO
+           BARRA DE NAVEGAÇÃO (CORREÇÃO DE SINTAXE REALIZADA)
            ========================================================================== */
         nav {
             position: fixed;
@@ -135,6 +132,7 @@
             border-bottom: 1px solid var(--border);
             transition: background 0.4s ease, border-color 0.4s ease;
         }
+        /* Correção aqui: Adicionado o caractere de pseudo-classe : */
         :root[data-theme="light"] nav {
             background: rgba(243, 246, 252, 0.8);
         }
@@ -538,7 +536,7 @@
         <h2 class="section-title" style="margin-bottom: 20px;">Vamos nos conectar?</h2>
         <p style="font-family: 'Space Mono'; color: var(--muted2); max-width: 500px; margin: 0 auto; padding: 0 10px;">
             Estou à disposição para processos seletivos de estágio na área de TI, suporte ou desenvolvimento de software.
-        </p>   
+        </p>    
         <div class="social-links">
             <a href="https://linkedin.com/in/lucas-rodrigues-xavier-ti" target="_blank">LinkedIn</a>
             <a href="https://github.com/lucaxaviers" target="_blank">GitHub</a>
@@ -562,7 +560,7 @@
     const isMobile = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
     /* ==========================================================================
-       NOVA TRANSIÇÃO DE TEMA: ONDA DE CHOQUE GEOMÉTRICA (CLIP-PATH)
+       GESTÃO DE TEMA (CLIP-PATH TRASITION ENGINE)
        ========================================================================== */
     const savedTheme = localStorage.getItem('theme') || 'dark';
     htmlElement.setAttribute('data-theme', savedTheme);
@@ -571,14 +569,12 @@
         const currentTheme = htmlElement.getAttribute('data-theme');
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
         
-        // Se for um navegador antigo que não suporta a API moderna de transição, muda direto
         if (!document.startViewTransition) {
             htmlElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
             return;
         }
 
-        // Pega as coordenadas exatas do clique do usuário no botão para iniciar a expansão dali
         const x = event.clientX;
         const y = event.clientY;
         const endRadius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
@@ -587,7 +583,6 @@
             htmlElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
         }).ready.then(() => {
-            // Executa a varredura circular de forma nativa e ultra-rápida (Hardware Accelerated)
             document.documentElement.animate(
                 {
                     clipPath: [
@@ -605,7 +600,7 @@
     });
 
     /* ==========================================================================
-       INTERCEPTADOR DE ROLAGEM: DETECÇÃO DE HARDWARE INTERSTRUTURAL
+       INTERCEPTADOR DE ROLAGEM (SCROLL REVEAL ACELERADO)
        ========================================================================== */
     const scrollRevealItems = document.querySelectorAll('.scroll-reveal');
     
@@ -615,12 +610,12 @@
                 entry.target.classList.add('active');
             }
         });
-    }, { threshold: 0.05 }); // Ativação antecipada para evitar delay visual ao arrastar rápido
+    }, { threshold: 0.05 });
 
     scrollRevealItems.forEach(item => revealObserver.observe(item));
 
     /* ==========================================================================
-       CONTROLE E FILTRAGEM DO TOUCH MOBILE
+       ATIVAÇÃO E FILTRAGEM DO TOUCH MÓVEL
        ========================================================================== */
     if (isMobile) {
         const techObserver = new IntersectionObserver((entries) => {
