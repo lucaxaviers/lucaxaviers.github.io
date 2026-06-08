@@ -1,437 +1,328 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lucas Xavier — Dev</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --blue: #2563ff;
-    --blue-light: #4f8aff;
-    --blue-dim: #1a3a99;
-    --blue-glow: rgba(37,99,255,0.18);
-    --black: #04070f;
-    --dark: #080e1a;
-    --card: #0b1120;
-    --card2: #0f1828;
-    --border: #16213a;
-    --border2: #1e2e50;
-    --text: #dce6f8;
-    --muted: #4a5c80;
-    --muted2: #7a90b8;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucas Xavier — Software Engineering Student</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blue: #2563ff;
+            --blue-light: #4f8aff;
+            --blue-dim: #1a3a99;
+            --black: #04070f;
+            --dark: #080e1a;
+            --card: #0b1120;
+            --card2: #0f1828;
+            --border: #16213a;
+            --border2: #1e2e50;
+            --text: #dce6f8;
+            --muted: #4a5c80;
+            --muted2: #7a90b8;
+        }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
 
-  body {
-    background: var(--black);
-    color: var(--text);
-    font-family: 'Syne', sans-serif;
-    overflow-x: hidden;
-  }
+        body {
+            background: var(--black);
+            color: var(--text);
+            font-family: 'Syne', sans-serif;
+            overflow-x: hidden;
+        }
 
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      linear-gradient(var(--border) 1px, transparent 1px),
-      linear-gradient(90deg, var(--border) 1px, transparent 1px);
-    background-size: 64px 64px;
-    opacity: 0.35;
-    pointer-events: none;
-    z-index: 0;
-  }
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 64px 64px;
+            opacity: 0.2;
+            pointer-events: none;
+            z-index: 0;
+        }
 
-  .orb {
-    position: fixed;
-    width: 700px; height: 700px;
-    background: radial-gradient(circle, rgba(37,99,255,0.12) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 0;
-    top: -200px; right: -200px;
-    animation: orbFloat 8s ease-in-out infinite;
-  }
+        .orb {
+            position: fixed;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(37,99,255,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            top: -100px; right: -100px;
+            animation: orbFloat 10s ease-in-out infinite;
+        }
 
-  @keyframes orbFloat { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-40px, 40px); } }
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes orbFloat { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-30px, 30px); } }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 48px;
-    backdrop-filter: blur(12px);
-    background: rgba(4,7,15,0.7);
-    border-bottom: 1px solid var(--border);
-  }
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 48px;
+            backdrop-filter: blur(12px);
+            background: rgba(4,7,15,0.8);
+            border-bottom: 1px solid var(--border);
+        }
 
-  .nav-logo { font-family: 'Space Mono', monospace; font-size: 13px; color: var(--blue); letter-spacing: 0.15em; text-decoration: none; }
-  .nav-logo span { color: var(--muted2); }
+        .nav-logo { font-family: 'Space Mono', monospace; font-size: 14px; color: var(--blue); letter-spacing: 0.1em; text-decoration: none; font-weight: 700; }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a {
+            color: var(--muted2);
+            text-decoration: none;
+            font-size: 12px;
+            font-family: 'Space Mono', monospace;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: var(--blue-light); }
 
-  .nav-links { display: flex; gap: 32px; list-style: none; }
-  .nav-links a {
-    color: var(--muted);
-    text-decoration: none;
-    font-size: 12px;
-    letter-spacing: 0.1em;
-    font-family: 'Space Mono', monospace;
-    text-transform: uppercase;
-    transition: color 0.2s;
-    position: relative;
-  }
-  .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--blue); transition: width 0.3s; }
-  .nav-links a:hover { color: var(--text); }
-  .nav-links a:hover::after { width: 100%; }
+        /* HERO SECTION REFORMULADA */
+        .hero { 
+            position: relative; 
+            min-height: 100vh; 
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            align-items: center; 
+            padding: 120px 8% 80px; 
+            z-index: 1; 
+            gap: 40px;
+        }
 
-  .hero { position: relative; min-height: 100vh; display: flex; align-items: center; padding: 120px 48px 80px; z-index: 1; }
-  .hero-content { max-width: 860px; }
+        .hero-content { max-width: 800px; }
+        .hero-tag { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--blue); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 20px; animation: fadeUp 0.8s ease both; }
+        .hero-name { font-size: clamp(40px, 6vw, 80px); font-weight: 800; line-height: 1; margin-bottom: 24px; animation: fadeUp 0.8s 0.1s ease both; }
+        .hero-name span { color: var(--blue); }
+        
+        .hero-photo-container {
+            display: flex;
+            justify-content: center;
+            animation: fadeUp 0.8s 0.2s ease both;
+        }
+        .hero-photo {
+            width: 320px;
+            height: 320px;
+            border-radius: 40px;
+            object-fit: cover;
+            border: 1px solid var(--border2);
+            padding: 10px;
+            background: var(--card);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            transform: rotate(3deg);
+            transition: 0.5s;
+        }
+        .hero-photo:hover { transform: rotate(0deg) scale(1.05); border-color: var(--blue); }
 
-  .hero-tag { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--blue); letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 28px; display: flex; align-items: center; gap: 14px; animation: fadeUp 0.7s ease both; }
-  .hero-tag::before { content: ''; width: 40px; height: 1px; background: var(--blue); display: block; }
+        .hero-desc { font-family: 'Space Mono', monospace; font-size: 14px; color: var(--muted2); line-height: 1.8; margin-bottom: 32px; animation: fadeUp 0.8s 0.3s ease both; }
 
-  .hero-name { font-size: clamp(52px, 9vw, 110px); font-weight: 800; line-height: 0.92; letter-spacing: -0.02em; animation: fadeUp 0.7s 0.1s ease both; }
-  .hero-name .blue { color: var(--blue); }
-  .hero-name .dim { color: var(--muted); font-weight: 400; }
+        /* TECH ICONS */
+        .tech-icons-container {
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(11,17,32,0.5);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            animation: fadeUp 0.8s 0.4s ease both;
+        }
+        .tech-icons-title { font-family: 'Space Mono', monospace; font-size: 10px; text-transform: uppercase; color: var(--muted); margin-bottom: 15px; display: block; }
+        .tech-icons-grid { display: flex; flex-wrap: wrap; gap: 15px; }
+        .tech-icons-grid img { height: 40px; transition: 0.3s; filter: grayscale(0.5); }
+        .tech-icons-grid img:hover { filter: grayscale(0); transform: translateY(-5px); }
 
-  .hero-desc { margin-top: 32px; font-family: 'Space Mono', monospace; font-size: 13px; color: var(--muted2); line-height: 1.9; max-width: 560px; animation: fadeUp 0.7s 0.2s ease both; }
-  .hero-desc strong { color: var(--blue-light); font-weight: 400; }
+        section { padding: 100px 8%; position: relative; z-index: 1; }
+        .section-label { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--blue); letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 16px; display: block; }
+        .section-title { font-size: clamp(30px, 4vw, 48px); font-weight: 800; margin-bottom: 60px; }
 
-  .hero-badges { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 28px; animation: fadeUp 0.7s 0.25s ease both; }
-  .badge { background: var(--card); border: 1px solid var(--border2); color: var(--muted2); font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.1em; padding: 6px 14px; text-transform: uppercase; }
-  .badge.blue { border-color: var(--blue-dim); color: var(--blue-light); background: rgba(37,99,255,0.07); }
+        /* EDUCATION & EXPERIENCE */
+        .cv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        .cv-item { 
+            background: var(--card); 
+            padding: 32px; 
+            border: 1px solid var(--border); 
+            border-left: 4px solid var(--blue);
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+        .cv-item:hover { background: var(--card2); border-color: var(--border2); }
+        .cv-date { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--blue-light); margin-bottom: 10px; display: block; }
+        .cv-title { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+        .cv-org { font-family: 'Space Mono', monospace; font-size: 13px; color: var(--muted2); }
 
-  .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 40px; animation: fadeUp 0.7s 0.3s ease both; }
+        /* PORTFOLIO SHOWCASE */
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
+        .project-card { 
+            background: var(--card); 
+            border: 1px solid var(--border); 
+            padding: 40px; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: space-between;
+            transition: 0.4s;
+            border-radius: 4px;
+        }
+        .project-card:hover { border-color: var(--blue); transform: translateY(-10px); }
+        .project-tags { display: flex; gap: 10px; margin-bottom: 20px; }
+        .tag { font-family: 'Space Mono', monospace; font-size: 10px; padding: 4px 10px; background: var(--border); color: var(--muted2); border-radius: 4px; }
+        .project-title { font-size: 24px; font-weight: 800; margin-bottom: 15px; }
+        .project-desc { font-family: 'Space Mono', monospace; font-size: 13px; color: var(--muted2); line-height: 1.6; margin-bottom: 25px; }
+        
+        .btn-link { 
+            text-decoration: none; 
+            color: var(--blue-light); 
+            font-family: 'Space Mono', monospace; 
+            font-size: 12px; 
+            font-weight: 700; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            transition: 0.3s;
+        }
+        .btn-link:hover { gap: 15px; color: var(--text); }
 
-  .btn { padding: 14px 30px; font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-decoration: none; display: inline-flex; align-items: center; gap: 12px; transition: all 0.22s; cursor: pointer; border: none; }
-  .btn svg { width: 18px; height: 18px; fill: currentColor; }
-  .btn-primary { background: var(--blue); color: #fff; clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px)); }
-  .btn-primary:hover { background: var(--blue-light); transform: translateY(-2px); }
-  .btn-ghost { background: transparent; color: var(--muted2); border: 1px solid var(--border2); }
-  .btn-ghost:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-2px); }
+        .contact-box {
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 60px;
+            text-align: center;
+            border-radius: 30px;
+        }
+        .social-links { display: flex; justify-content: center; gap: 30px; margin-top: 40px; }
+        .social-links a { color: var(--muted2); transition: 0.3s; }
+        .social-links a:hover { color: var(--blue); transform: scale(1.2); }
 
-  .hero-corner { position: absolute; bottom: 60px; right: 48px; font-family: 'Space Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; animation: fadeIn 1s 0.5s ease both; }
-  .hero-corner::before { content: ''; width: 1px; height: 60px; background: linear-gradient(transparent, var(--border2)); margin-left: auto; }
+        footer { padding: 40px 8%; border-top: 1px solid var(--border); display: flex; justify-content: space-between; font-family: 'Space Mono', monospace; font-size: 11px; color: var(--muted); }
 
-  section { position: relative; z-index: 1; padding: 100px 48px; }
-
-  .section-label { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--blue); letter-spacing: 0.3em; text-transform: uppercase; display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
-  .section-label::before { content: ''; width: 28px; height: 1px; background: var(--blue); }
-
-  .section-title { font-size: clamp(32px, 5vw, 56px); font-weight: 800; line-height: 1; letter-spacing: -0.02em; margin-bottom: 56px; }
-
-  #servicos { background: var(--dark); }
-  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2px; }
-
-  .service-card { background: var(--card); padding: 40px 36px; border: 1px solid var(--border); position: relative; overflow: hidden; transition: all 0.3s; }
-  .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--blue); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
-  .service-card:hover { background: var(--card2); border-color: var(--border2); }
-  .service-card:hover::before { transform: scaleX(1); }
-  .service-icon { margin-bottom: 24px; color: var(--blue); }
-  .service-icon svg { width: 32px; height: 32px; stroke: currentColor; fill: none; stroke-width: 1.5; }
-  .service-num { position: absolute; top: 24px; right: 28px; font-family: 'Space Mono', monospace; font-size: 11px; color: var(--border2); letter-spacing: 0.1em; }
-  .service-title { font-size: 20px; font-weight: 700; margin-bottom: 12px; color: var(--text); }
-  .service-desc { font-size: 13px; color: var(--muted2); line-height: 1.7; font-family: 'Space Mono', monospace; }
-  .service-price { margin-top: 24px; font-family: 'Space Mono', monospace; font-size: 12px; color: var(--blue-light); display: flex; align-items: center; gap: 8px; }
-  .service-price::before { content: ''; width: 20px; height: 1px; background: var(--blue-dim); }
-
-  #sobre { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-  .about-text p { font-family: 'Space Mono', monospace; font-size: 13px; color: var(--muted2); line-height: 1.9; margin-bottom: 16px; }
-  .about-text p strong { color: var(--blue-light); font-weight: 400; }
-
-  /* Estilos para a listagem das suas tecnologias */
-  .tech-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
-  .tech-badge { background: var(--card); border: 1px solid var(--border2); color: var(--muted2); font-family: 'Space Mono', monospace; font-size: 11px; padding: 6px 14px; text-transform: uppercase; letter-spacing: 0.05em; transition: all 0.2s; }
-  .tech-badge:hover { border-color: var(--blue); color: var(--text); }
-
-  .about-edu { margin-top: 36px; display: flex; flex-direction: column; gap: 16px; }
-  .edu-item { display: flex; gap: 20px; align-items: flex-start; padding: 20px 24px; background: var(--card); border: 1px solid var(--border); border-left: 2px solid var(--blue); transition: all 0.2s; }
-  .edu-item:hover { background: var(--card2); }
-  .edu-icon { flex-shrink: 0; color: var(--blue); margin-top: 4px; }
-  .edu-icon svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.5; }
-  .edu-course { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
-  .edu-school { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--blue-light); margin-bottom: 4px; }
-  .edu-status { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.1em; }
-  .edu-status.formado { color: #4ade80; }
-
-  .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
-  .stat-box { background: var(--card); border: 1px solid var(--border); padding: 32px 28px; text-align: center; transition: all 0.2s; }
-  .stat-box:hover { background: var(--card2); border-color: var(--border2); }
-  .stat-num { font-size: 48px; font-weight: 800; color: var(--blue); line-height: 1; margin-bottom: 8px; }
-  .stat-label { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; }
-
-  #portfolio { background: var(--dark); }
-  
-  /* Estilos para o Grid de Projetos Ativos */
-  .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2px; }
-  .project-card { background: var(--card); padding: 40px 36px; border: 1px solid var(--border); position: relative; overflow: hidden; transition: all 0.3s; display: flex; flex-direction: column; justify-content: space-between; min-height: 280px; }
-  .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--blue); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
-  .project-card:hover { background: var(--card2); border-color: var(--border2); }
-  .project-card:hover::before { transform: scaleX(1); }
-  .project-title { font-size: 22px; font-weight: 700; margin-bottom: 14px; color: var(--text); }
-  .project-desc { font-size: 13px; color: var(--muted2); line-height: 1.7; font-family: 'Space Mono', monospace; margin-bottom: 24px; }
-  .project-meta { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--blue-light); margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap; }
-
-  #contato { text-align: center; padding: 120px 48px; }
-  .contact-inner { max-width: 600px; margin: 0 auto; }
-  .contact-text { font-family: 'Space Mono', monospace; font-size: 13px; color: var(--muted2); line-height: 1.9; margin-bottom: 48px; }
-  .contact-links { display: flex; flex-direction: column; gap: 2px; margin-top: 48px; }
-  .contact-link { display: flex; align-items: center; justify-content: space-between; padding: 20px 28px; background: var(--card); border: 1px solid var(--border); text-decoration: none; transition: all 0.2s; }
-  .contact-link:hover { background: var(--card2); border-color: var(--blue); transform: translateX(4px); }
-  .contact-link-left { display: flex; align-items: center; gap: 16px; }
-  .contact-link-icon { color: var(--muted2); display: flex; align-items: center; }
-  .contact-link-icon svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-  .contact-link-name { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--text); letter-spacing: 0.08em; text-transform: uppercase; }
-  .contact-link-arrow { color: var(--muted); font-size: 16px; transition: transform 0.2s; }
-  .contact-link:hover .contact-link-arrow { transform: translateX(4px); color: var(--blue); }
-
-  footer { border-top: 1px solid var(--border); padding: 28px 48px; display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 1; }
-  .footer-text { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.1em; }
-  .footer-text span { color: var(--blue); }
-
-  .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border2), transparent); margin: 0 48px; position: relative; z-index: 1; }
-
-  @media (max-width: 768px) {
-    nav { padding: 16px 24px; }
-    .nav-links { display: none; }
-    .hero { padding: 100px 24px 60px; }
-    section { padding: 80px 24px; }
-    #sobre { grid-template-columns: 1fr; gap: 48px; }
-    footer { padding: 24px; flex-direction: column; gap: 8px; text-align: center; }
-    .divider { margin: 0 24px; }
-    #contato { padding: 80px 24px; }
-    .hero-corner { display: none; }
-  }
-</style>
+        @media (max-width: 968px) {
+            .hero { grid-template-columns: 1fr; text-align: center; padding-top: 150px; }
+            .hero-photo-container { order: -1; }
+            .hero-photo { width: 240px; height: 240px; }
+            .cv-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
 
 <div class="orb"></div>
 
 <nav>
-  <a class="nav-logo" href="#"><span>//</span> LX.DEV</a>
-  <ul class="nav-links">
-    <li><a href="#servicos">Serviços</a></li>
-    <li><a href="#sobre">Sobre</a></li>
-    <li><a href="#portfolio">Portfólio</a></li>
-    <li><a href="#contato">Contato</a></li>
-  </ul>
+    <a class="nav-logo" href="#">LUCAS_XAVIER.DEV</a>
+    <ul class="nav-links">
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#stack">Tecnologias</a></li>
+        <li><a href="#projetos">Projetos</a></li>
+        <li><a href="#contato">Contato</a></li>
+    </ul>
 </nav>
 
 <section class="hero">
-  <div class="hero-content">
-    <div class="hero-tag">Disponível para projetos</div>
-    <h1 class="hero-name">
-      LUCAS<br>
-      <span class="blue">XAVIER</span>
-    </h1>
-    <p class="hero-desc">
-      Desenvolvedor focado em <strong>Landing Pages</strong>, <strong>Sites Institucionais</strong> e aplicações mobile.<br>
-      Técnico em Informática · Estudante de Engenharia de Software na PUC-Campinas.<br>
-      Baseado em <strong>Campinas / Paulínia — SP</strong>.
-    </p>
-    <div class="hero-badges">
-      <span class="badge blue">JavaScript & Dart</span>
-      <span class="badge blue">Web & Mobile</span>
-      <span class="badge blue">Eng. de Software</span>
-      <span class="badge">Campinas · SP</span>
-      <span class="badge">Freelancer</span>
+    <div class="hero-content">
+        <div class="hero-tag">// Engenharia de Software</div>
+        <h1 class="hero-name">LUCAS<br><span>XAVIER</span></h1>
+        <p class="hero-desc">
+            Estudante de Engenharia de Software na <strong>PUC-Campinas</strong> e Técnico em Informática. 
+            Desenvolvedor Full Stack focado em criar aplicações escaláveis e experiências digitais de alto impacto.
+            Localizado em Paulínia / Campinas — SP.
+        </p>
+        
+        <div class="tech-icons-container" id="stack">
+            <span class="tech-icons-title">Stack Tecnológica</span>
+            <div class="tech-icons-grid">
+                <img src="https://skillicons.dev/icons?i=ts" alt="TypeScript">
+                <img src="https://skillicons.dev/icons?i=js" alt="JavaScript">
+                <img src="https://skillicons.dev/icons?i=react" alt="React">
+                <img src="https://skillicons.dev/icons?i=html" alt="HTML5">
+                <img src="https://skillicons.dev/icons?i=css" alt="CSS3">
+                <img src="https://skillicons.dev/icons?i=php" alt="PHP">
+                <img src="https://skillicons.dev/icons?i=python" alt="Python">
+                <img src="https://skillicons.dev/icons?i=mysql" alt="MySQL">
+                <img src="https://skillicons.dev/icons?i=cpp" alt="C++">
+                <img src="https://skillicons.dev/icons?i=c" alt="C">
+                <img src="https://skillicons.dev/icons?i=dart" alt="Dart">
+                <img src="https://skillicons.dev/icons?i=flutter" alt="Flutter">
+                <img src="https://skillicons.dev/icons?i=firebase" alt="Firebase">
+            </div>
+        </div>
     </div>
-    <div class="hero-cta">
-      <a href="#contato" class="btn btn-primary">
-        Solicitar orçamento
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
-      </a>
-      <a href="#portfolio" class="btn btn-ghost">Ver projetos</a>
+    <div class="hero-photo-container">
+        <img src="https://github.com/lucaxaviers.png" alt="Lucas Xavier" class="hero-photo">
     </div>
-  </div>
-  <div class="hero-corner">
-    <span>Paulínia · SP · Brasil</span>
-    <span>lucaxaviers</span>
-  </div>
 </section>
-
-<div class="divider"></div>
-
-<section id="servicos">
-  <div class="section-label">O que eu faço</div>
-  <h2 class="section-title">Serviços</h2>
-  <div class="services-grid">
-    <div class="service-card">
-      <span class="service-num">01</span>
-      <div class="service-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-      </div>
-      <h3 class="service-title">Landing Page</h3>
-      <p class="service-desc">Página única de alta conversão para divulgar seu negócio, produto ou serviço. Design moderno, responsivo e rápido.</p>
-      <div class="service-price">A partir de R$ 400</div>
-    </div>
-    <div class="service-card">
-      <span class="service-num">02</span>
-      <div class="service-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21h18M3 7v1a3 3 0 0 0 6 0V7m0 1a3 3 0 0 0 6 0V7m0 1a3 3 0 0 0 6 0V7M4 21V4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v17"/></svg>
-      </div>
-      <h3 class="service-title">Site Institucional</h3>
-      <p class="service-desc">Site completo para sua empresa com múltiplas páginas, apresentação profissional e integração com WhatsApp e Google Maps.</p>
-      <div class="service-price">A partir de R$ 800</div>
-    </div>
-    <div class="service-card">
-      <span class="service-num">03</span>
-      <div class="service-icon">
-          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="4" y="10" width="22" height="22" rx="3"/>
-            <rect x="32" y="14" width="10" height="20" rx="2"/>
-            <path d="M12 36h10"/>
-            <circle cx="37" cy="30" r="1.2"/>
-          </svg>
-      </div>
-      <h3 class="service-title">Design Responsivo</h3>
-      <p class="service-desc">Todos os projetos funcionam perfeitamente no celular, tablet e computador. Experiência fluida em qualquer tela.</p>
-      <div class="service-price">Incluso em todos os planos</div>
-    </div>
-    <div class="service-card">
-      <span class="service-num">04</span>
-      <div class="service-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-      </div>
-      <h3 class="service-title">Manutenção & Suporte</h3>
-      <p class="service-desc">Atualização de conteúdo, correção de problemas e suporte técnico contínuo para seu site.</p>
-      <div class="service-price">A partir de R$ 150/mês</div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
 
 <section id="sobre">
-  <div>
-    <div class="section-label">Quem sou</div>
-    <h2 class="section-title">Sobre mim</h2>
-    <div class="about-text">
-      <p>Sou <strong>Lucas Xavier</strong>, desenvolvedor focado em criar presença digital para negócios locais e desenvolver soluções mobile estruturadas.</p>
-      <p>Combino a lógica da Engenharia de Software com habilidades de design para estruturar aplicações completas do protótipo ao código final.</p>
-    </div>
-    
-    <div class="tech-grid">
-      <span class="tech-badge">JavaScript / TypeScript</span>
-      <span class="tech-badge">HTML / CSS</span>
-      <span class="tech-badge">Flutter / Dart</span>
-      <span class="tech-badge">Firebase</span>
-      <span class="tech-badge">MySQL</span>
-      <span class="tech-badge">Git & GitHub</span>
-    </div>
-
-    <div class="about-edu">
-      <div class="edu-item">
-        <div class="edu-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+    <span class="section-label">01. Perfil Acadêmico</span>
+    <h2 class="section-title">Formação</h2>
+    <div class="cv-grid">
+        <div class="cv-item">
+            <span class="cv-date">2025 — 2028</span>
+            <h3 class="cv-title">Engenharia de Software</h3>
+            <p class="cv-org">PUC-Campinas</p>
         </div>
-        <div class="edu-info">
-          <div class="edu-course">Técnico em Informática</div>
-          <div class="edu-school">Colégio Técnico Bento Quirino — Campinas</div>
-          <div class="edu-status formado">✓ FORMADO</div>
+        <div class="cv-item">
+            <span class="cv-date">2022 — 2024</span>
+            <h3 class="cv-title">Técnico em Informática</h3>
+            <p class="cv-org">Colégio Técnico Bento Quirino</p>
         </div>
-      </div>
-      <div class="edu-item">
-        <div class="edu-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect width="18" height="12" x="3" y="4" rx="2"/><path d="M2 18h20M12 15v3"/></svg>
+        <div class="cv-item">
+            <span class="cv-date">2022 — 2024</span>
+            <h3 class="cv-title">Técnico em Logística</h3>
+            <p class="cv-org">Colégio Técnico Bento Quirino</p>
         </div>
-        <div class="edu-info">
-          <div class="edu-course">Engenharia de Software</div>
-          <div class="edu-school">PUC-Campinas</div>
-          <div class="edu-status">CURSANDO</div>
-        </div>
-      </div>
     </div>
-  </div>
-
-  <div class="about-stats">
-    <div class="stat-box">
-      <div class="stat-num">3º</div>
-      <div class="stat-label">Semestre Atual</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-num">5<span style="font-size:24px;color:var(--muted)">d</span></div>
-      <div class="stat-label">Prazo médio de entrega</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-num">PIX</div>
-      <div class="stat-label">Pagamento facilitado</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-num">∞</div>
-      <div class="stat-label">Suporte pós-entrega</div>
-    </div>
-  </div>
 </section>
 
-<div class="divider"></div>
+<section id="projetos">
+    <span class="section-label">02. Portfolio Técnico</span>
+    <h2 class="section-title">Projetos em Destaque</h2>
+    <div class="portfolio-grid">
+        <div class="project-card">
+            <div class="project-tags">
+                <span class="tag">HTML/CSS</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">Production</span>
+            </div>
+            <h3 class="project-title">Site Imóveis Lucas Xavier</h3>
+            <p class="project-desc">Plataforma imobiliária completa desenvolvida do zero, focada em performance SEO e experiência do usuário responsiva.</p>
+            <a href="https://imoveislucasxavier.com.br" target="_blank" class="btn-link">Visualizar Projeto Real ↗</a>
+        </div>
 
-<section id="portfolio">
-  <div class="section-label">Meus trabalhos</div>
-  <h2 class="section-title">Portfólio</h2>
-
-  <div class="portfolio-grid">
-    <div class="project-card">
-      <div>
-        <h3 class="project-title">Site Imóveis Lucas Xavier</h3>
-        <div class="project-meta"><span>#HTML</span> <span>#CSS</span> <span>#JS</span> <span>#Responsivo</span></div>
-        <p class="project-desc">Catálogo imobiliário profissional com design focado em conversão, carregamento rápido e total compatibilidade com dispositivos móveis.</p>
-      </div>
-      <a href="https://imoveislucasxavier.com.br" target="_blank" class="btn btn-ghost" style="padding: 10px 20px; font-size: 11px;">Acessar Site →</a>
+        <div class="project-card">
+            <div class="project-tags">
+                <span class="tag">Flutter</span>
+                <span class="tag">Firebase</span>
+                <span class="tag">Dart</span>
+            </div>
+            <h3 class="project-title">MesclaInvest</h3>
+            <p class="project-desc">Aplicação mobile para gestão de investimentos com backend em nuvem e interface premium seguindo padrões de UX moderno.</p>
+            <a href="https://github.com/lucaxaviers/mesclainvest" target="_blank" class="btn-link">Ver Código no GitHub ↗</a>
+        </div>
     </div>
-  </div>
 </section>
-
-<div class="divider"></div>
 
 <section id="contato">
-  <div class="contact-inner">
-    <div class="section-label" style="justify-content:center">Bora conversar</div>
-    <h2 class="section-title">Contato</h2>
-    <p class="contact-text">
-      Tem um negócio em Paulínia ou Campinas e precisa de um site profissional?<br>
-      Respondo rápido e faço um orçamento sem compromisso.
-    </p>
-     
-    <a href="https://wa.me/5519981400709" target="_blank" class="btn btn-primary" style="margin: 0 auto 32px; display:inline-flex;">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-      Chamar no WhatsApp
-    </a>
-
-    <div class="contact-links">
-      <a href="https://instagram.com/lucaxaviers" target="_blank" class="contact-link">
-        <div class="contact-link-left">
-          <span class="contact-link-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-          </span>
-          <div class="contact-link-name">Instagram</div>
+    <div class="contact-box">
+        <span class="section-label">03. Networking</span>
+        <h2 class="section-title" style="margin-bottom: 20px;">Vamos nos conectar?</h2>
+        <p style="font-family: 'Space Mono'; color: var(--muted2); max-width: 500px; margin: 0 auto;">
+            Estou sempre aberto a novos desafios e colaborações em projetos de software.
+        </p>
+        
+        <div class="social-links">
+            <a href="https://linkedin.com/in/lucas-rodrigues-xavier-ti" target="_blank">LinkedIn</a>
+            <a href="https://github.com/lucaxaviers" target="_blank">GitHub</a>
+            <a href="https://wa.me/5519981400709" target="_blank">WhatsApp</a>
         </div>
-        <span class="contact-link-arrow">→</span>
-      </a>
-      <a href="https://github.com/lucaxaviers" target="_blank" class="contact-link">
-        <div class="contact-link-left">
-          <span class="contact-link-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-          </span>
-          <div class="contact-link-name">GitHub</div>
-        </div>
-        <span class="contact-link-arrow">→</span>
-      </a>
     </div>
-  </div>
 </section>
 
 <footer>
-  <div class="footer-text">© 2026 <span>Lucas Xavier</span> — Todos os direitos reservados</div>
-  <div class="footer-text">Campinas · Paulínia · SP · Brasil</div>
+    <div>© 2026 LUCAS RODRIGUES XAVIER</div>
+    <div>CAMPINAS / PAULÍNIA — SP</div>
 </footer>
 
 </body>
