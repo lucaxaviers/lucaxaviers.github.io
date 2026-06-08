@@ -120,6 +120,7 @@
 
         .hero-desc { font-family: 'Space Mono', monospace; font-size: 14px; color: var(--muted2); line-height: 1.8; margin-bottom: 32px; animation: fadeUp 0.8s 0.3s ease both; }
 
+        /* INTERATIVIDADE DA STACK DE TECNOLOGIAS */
         .tech-icons-container {
             margin-top: 40px;
             padding: 20px;
@@ -130,8 +131,26 @@
         }
         .tech-icons-title { font-family: 'Space Mono', monospace; font-size: 10px; text-transform: uppercase; color: var(--muted); margin-bottom: 15px; display: block; }
         .tech-icons-grid { display: flex; flex-wrap: wrap; gap: 15px; }
-        .tech-icons-grid img { height: 40px; transition: 0.3s; filter: grayscale(0.5); }
-        .tech-icons-grid img:hover { filter: grayscale(0); transform: translateY(-5px); }
+        
+        /* Estado Padrão (PC): Apagado (Preto e branco + opacidade baixa) */
+        .tech-icons-grid img { 
+            height: 40px; 
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
+            filter: grayscale(1) opacity(0.4);
+        }
+        
+        /* Com o mouse por cima (PC): Acende individualmente */
+        @media (min-width: 969px) {
+            .tech-icons-grid img:hover { 
+                filter: grayscale(0) opacity(1); 
+                transform: translateY(-6px) scale(1.1);
+            }
+        }
+
+        /* Classe disparada via JavaScript no Mobile quando entra na tela */
+        .tech-icons-grid.mobile-active img {
+            filter: grayscale(0) opacity(1) !important;
+        }
 
         section { padding: 100px 8%; position: relative; z-index: 1; }
         .section-label { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--blue); letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 16px; display: block; }
@@ -150,7 +169,6 @@
         .cv-title { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
         .cv-org { font-family: 'Space Mono', monospace; font-size: 13px; color: var(--muted2); }
 
-        /* ESTILOS PARA AS CERTIFICAÇÕES */
         .certifications-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
         .cert-card {
             background: var(--card);
@@ -245,20 +263,20 @@
         
         <div class="tech-icons-container" id="stack">
             <span class="tech-icons-title">Stack Tecnológica</span>
-            <div class="tech-icons-grid">
-                <img src="https://skillicons.dev/icons?i=ts" alt="TypeScript">
-                <img src="https://skillicons.dev/icons?i=js" alt="JavaScript">
-                <img src="https://skillicons.dev/icons?i=react" alt="React">
-                <img src="https://skillicons.dev/icons?i=html" alt="HTML5">
-                <img src="https://skillicons.dev/icons?i=css" alt="CSS3">
-                <img src="https://skillicons.dev/icons?i=php" alt="PHP">
-                <img src="https://skillicons.dev/icons?i=python" alt="Python">
-                <img src="https://skillicons.dev/icons?i=mysql" alt="MySQL">
-                <img src="https://skillicons.dev/icons?i=cpp" alt="C++">
-                <img src="https://skillicons.dev/icons?i=c" alt="C">
-                <img src="https://skillicons.dev/icons?i=dart" alt="Dart">
-                <img src="https://skillicons.dev/icons?i=flutter" alt="Flutter">
-                <img src="https://skillicons.dev/icons?i=firebase" alt="Firebase">
+            <div class="tech-icons-grid" id="techGrid">
+                <img src="https://skillicons.dev/icons?i=ts" alt="TypeScript" title="TypeScript">
+                <img src="https://skillicons.dev/icons?i=js" alt="JavaScript" title="JavaScript">
+                <img src="https://skillicons.dev/icons?i=react" alt="React" title="React">
+                <img src="https://skillicons.dev/icons?i=html" alt="HTML5" title="HTML5">
+                <img src="https://skillicons.dev/icons?i=css" alt="CSS3" title="CSS3">
+                <img src="https://skillicons.dev/icons?i=php" alt="PHP" title="PHP">
+                <img src="https://skillicons.dev/icons?i=python" alt="Python" title="Python">
+                <img src="https://skillicons.dev/icons?i=mysql" alt="MySQL" title="MySQL">
+                <img src="https://skillicons.dev/icons?i=cpp" alt="C++" title="C++">
+                <img src="https://skillicons.dev/icons?i=c" alt="C" title="C">
+                <img src="https://skillicons.dev/icons?i=dart" alt="Dart" title="Dart">
+                <img src="https://skillicons.dev/icons?i=flutter" alt="Flutter" title="Flutter">
+                <img src="https://skillicons.dev/icons?i=firebase" alt="Firebase" title="Firebase">
             </div>
         </div>
     </div>
@@ -377,6 +395,31 @@
     <div>© 2026 LUCAS RODRIGUES XAVIER</div>
     <div>CAMPINAS / PAULÍNIA — SP</div>
 </footer>
+
+<script>
+    const techGrid = document.getElementById('techGrid');
+
+    // Detecta se o dispositivo é mobile/touch
+    const isMobile = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+    if (isMobile) {
+        // Opção 1: Ativa quando o usuário faz o scroll da tela e a seção aparece
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    techGrid.classList.add('mobile-active');
+                }
+            });
+        }, { threshold: 0.5 }); // Ativa quando 50% da seção de ícones estiver visível
+
+        observer.observe(techGrid);
+
+        // Opção 2: Ativa e garante o acendimento total ao tocar no container da stack
+        techGrid.addEventListener('touchstart', () => {
+            techGrid.classList.add('mobile-active');
+        });
+    }
+</script>
 
 </body>
 </html>
