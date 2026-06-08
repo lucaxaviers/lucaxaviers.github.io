@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lucas Xavier — Software Engineering Student</title>
+    <title>Lucas Xavier — Engenharia de Software & Dev</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -83,7 +83,6 @@
         }
         .nav-links a:hover { color: var(--blue-light); }
 
-        /* HERO SECTION REFORMULADA */
         .hero { 
             position: relative; 
             min-height: 100vh; 
@@ -121,7 +120,6 @@
 
         .hero-desc { font-family: 'Space Mono', monospace; font-size: 14px; color: var(--muted2); line-height: 1.8; margin-bottom: 32px; animation: fadeUp 0.8s 0.3s ease both; }
 
-        /* TECH ICONS */
         .tech-icons-container {
             margin-top: 40px;
             padding: 20px;
@@ -139,14 +137,12 @@
         .section-label { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--blue); letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 16px; display: block; }
         .section-title { font-size: clamp(30px, 4vw, 48px); font-weight: 800; margin-bottom: 60px; }
 
-        /* EDUCATION & EXPERIENCE */
-        .cv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        .cv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
         .cv-item { 
             background: var(--card); 
             padding: 32px; 
             border: 1px solid var(--border); 
             border-left: 4px solid var(--blue);
-            margin-bottom: 20px;
             transition: 0.3s;
         }
         .cv-item:hover { background: var(--card2); border-color: var(--border2); }
@@ -154,7 +150,22 @@
         .cv-title { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
         .cv-org { font-family: 'Space Mono', monospace; font-size: 13px; color: var(--muted2); }
 
-        /* PORTFOLIO SHOWCASE */
+        /* ESTILOS PARA AS CERTIFICAÇÕES */
+        .certifications-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+        .cert-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 24px;
+            position: relative;
+            transition: 0.3s;
+        }
+        .cert-card:hover { border-color: var(--border2); background: var(--card2); }
+        .cert-status { font-family: 'Space Mono', monospace; font-size: 9px; padding: 2px 8px; border-radius: 4px; position: absolute; top: 20px; right: 20px; text-transform: uppercase; }
+        .cert-status.done { background: rgba(74, 222, 128, 0.1); color: #4ade80; border: 1px solid rgba(74, 222, 128, 0.2); }
+        .cert-status.ongoing { background: rgba(37, 99, 255, 0.1); color: var(--blue-light); border: 1px solid var(--blue-dim); }
+        .cert-institution { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--blue-light); margin-bottom: 6px; display: block; }
+        .cert-name { font-size: 16px; font-weight: 700; color: var(--text); }
+
         .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
         .project-card { 
             background: var(--card); 
@@ -165,6 +176,7 @@
             justify-content: space-between;
             transition: 0.4s;
             border-radius: 4px;
+            min-height: 280px;
         }
         .project-card:hover { border-color: var(--blue); transform: translateY(-10px); }
         .project-tags { display: flex; gap: 10px; margin-bottom: 20px; }
@@ -193,16 +205,17 @@
             border-radius: 30px;
         }
         .social-links { display: flex; justify-content: center; gap: 30px; margin-top: 40px; }
-        .social-links a { color: var(--muted2); transition: 0.3s; }
-        .social-links a:hover { color: var(--blue); transform: scale(1.2); }
+        .social-links a { color: var(--muted2); text-decoration: none; font-family: 'Space Mono', monospace; font-size: 13px; transition: 0.3s; border-bottom: 1px solid transparent; }
+        .social-links a:hover { color: var(--blue); border-color: var(--blue); }
 
         footer { padding: 40px 8%; border-top: 1px solid var(--border); display: flex; justify-content: space-between; font-family: 'Space Mono', monospace; font-size: 11px; color: var(--muted); }
+
+        .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); margin: 0 8%; }
 
         @media (max-width: 968px) {
             .hero { grid-template-columns: 1fr; text-align: center; padding-top: 150px; }
             .hero-photo-container { order: -1; }
             .hero-photo { width: 240px; height: 240px; }
-            .cv-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -213,8 +226,8 @@
 <nav>
     <a class="nav-logo" href="#">LUCAS_XAVIER.DEV</a>
     <ul class="nav-links">
-        <li><a href="#sobre">Sobre</a></li>
-        <li><a href="#stack">Tecnologias</a></li>
+        <li><a href="#sobre">Formação</a></li>
+        <li><a href="#certificacoes">Certificados</a></li>
         <li><a href="#projetos">Projetos</a></li>
         <li><a href="#contato">Contato</a></li>
     </ul>
@@ -226,8 +239,8 @@
         <h1 class="hero-name">LUCAS<br><span>XAVIER</span></h1>
         <p class="hero-desc">
             Estudante de Engenharia de Software na <strong>PUC-Campinas</strong> e Técnico em Informática. 
-            Desenvolvedor Full Stack focado em criar aplicações escaláveis e experiências digitais de alto impacto.
-            Localizado em Paulínia / Campinas — SP.
+            Desenvolvedor Full Stack focado em criar aplicações robustas e arquiteturas digitais modernas.
+            Baseado em Paulínia / Campinas — SP.
         </p>
         
         <div class="tech-icons-container" id="stack">
@@ -254,6 +267,8 @@
     </div>
 </section>
 
+<div class="divider"></div>
+
 <section id="sobre">
     <span class="section-label">01. Perfil Acadêmico</span>
     <h2 class="section-title">Formação</h2>
@@ -276,8 +291,44 @@
     </div>
 </section>
 
+<div class="divider"></div>
+
+<section id="certificacoes">
+    <span class="section-label">02. Especializações</span>
+    <h2 class="section-title">Certificações Técnicas</h2>
+    <div class="certifications-grid">
+        <div class="cert-card">
+            <span class="cert-status done">Concluído</span>
+            <span class="cert-institution">Microlins</span>
+            <h3 class="cert-name">Power BI & Análise de Dados</h3>
+        </div>
+        <div class="cert-card">
+            <span class="cert-status done">Concluído</span>
+            <span class="cert-institution">Microlins</span>
+            <h3 class="cert-name">Excel 2021 Completo & Avançado</h3>
+        </div>
+        <div class="cert-card">
+            <span class="cert-status done">Concluído</span>
+            <span class="cert-institution">Microlins</span>
+            <h3 class="cert-name">Redes Sociais, Aplicativos & Produtividade</h3>
+        </div>
+        <div class="cert-card">
+            <span class="cert-status ongoing">Em Andamento</span>
+            <span class="cert-institution">Microlins</span>
+            <h3 class="cert-name">Montagem e Manutenção de PCs</h3>
+        </div>
+        <div class="cert-card">
+            <span class="cert-status ongoing">Em Andamento</span>
+            <span class="cert-institution">Microlins</span>
+            <h3 class="cert-name">Marketing Digital I e II</h3>
+        </div>
+    </div>
+</section>
+
+<div class="divider"></div>
+
 <section id="projetos">
-    <span class="section-label">02. Portfolio Técnico</span>
+    <span class="section-label">03. Portfolio Técnico</span>
     <h2 class="section-title">Projetos em Destaque</h2>
     <div class="portfolio-grid">
         <div class="project-card">
@@ -287,7 +338,7 @@
                 <span class="tag">Production</span>
             </div>
             <h3 class="project-title">Site Imóveis Lucas Xavier</h3>
-            <p class="project-desc">Plataforma imobiliária completa desenvolvida do zero, focada em performance SEO e experiência do usuário responsiva.</p>
+            <p class="project-desc">Plataforma imobiliária completa desenvolvida do zero, focada em performance de busca e experiência de usuário totalmente responsiva.</p>
             <a href="https://imoveislucasxavier.com.br" target="_blank" class="btn-link">Visualizar Projeto Real ↗</a>
         </div>
 
@@ -298,18 +349,20 @@
                 <span class="tag">Dart</span>
             </div>
             <h3 class="project-title">MesclaInvest</h3>
-            <p class="project-desc">Aplicação mobile para gestão de investimentos com backend em nuvem e interface premium seguindo padrões de UX moderno.</p>
+            <p class="project-desc">Aplicação mobile corporativa para gestão de investimentos com backend na nuvem e interface premium seguindo padrões modernos de UX.</p>
             <a href="https://github.com/lucaxaviers/mesclainvest" target="_blank" class="btn-link">Ver Código no GitHub ↗</a>
         </div>
     </div>
 </section>
 
+<div class="divider"></div>
+
 <section id="contato">
     <div class="contact-box">
-        <span class="section-label">03. Networking</span>
+        <span class="section-label">04. Networking</span>
         <h2 class="section-title" style="margin-bottom: 20px;">Vamos nos conectar?</h2>
         <p style="font-family: 'Space Mono'; color: var(--muted2); max-width: 500px; margin: 0 auto;">
-            Estou sempre aberto a novos desafios e colaborações em projetos de software.
+            Estou à disposição para processos seletivos de estágio na área de TI, suporte ou desenvolvimento de software.
         </p>
         
         <div class="social-links">
