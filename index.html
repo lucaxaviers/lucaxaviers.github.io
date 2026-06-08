@@ -96,7 +96,7 @@
 
         .hero-content { max-width: 800px; }
         .hero-tag { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--blue); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 20px; animation: fadeUp 0.8s ease both; }
-        .hero-name { font-size: clamp(40px, 6vw, 80px); font-weight: 800; line-height: 1; margin-bottom: 24px; animation: fadeUp 0.8s 0.1s ease both; }
+        .hero-name { font-size: clamp(42px, 7vw, 80px); font-weight: 800; line-height: 1; margin-bottom: 24px; animation: fadeUp 0.8s 0.1s ease both; }
         .hero-name span { color: var(--blue); }
         
         .hero-photo-container {
@@ -120,43 +120,73 @@
 
         .hero-desc { font-family: 'Space Mono', monospace; font-size: 14px; color: var(--muted2); line-height: 1.8; margin-bottom: 32px; animation: fadeUp 0.8s 0.3s ease both; }
 
-        /* INTERATIVIDADE DA STACK DE TECNOLOGIAS */
         .tech-icons-container {
             margin-top: 40px;
-            padding: 20px;
+            padding: 25px 20px;
             background: rgba(11,17,32,0.5);
             border: 1px solid var(--border);
             border-radius: 20px;
             animation: fadeUp 0.8s 0.4s ease both;
         }
-        .tech-icons-title { font-family: 'Space Mono', monospace; font-size: 10px; text-transform: uppercase; color: var(--muted); margin-bottom: 15px; display: block; }
-        .tech-icons-grid { display: flex; flex-wrap: wrap; gap: 15px; }
+        .tech-icons-title { font-family: 'Space Mono', monospace; font-size: 10px; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; display: block; }
+        .tech-icons-grid { display: flex; flex-wrap: wrap; gap: 16px; position: relative; }
         
-        /* Estado Padrão (PC): Apagado (Preto e branco + opacidade baixa) */
+        .tech-item {
+            position: relative;
+            display: inline-block;
+        }
+
         .tech-icons-grid img { 
-            height: 40px; 
+            height: 42px; 
+            width: 42px;
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
-            filter: grayscale(1) opacity(0.4);
+            filter: grayscale(1) opacity(0.35);
         }
         
-        /* Com o mouse por cima (PC): Acende individualmente */
+        .tech-item::after {
+            content: attr(data-title);
+            position: absolute;
+            bottom: 130%;
+            left: 50%;
+            transform: translateX(-50%) translateY(5px);
+            background: var(--card2);
+            border: 1px solid var(--blue);
+            color: var(--text);
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.2s ease;
+            z-index: 10;
+        }
+
         @media (min-width: 969px) {
-            .tech-icons-grid img:hover { 
+            .tech-item:hover img { 
                 filter: grayscale(0) opacity(1); 
                 transform: translateY(-6px) scale(1.1);
             }
+            .tech-item:hover::after {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
         }
 
-        /* Classe disparada via JavaScript no Mobile quando entra na tela */
         .tech-icons-grid.mobile-active img {
             filter: grayscale(0) opacity(1) !important;
+        }
+        .tech-item.show-tooltip::after {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
         }
 
         section { padding: 100px 8%; position: relative; z-index: 1; }
         .section-label { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--blue); letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 16px; display: block; }
         .section-title { font-size: clamp(30px, 4vw, 48px); font-weight: 800; margin-bottom: 60px; }
 
-        .cv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .cv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
         .cv-item { 
             background: var(--card); 
             padding: 32px; 
@@ -169,7 +199,7 @@
         .cv-title { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
         .cv-org { font-family: 'Space Mono', monospace; font-size: 13px; color: var(--muted2); }
 
-        .certifications-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+        .certifications-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
         .cert-card {
             background: var(--card);
             border: 1px solid var(--border);
@@ -182,13 +212,13 @@
         .cert-status.done { background: rgba(74, 222, 128, 0.1); color: #4ade80; border: 1px solid rgba(74, 222, 128, 0.2); }
         .cert-status.ongoing { background: rgba(37, 99, 255, 0.1); color: var(--blue-light); border: 1px solid var(--blue-dim); }
         .cert-institution { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--blue-light); margin-bottom: 6px; display: block; }
-        .cert-name { font-size: 16px; font-weight: 700; color: var(--text); }
+        .cert-name { font-size: 16px; font-weight: 700; color: var(--text); padding-right: 60px; }
 
-        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
         .project-card { 
             background: var(--card); 
             border: 1px solid var(--border); 
-            padding: 40px; 
+            padding: 32px; 
             display: flex; 
             flex-direction: column; 
             justify-content: space-between;
@@ -196,8 +226,8 @@
             border-radius: 4px;
             min-height: 280px;
         }
-        .project-card:hover { border-color: var(--blue); transform: translateY(-10px); }
-        .project-tags { display: flex; gap: 10px; margin-bottom: 20px; }
+        .project-card:hover { border-color: var(--blue); transform: translateY(-5px); }
+        .project-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
         .tag { font-family: 'Space Mono', monospace; font-size: 10px; padding: 4px 10px; background: var(--border); color: var(--muted2); border-radius: 4px; }
         .project-title { font-size: 24px; font-weight: 800; margin-bottom: 15px; }
         .project-desc { font-family: 'Space Mono', monospace; font-size: 13px; color: var(--muted2); line-height: 1.6; margin-bottom: 25px; }
@@ -212,28 +242,50 @@
             align-items: center; 
             gap: 8px; 
             transition: 0.3s;
+            padding: 10px 0;
         }
         .btn-link:hover { gap: 15px; color: var(--text); }
 
         .contact-box {
             background: var(--card);
             border: 1px solid var(--border);
-            padding: 60px;
+            padding: 40px 20px;
             text-align: center;
-            border-radius: 30px;
+            border-radius: 20px;
         }
-        .social-links { display: flex; justify-content: center; gap: 30px; margin-top: 40px; }
-        .social-links a { color: var(--muted2); text-decoration: none; font-family: 'Space Mono', monospace; font-size: 13px; transition: 0.3s; border-bottom: 1px solid transparent; }
-        .social-links a:hover { color: var(--blue); border-color: var(--blue); }
+        .social-links { display: flex; flex-direction: column; align-items: center; gap: 16px; margin-top: 40px; }
+        .social-links a { width: 100%; max-width: 280px; text-align: center; padding: 14px; background: var(--card2); border: 1px solid var(--border2); color: var(--text); text-decoration: none; font-family: 'Space Mono', monospace; font-size: 13px; transition: 0.3s; }
+        .social-links a:hover { color: var(--blue-light); border-color: var(--blue); }
 
-        footer { padding: 40px 8%; border-top: 1px solid var(--border); display: flex; justify-content: space-between; font-family: 'Space Mono', monospace; font-size: 11px; color: var(--muted); }
+        footer { padding: 40px 8%; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 12px; text-align: center; font-family: 'Space Mono', monospace; font-size: 11px; color: var(--muted); }
 
         .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); margin: 0 8%; }
 
         @media (max-width: 968px) {
-            .hero { grid-template-columns: 1fr; text-align: center; padding-top: 150px; }
+            nav { padding: 16px 20px; }
+            .nav-links { display: none; }
+            
+            .hero { 
+                grid-template-columns: 1fr; 
+                text-align: center; 
+                padding: 100px 20px 60px;
+                gap: 32px;
+            }
             .hero-photo-container { order: -1; }
-            .hero-photo { width: 240px; height: 240px; }
+            .hero-photo { width: 200px; height: 200px; border-radius: 30px; transform: rotate(0deg); }
+            
+            .hero-tag { margin-bottom: 12px; justify-content: center; }
+            .hero-desc { margin-bottom: 24px; }
+            
+            .tech-icons-grid { justify-content: center; gap: 14px; }
+            
+            section { padding: 60px 20px; }
+            .section-title { margin-bottom: 40px; }
+            
+            .cert-name { padding-right: 0; margin-top: 20px; }
+            
+            .social-links { width: 100%; }
+            footer { flex-direction: column; align-items: center; }
         }
     </style>
 </head>
@@ -264,19 +316,19 @@
         <div class="tech-icons-container" id="stack">
             <span class="tech-icons-title">Stack Tecnológica</span>
             <div class="tech-icons-grid" id="techGrid">
-                <img src="https://skillicons.dev/icons?i=ts" alt="TypeScript" title="TypeScript">
-                <img src="https://skillicons.dev/icons?i=js" alt="JavaScript" title="JavaScript">
-                <img src="https://skillicons.dev/icons?i=react" alt="React" title="React">
-                <img src="https://skillicons.dev/icons?i=html" alt="HTML5" title="HTML5">
-                <img src="https://skillicons.dev/icons?i=css" alt="CSS3" title="CSS3">
-                <img src="https://skillicons.dev/icons?i=php" alt="PHP" title="PHP">
-                <img src="https://skillicons.dev/icons?i=python" alt="Python" title="Python">
-                <img src="https://skillicons.dev/icons?i=mysql" alt="MySQL" title="MySQL">
-                <img src="https://skillicons.dev/icons?i=cpp" alt="C++" title="C++">
-                <img src="https://skillicons.dev/icons?i=c" alt="C" title="C">
-                <img src="https://skillicons.dev/icons?i=dart" alt="Dart" title="Dart">
-                <img src="https://skillicons.dev/icons?i=flutter" alt="Flutter" title="Flutter">
-                <img src="https://skillicons.dev/icons?i=firebase" alt="Firebase" title="Firebase">
+                <div class="tech-item" data-title="TypeScript"><img src="https://skillicons.dev/icons?i=ts" alt="TypeScript"></div>
+                <div class="tech-item" data-title="JavaScript"><img src="https://skillicons.dev/icons?i=js" alt="JavaScript"></div>
+                <div class="tech-item" data-title="React"><img src="https://skillicons.dev/icons?i=react" alt="React"></div>
+                <div class="tech-item" data-title="HTML5"><img src="https://skillicons.dev/icons?i=html" alt="HTML5"></div>
+                <div class="tech-item" data-title="CSS3"><img src="https://skillicons.dev/icons?i=css" alt="CSS3"></div>
+                <div class="tech-item" data-title="PHP"><img src="https://skillicons.dev/icons?i=php" alt="PHP"></div>
+                <div class="tech-item" data-title="Python"><img src="https://skillicons.dev/icons?i=python" alt="Python"></div>
+                <div class="tech-item" data-title="MySQL"><img src="https://skillicons.dev/icons?i=mysql" alt="MySQL"></div>
+                <div class="tech-item" data-title="C++"><img src="https://skillicons.dev/icons?i=cpp" alt="C++"></div>
+                <div class="tech-item" data-title="C"><img src="https://skillicons.dev/icons?i=c" alt="C"></div>
+                <div class="tech-item" data-title="Dart"><img src="https://skillicons.dev/icons?i=dart" alt="Dart"></div>
+                <div class="tech-item" data-title="Flutter"><img src="https://skillicons.dev/icons?i=flutter" alt="Flutter"></div>
+                <div class="tech-item" data-title="Firebase"><img src="https://skillicons.dev/icons?i=firebase" alt="Firebase"></div>
             </div>
         </div>
     </div>
@@ -332,6 +384,11 @@
         </div>
         <div class="cert-card">
             <span class="cert-status ongoing">Em Andamento</span>
+            <span class="cert-institution">CNESIS</span>
+            <h3 class="cert-name">Inglês — Básico</h3>
+        </div>
+        <div class="cert-card">
+            <span class="cert-status ongoing">Em Andamento</span>
             <span class="cert-institution">Microlins</span>
             <h3 class="cert-name">Montagem e Manutenção de PCs</h3>
         </div>
@@ -379,7 +436,7 @@
     <div class="contact-box">
         <span class="section-label">04. Networking</span>
         <h2 class="section-title" style="margin-bottom: 20px;">Vamos nos conectar?</h2>
-        <p style="font-family: 'Space Mono'; color: var(--muted2); max-width: 500px; margin: 0 auto;">
+        <p style="font-family: 'Space Mono'; color: var(--muted2); max-width: 500px; margin: 0 auto; padding: 0 10px;">
             Estou à disposição para processos seletivos de estágio na área de TI, suporte ou desenvolvimento de software.
         </p>
         
@@ -398,25 +455,31 @@
 
 <script>
     const techGrid = document.getElementById('techGrid');
+    const techItems = document.querySelectorAll('.tech-item');
 
-    // Detecta se o dispositivo é mobile/touch
     const isMobile = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
     if (isMobile) {
-        // Opção 1: Ativa quando o usuário faz o scroll da tela e a seção aparece
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     techGrid.classList.add('mobile-active');
                 }
             });
-        }, { threshold: 0.5 }); // Ativa quando 50% da seção de ícones estiver visível
+        }, { threshold: 0.3 });
 
         observer.observe(techGrid);
 
-        // Opção 2: Ativa e garante o acendimento total ao tocar no container da stack
-        techGrid.addEventListener('touchstart', () => {
-            techGrid.classList.add('mobile-active');
+        techItems.forEach(item => {
+            item.addEventListener('touchstart', (e) => {
+                e.stopPropagation(); 
+                techItems.forEach(i => { if(i !== item) i.classList.remove('show-tooltip'); });
+                item.classList.toggle('show-tooltip');
+            });
+        });
+
+        document.addEventListener('touchstart', () => {
+            techItems.forEach(item => item.classList.remove('show-tooltip'));
         });
     }
 </script>
