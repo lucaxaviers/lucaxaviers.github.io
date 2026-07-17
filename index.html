@@ -524,11 +524,9 @@
         .runner-forearm-b { animation: runForearmB 3.2s linear infinite; }
 
         @keyframes carDrive {
-            0%    { transform: translate(50vw, -96%); opacity: 1; }
-            22.5% { transform: translate(-15px, -96%); opacity: 1; } 
-            45%   { transform: translate(-65vw, -96%); opacity: 1; }
-            46%   { transform: translate(-65vw, -96%); opacity: 0; }
-            100%  { transform: translate(50vw, -96%); opacity: 0; }
+            0%    { transform: translate(45vw, -96%) scaleX(-1); opacity: 1; }
+            33.75%{ transform: translate(-15px, -96%) scaleX(-1); opacity: 1; } 
+            100%  { transform: translate(calc(-85vw - 44px), -96%) scaleX(-1); opacity: 1; }
         }
 
         @keyframes runTorso {
@@ -586,21 +584,21 @@
         }
 
         @keyframes runnerBounceSync {
-            0%, 11.25%, 33.75%, 45% { transform: rotate(9deg) translateY(0); }
-            5.625%, 39.375% { transform: rotate(9deg) translateY(-2.4px); }
-            15% { transform: rotate(4deg) translateY(0); }
-            22.5% { transform: rotate(-5deg) translateY(0); }
-            30% { transform: rotate(15deg) translateY(0); }
+            0%, 11.25%, 22.5%, 45% { transform: rotate(9deg) translateY(0); }
+            5.625%, 16.875% { transform: rotate(9deg) translateY(-2.4px); }
+            26% { transform: rotate(4deg) translateY(0); }
+            33.75% { transform: rotate(-5deg) translateY(0); }
+            41% { transform: rotate(15deg) translateY(0); }
             50%, 100% { transform: rotate(9deg) translateY(0); }
         }
         
         @keyframes runnerSlip {
             0%      { transform: translate(0, -94%); }
-            12%     { transform: translate(10px, -94%); }
-            17%     { transform: translate(14px, -135%); }
-            22.5%   { transform: translate(18px, -165%); }
-            28%     { transform: translate(22px, -135%); }
-            33%     { transform: translate(26px, -94%); }
+            23.25%  { transform: translate(19px, -94%); }
+            28.5%   { transform: translate(24px, -135%); }
+            33.75%  { transform: translate(29px, -165%); }
+            39%     { transform: translate(33px, -135%); }
+            44.25%  { transform: translate(37px, -94%); }
             45%     { transform: translate(38px, -94%); }
             58%     { transform: translate(30px, -94%); }
             85%     { transform: translate(-6px, -94%); }
