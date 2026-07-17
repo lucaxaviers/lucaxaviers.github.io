@@ -381,15 +381,42 @@
             background: var(--panel);
             box-shadow: 0 24px 48px rgba(0,0,0,0.35);
             transform: rotate(3deg);
-            filter: grayscale(1) sepia(0.35) saturate(4) hue-rotate(-15deg) brightness(0.95);
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, filter 0.5s ease;
-            will-change: transform;
+            filter: blur(20px) grayscale(0.5) brightness(0.85);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, filter 0.6s ease;
+            will-change: transform, filter;
         }
-        .chip-frame:hover .hero-photo, .hero-photo:focus-visible {
+        .chip-frame:hover .hero-photo,
+        .chip-frame.revealed .hero-photo,
+        .hero-photo:focus-visible {
             border-color: var(--accent);
-            filter: grayscale(0) sepia(0) saturate(1) hue-rotate(0deg) brightness(1);
+            filter: blur(0px) grayscale(0) brightness(1);
         }
-        .chip-pin { position: absolute; top: 20px; left: 20px; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px rgba(255,90,31,0.6); pointer-events: none; }
+        .chip-pin { position: absolute; top: 20px; left: 20px; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px rgba(255,90,31,0.6); pointer-events: none; z-index: 2; }
+        .reveal-hint {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 72%;
+            text-align: center;
+            background: var(--panel);
+            color: var(--ink);
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            line-height: 1.5;
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: 1px solid var(--line2);
+            pointer-events: none;
+            opacity: 1;
+            transition: opacity 0.35s ease;
+            z-index: 2;
+        }
+        .chip-frame:hover .reveal-hint,
+        .chip-frame.revealed .reveal-hint {
+            opacity: 0;
+        }
 
         .tech-icons-container {
             margin-top: 8px;
@@ -581,7 +608,8 @@
             .hero { padding: 116px 20px 48px; text-align: center; gap: 32px; }
             .hero-bottom { grid-template-columns: 1fr; }
             .hero-photo-container { order: -1; }
-            .hero-photo { width: 200px; height: 200px; border-radius: 16px; transform: rotate(0deg); filter: none; }
+            .hero-photo { width: 200px; height: 200px; border-radius: 16px; transform: rotate(0deg); filter: blur(14px) grayscale(0.5) brightness(0.85); }
+            .reveal-hint { font-size: 9px; padding: 8px 10px; }
             .chip-pin { top: 12px; left: 12px; width: 7px; height: 7px; }
             .hero-info { max-width: 100%; }
             .hero-stats { justify-content: center; }
@@ -698,6 +726,7 @@
             <div class="chip-frame">
                 <img src="https://github.com/lucaxaviers.png" alt="Lucas Xavier" class="hero-photo" width="300" height="300" fetchpriority="high" decoding="async">
                 <span class="chip-pin" aria-hidden="true"></span>
+                <span class="reveal-hint" aria-hidden="true">Toque ou passe o mouse</span>
             </div>
         </div>
     </div>
@@ -942,6 +971,22 @@
         chipFrame.addEventListener('mouseleave', () => {
             heroPhoto.style.transform = 'rotate(3deg)';
         });
+    }
+
+    /* ==========================================================================
+       REVELAR FOTO NO TOQUE (censurada -> nítida)
+       ========================================================================== */
+    if (chipFrame) {
+        chipFrame.addEventListener('touchstart', (e) => {
+            e.stopPropagation();
+            chipFrame.classList.add('revealed');
+        }, { passive: true });
+
+        document.addEventListener('touchstart', (e) => {
+            if (!chipFrame.contains(e.target)) {
+                chipFrame.classList.remove('revealed');
+            }
+        }, { passive: true });
     }
 
     /* ==========================================================================
