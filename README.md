@@ -36,7 +36,7 @@ O design segue uma linguagem bold e editorial, inspirada em sites modernos de ma
 - **Link ativo na navegação** conforme a seção visível
 - **Barra de progresso de leitura** no topo da página
 - **Cursor customizado** (ponto + anel) em dispositivos com ponteiro de precisão, com fallback seguro para o cursor nativo
-- **Tilt 3D** na foto do hero, seguindo o cursor
+- **Tilt 3D** na foto do hero, seguindo o cursor, com revelação de cor (duotone → colorido) na interação
 - **Botões magnéticos** nos CTAs principais
 - Tooltip touch-friendly na grade de tecnologias (toque para revelar o nome no mobile)
 - Respeita `prefers-reduced-motion` em todas as animações e efeitos de cursor/tilt/contadores
@@ -94,6 +94,7 @@ Depois acesse `http://localhost:8000`.
 
 ## Contato
 
+- [E-mail](mailto:lucas.xavier.pln@gmail.com)
 - [LinkedIn](https://linkedin.com/in/lucas-rodrigues-xavier-ti)
 - [GitHub](https://github.com/lucaxaviers)
 - [Instagram](https://instagram.com/lucaxaviers)

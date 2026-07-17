@@ -381,10 +381,14 @@
             background: var(--panel);
             box-shadow: 0 24px 48px rgba(0,0,0,0.35);
             transform: rotate(3deg);
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+            filter: grayscale(1) sepia(0.35) saturate(4) hue-rotate(-15deg) brightness(0.95);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, filter 0.5s ease;
             will-change: transform;
         }
-        .hero-photo:hover { border-color: var(--accent); }
+        .chip-frame:hover .hero-photo, .hero-photo:focus-visible {
+            border-color: var(--accent);
+            filter: grayscale(0) sepia(0) saturate(1) hue-rotate(0deg) brightness(1);
+        }
         .chip-pin { position: absolute; top: 20px; left: 20px; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px rgba(255,90,31,0.6); pointer-events: none; }
 
         .tech-icons-container {
@@ -577,7 +581,7 @@
             .hero { padding: 116px 20px 48px; text-align: center; gap: 32px; }
             .hero-bottom { grid-template-columns: 1fr; }
             .hero-photo-container { order: -1; }
-            .hero-photo { width: 200px; height: 200px; border-radius: 16px; transform: rotate(0deg); }
+            .hero-photo { width: 200px; height: 200px; border-radius: 16px; transform: rotate(0deg); filter: none; }
             .chip-pin { top: 12px; left: 12px; width: 7px; height: 7px; }
             .hero-info { max-width: 100%; }
             .hero-stats { justify-content: center; }
@@ -818,6 +822,7 @@
             Estou à disposição para processos seletivos de estágio na área de TI, suporte ou desenvolvimento de software.
         </p>
         <div class="social-links">
+            <a href="mailto:lucas.xavier.pln@gmail.com">E-mail</a>
             <a href="https://linkedin.com/in/lucas-rodrigues-xavier-ti" target="_blank">LinkedIn</a>
             <a href="https://github.com/lucaxaviers" target="_blank">GitHub</a>
             <a href="https://instagram.com/lucaxaviers" target="_blank">Instagram</a>
