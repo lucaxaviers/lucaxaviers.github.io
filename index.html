@@ -1430,11 +1430,9 @@
     }
 
     /* ==========================================================================
-       MASCOTE (desce a tela em zigue-zague conforme rola pra baixo, sobe ao
-       rolar pra cima. Posição em coordenadas do VIEWPORT (position: fixed):
-       o scroll nunca "arrasta" o mascote pra fora da tela — só o progresso
-       da página (0 a 1) move ele suavemente entre topo e rodapé da janela.
-       Olhos seguem o cursor, pisca, reage a hover/click)
+       MASCOTE (Flutua de forma orgânica e segue o mouse horizontalmente com
+       muita suavidade, para parecer que está observando de fininho).
+       Olhos seguem o cursor, pisca, reage a hover/click.
        ========================================================================== */
     const lxMascot = document.getElementById('lxMascot');
     if (lxMascot) {
@@ -1445,15 +1443,17 @@
 
         const EDGE_MARGIN = 16;
         const TOP_OFFSET = 78;      // quase grudado na base do header fixo
-        const DESCENT_RANGE = 70;   // desce só isso ao longo da página inteira (devagar)
-        const ZIGZAG_CYCLES = 5.5;
+        const DESCENT_RANGE = 120;  // desce um pouco conforme scroll
 
-        let targetX = EDGE_MARGIN;
+        let targetX = window.innerWidth / 2;
         let targetY = TOP_OFFSET;
-        let currentX = EDGE_MARGIN;
+        let currentX = window.innerWidth / 2;
         let currentY = TOP_OFFSET;
-        let walking = false;
-        let walkStopTimer = null;
+        let globalMouseX = window.innerWidth / 2;
+        
+        window.addEventListener('mousemove', (e) => {
+            globalMouseX = e.clientX;
+        }, { passive: true });
 
         function updateMascotTarget() {
             const viewportW = window.innerWidth;
@@ -1462,15 +1462,19 @@
             const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
             const progress = Math.min(1, Math.max(0, window.scrollY / maxScroll));
 
-            // vertical: anda numa faixa estreita logo abaixo do header,
-            // descendo bem devagar conforme a página avança — nunca cruza
-            // o meio do conteúdo
-            targetY = TOP_OFFSET + progress * DESCENT_RANGE;
+            // vertical: desce muito sutilmente conforme o scroll
+            let baseY = TOP_OFFSET + progress * DESCENT_RANGE;
 
-            // horizontal: zigue-zague entre as margens conforme o progresso
-            const travelWidth = Math.max(1, viewportW - size - EDGE_MARGIN * 2);
-            const wave = (Math.sin(progress * Math.PI * ZIGZAG_CYCLES) + 1) / 2; // 0..1
-            targetX = EDGE_MARGIN + wave * travelWidth;
+            // horizontal: segue o mouse, mas mantendo uma distância natural e com muito atraso
+            let baseX = globalMouseX - size / 2;
+
+            // flutuação orgânica contínua (respiração / drift)
+            const time = performance.now() / 1000;
+            const floatX = Math.sin(time * 0.6) * 20;
+            const floatY = Math.cos(time * 0.9) * 12;
+
+            targetX = Math.max(EDGE_MARGIN, Math.min(baseX + floatX, viewportW - size - EDGE_MARGIN));
+            targetY = baseY + floatY;
         }
 
         function renderMascot() {
@@ -1479,36 +1483,26 @@
 
         function mascotLoop() {
             updateMascotTarget();
-            const ease = reduceMotion ? 1 : 0.045;
+            // ease MUITO suave (0.015) para dar o efeito "stealth"
+            const ease = reduceMotion ? 1 : 0.015;
             currentX += (targetX - currentX) * ease;
             currentY += (targetY - currentY) * ease;
-            renderMascot();
+            
+            // pequeno tilt direcional baseado na velocidade
+            const velX = (targetX - currentX) * ease;
+            const tilt = Math.max(-12, Math.min(12, velX * 1.5));
+            
+            lxMascot.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) rotate(${tilt}deg)`;
+            
             requestAnimationFrame(mascotLoop);
-        }
-
-        function setWalking(isWalking) {
-            if (isWalking === walking) return;
-            walking = isWalking;
-            lxMascot.classList.toggle('walk-bob', isWalking && !reduceMotion);
-        }
-
-        function onScroll() {
-            updateMascotTarget();
-            if (!reduceMotion) {
-                setWalking(true);
-                clearTimeout(walkStopTimer);
-                walkStopTimer = setTimeout(() => setWalking(false), 220);
-            }
         }
 
         updateMascotTarget();
         currentX = targetX;
         currentY = targetY;
-        renderMascot();
         requestAnimationFrame(mascotLoop);
 
-        window.addEventListener('scroll', onScroll, { passive: true });
-        window.addEventListener('resize', updateMascotTarget);
+        window.addEventListener('resize', updateMascotTarget, { passive: true });
 
         if (!reduceMotion) {
             window.addEventListener('mousemove', (e) => {
