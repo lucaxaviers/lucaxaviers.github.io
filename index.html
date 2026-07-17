@@ -496,39 +496,115 @@
             width: 100%;
             height: 100%;
             transform: rotate(9deg);
-            animation: runnerBounce 0.36s ease-in-out infinite;
+            animation: runnerBounceSync 3.2s linear infinite;
         }
+        .marquee-car {
+            position: absolute;
+            top: 0;
+            left: 58%;
+            width: 60px;
+            height: 25px;
+            pointer-events: none;
+            animation: carDrive 3.2s linear infinite;
+        }
+
+        .runner-torso { transform-box: view-box; transform-origin: 15px 28px; animation: runTorso 3.2s linear infinite; }
         .runner-arm-f, .runner-arm-b { transform-box: view-box; transform-origin: 15px 17px; }
         .runner-forearm-f, .runner-forearm-b { transform-box: view-box; transform-origin: 15px 24px; }
         .runner-thigh-f, .runner-thigh-b { transform-box: view-box; transform-origin: 15px 28px; }
         .runner-shin-f, .runner-shin-b { transform-box: view-box; transform-origin: 15px 41px; }
 
-        .runner-thigh-f   { animation: runThigh 0.72s ease-in-out infinite; }
-        .runner-shin-f    { animation: runShin 0.72s ease-in-out infinite; }
-        .runner-arm-f     { animation: runArm 0.72s ease-in-out infinite -0.36s; }
-        .runner-forearm-f { animation: runForearm 0.72s ease-in-out infinite -0.36s; }
-        .runner-thigh-b   { animation: runThigh 0.72s ease-in-out infinite -0.36s; }
-        .runner-shin-b    { animation: runShin 0.72s ease-in-out infinite -0.36s; }
-        .runner-arm-b     { animation: runArm 0.72s ease-in-out infinite; }
-        .runner-forearm-b { animation: runForearm 0.72s ease-in-out infinite; }
+        .runner-thigh-f   { animation: runThighF 3.2s linear infinite; }
+        .runner-shin-f    { animation: runShinF 3.2s linear infinite; }
+        .runner-arm-f     { animation: runArmF 3.2s linear infinite; }
+        .runner-forearm-f { animation: runForearmF 3.2s linear infinite; }
+        .runner-thigh-b   { animation: runThighB 3.2s linear infinite; }
+        .runner-shin-b    { animation: runShinB 3.2s linear infinite; }
+        .runner-arm-b     { animation: runArmB 3.2s linear infinite; }
+        .runner-forearm-b { animation: runForearmB 3.2s linear infinite; }
 
-        @keyframes runThigh   { 0%, 100% { transform: rotate(-44deg); } 50% { transform: rotate(40deg); } }
-        @keyframes runShin    { 0% { transform: rotate(12deg); } 25% { transform: rotate(74deg); } 50% { transform: rotate(6deg); } 75% { transform: rotate(-8deg); } 100% { transform: rotate(12deg); } }
-        @keyframes runArm     { 0%, 100% { transform: rotate(-32deg); } 50% { transform: rotate(36deg); } }
-        @keyframes runForearm { 0%, 100% { transform: rotate(-14deg); } 50% { transform: rotate(16deg); } }
-        @keyframes runnerBounce {
-            0%, 100% { transform: rotate(9deg) translateY(0); }
-            50%      { transform: rotate(9deg) translateY(-2.4px); }
+        @keyframes carDrive {
+            0%    { transform: translate(50vw, -96%); opacity: 1; }
+            22.5% { transform: translate(-15px, -96%); opacity: 1; } 
+            45%   { transform: translate(-65vw, -96%); opacity: 1; }
+            46%   { transform: translate(-65vw, -96%); opacity: 0; }
+            100%  { transform: translate(50vw, -96%); opacity: 0; }
         }
+
+        @keyframes runTorso {
+            0%, 45% { transform: rotate(0deg); }
+            50% { transform: rotate(18deg) translateY(2px); }
+            65% { transform: rotate(24deg) translateY(2px); }
+            80% { transform: rotate(18deg) translateY(2px); }
+            95% { transform: rotate(24deg) translateY(2px); }
+            100% { transform: rotate(0deg); }
+        }
+
+        @keyframes runThighF {
+            0%, 22.5%, 45% { transform: rotate(-44deg); }
+            11.25%, 33.75% { transform: rotate(40deg); }
+            50%, 100% { transform: rotate(0deg); }
+        }
+        @keyframes runThighB {
+            0%, 22.5%, 45% { transform: rotate(40deg); }
+            11.25%, 33.75% { transform: rotate(-44deg); }
+            50%, 100% { transform: rotate(0deg); }
+        }
+        @keyframes runShinF {
+            0%, 22.5%, 45% { transform: rotate(12deg); }
+            5.625%, 28.125% { transform: rotate(74deg); }
+            11.25%, 33.75% { transform: rotate(6deg); }
+            16.875%, 39.375% { transform: rotate(-8deg); }
+            50%, 100% { transform: rotate(0deg); }
+        }
+        @keyframes runShinB {
+            0%, 22.5%, 45% { transform: rotate(6deg); }
+            5.625%, 28.125% { transform: rotate(-8deg); }
+            11.25%, 33.75% { transform: rotate(12deg); }
+            16.875%, 39.375% { transform: rotate(74deg); }
+            50%, 100% { transform: rotate(0deg); }
+        }
+        @keyframes runArmF {
+            0%, 22.5%, 45% { transform: rotate(36deg); }
+            11.25%, 33.75% { transform: rotate(-32deg); }
+            50%, 100% { transform: rotate(5deg); }
+        }
+        @keyframes runArmB {
+            0%, 22.5%, 45% { transform: rotate(-32deg); }
+            11.25%, 33.75% { transform: rotate(36deg); }
+            50%, 100% { transform: rotate(5deg); }
+        }
+        @keyframes runForearmF {
+            0%, 22.5%, 45% { transform: rotate(16deg); }
+            11.25%, 33.75% { transform: rotate(-14deg); }
+            50%, 100% { transform: rotate(40deg); }
+        }
+        @keyframes runForearmB {
+            0%, 22.5%, 45% { transform: rotate(-14deg); }
+            11.25%, 33.75% { transform: rotate(16deg); }
+            50%, 100% { transform: rotate(40deg); }
+        }
+
+        @keyframes runnerBounceSync {
+            0%, 11.25%, 33.75%, 45% { transform: rotate(9deg) translateY(0); }
+            5.625%, 39.375% { transform: rotate(9deg) translateY(-2.4px); }
+            15% { transform: rotate(4deg) translateY(0); }
+            22.5% { transform: rotate(-5deg) translateY(0); }
+            30% { transform: rotate(15deg) translateY(0); }
+            50%, 100% { transform: rotate(9deg) translateY(0); }
+        }
+        
         @keyframes runnerSlip {
-            0%, 100% { transform: translate(0, -94%); }
-            45%      { transform: translate(38px, -94%); }
-            58%      { transform: translate(30px, -94%); }
-            85%      { transform: translate(-6px, -94%); }
-        }
-        .marquee-runner.tired svg,
-        .marquee-runner.tired g {
-            animation-play-state: paused !important;
+            0%      { transform: translate(0, -94%); }
+            12%     { transform: translate(10px, -94%); }
+            17%     { transform: translate(14px, -135%); }
+            22.5%   { transform: translate(18px, -165%); }
+            28%     { transform: translate(22px, -135%); }
+            33%     { transform: translate(26px, -94%); }
+            45%     { transform: translate(38px, -94%); }
+            58%     { transform: translate(30px, -94%); }
+            85%     { transform: translate(-6px, -94%); }
+            100%    { transform: translate(0, -94%); }
         }
         @media (max-width: 640px) { .marquee-runner { left: 72%; } }
         .marquee-track { display: flex; width: max-content; animation: marqueeScroll 28s linear infinite; }
@@ -871,15 +947,17 @@
             <span>Full Stack Developer</span><span>Engenharia de Software</span><span>PUC-Campinas</span><span>Disponível para Estágio</span><span>React</span><span>TypeScript</span><span>Flutter</span><span>Python</span>
         </div>
     </div>
+    <div class="marquee-car">
+        <svg viewBox="0 0 60 25">
+            <path d="M5 20 L5 12 L12 6 L35 6 L45 12 L55 12 L55 20 Z" stroke="var(--ink)" stroke-width="2.5" fill="var(--bg)" stroke-linejoin="round"/>
+            <circle cx="15" cy="20" r="4.5" stroke="var(--ink)" stroke-width="2.5" fill="var(--bg)"/>
+            <circle cx="45" cy="20" r="4.5" stroke="var(--ink)" stroke-width="2.5" fill="var(--bg)"/>
+            <path d="M15 12 L18 7 L32 7 L32 12 Z" fill="var(--ink)"/>
+        </svg>
+    </div>
     <div class="marquee-runner">
         <svg viewBox="0 0 30 55">
             <g stroke="var(--ink)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-                <circle cx="15" cy="7" r="5.5"/>
-                <line x1="15" y1="12.5" x2="15" y2="28"/>
-                <g class="runner-arm-b">
-                    <line x1="15" y1="17" x2="15" y2="24"/>
-                    <g class="runner-forearm-b"><line x1="15" y1="24" x2="22" y2="24"/></g>
-                </g>
                 <g class="runner-thigh-b">
                     <line x1="15" y1="28" x2="15" y2="41"/>
                     <g class="runner-shin-b"><line x1="15" y1="41" x2="15" y2="52"/></g>
@@ -888,9 +966,17 @@
                     <line x1="15" y1="28" x2="15" y2="41"/>
                     <g class="runner-shin-f"><line x1="15" y1="41" x2="15" y2="52"/></g>
                 </g>
-                <g class="runner-arm-f">
-                    <line x1="15" y1="17" x2="15" y2="24"/>
-                    <g class="runner-forearm-f"><line x1="15" y1="24" x2="22" y2="24"/></g>
+                <g class="runner-torso">
+                    <circle cx="15" cy="7" r="5.5"/>
+                    <line x1="15" y1="12.5" x2="15" y2="28"/>
+                    <g class="runner-arm-b">
+                        <line x1="15" y1="17" x2="15" y2="24"/>
+                        <g class="runner-forearm-b"><line x1="15" y1="24" x2="22" y2="24"/></g>
+                    </g>
+                    <g class="runner-arm-f">
+                        <line x1="15" y1="17" x2="15" y2="24"/>
+                        <g class="runner-forearm-f"><line x1="15" y1="24" x2="22" y2="24"/></g>
+                    </g>
                 </g>
             </g>
         </svg>
@@ -1551,21 +1637,7 @@
         });
     }
 
-    /* ==========================================================================
-       MARQUEE RUNNER (Efeito de cansaço na esteira)
-       ========================================================================== */
-    const marqueeRunner = document.querySelector('.marquee-runner');
-    if (marqueeRunner && !reduceMotion) {
-        function syncTired() {
-            marqueeRunner.classList.remove('tired');
-            // O ciclo total é 3.2s. Aos 45% (1440ms) ele para de correr e é arrastado
-            setTimeout(() => {
-                marqueeRunner.classList.add('tired');
-            }, 1440);
-        }
-        marqueeRunner.addEventListener('animationiteration', syncTired);
-        syncTired();
-    }
+
 </script>
 
 </body>
