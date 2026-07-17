@@ -311,13 +311,15 @@
         .hero {
             position: relative;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: minmax(0, 640px) 1fr;
+            column-gap: 48px;
+            row-gap: 44px;
+            align-content: center;
             padding: 140px 8% 56px;
             z-index: 1;
-            gap: 44px;
         }
+        .hero-top { grid-column: 1; }
 
         .hero-tag { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--accent); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 18px; animation: fadeUp 0.8s ease both; }
 
@@ -340,8 +342,12 @@
         }
         @media (max-width: 1240px) { .orbit-badge { display: none; } }
 
-        .hero-bottom { display: grid; grid-template-columns: 1fr 340px; gap: 48px; align-items: start; }
-        .hero-info { max-width: 640px; }
+        /* hero-bottom vira 'display: contents': info e foto entram direto no
+           grid do hero — a foto ocupa as duas linhas (nome + info) e centraliza
+           verticalmente contra o bloco de texto inteiro */
+        .hero-bottom { display: contents; }
+        .hero-info { grid-column: 1; max-width: 640px; }
+        .hero-photo-container { grid-column: 2; grid-row: 1 / 3; align-self: center; justify-self: center; }
         .hero-desc { font-family: 'Manrope', sans-serif; font-weight: 500; font-size: 16px; color: var(--ink-muted2); line-height: 1.75; animation: fadeUp 0.8s 0.25s ease both; }
         .hero-desc strong { color: var(--ink); }
 
@@ -373,7 +379,9 @@
         .chip-frame { position: relative; display: inline-block; perspective: 800px; }
         .hero-photo {
             display: block;
-            width: 300px; height: 300px;
+            width: clamp(300px, 26vw, 460px);
+            height: auto;
+            aspect-ratio: 1 / 1;
             border-radius: 18px;
             object-fit: cover;
             border: 1px solid var(--line2);
@@ -465,8 +473,60 @@
         /* ==========================================================================
            MARQUEE — faixa de transição bold entre hero e conteúdo
            ========================================================================== */
-        .marquee { overflow: hidden; background: var(--accent); transform: skewY(-1.4deg); position: relative; z-index: 2; }
+        /* overflow visível no wrapper: o bonequinho fica EM CIMA da faixa;
+           o clip do texto rolante é responsabilidade do .marquee-inner */
+        .marquee { overflow: visible; background: var(--accent); transform: skewY(-1.4deg); position: relative; z-index: 2; }
         .marquee-inner { transform: skewY(1.4deg); overflow: hidden; }
+
+        /* --- BONEQUINHO correndo EM CIMA da faixa, tentando subir a ladeira
+           (efeito esteira: avança, escorrega de volta). Corrida articulada:
+           coxa/canela e braço/antebraço com cinemática aninhada --- */
+        .marquee-runner {
+            position: absolute;
+            top: 0;
+            left: 58%;
+            width: 34px;
+            height: 55px;
+            pointer-events: none;
+            transform: translate(0, -94%);
+            animation: runnerSlip 3.2s ease-in-out infinite;
+        }
+        .marquee-runner svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+            transform: rotate(9deg);
+            animation: runnerBounce 0.36s ease-in-out infinite;
+        }
+        .runner-arm-f, .runner-arm-b { transform-box: view-box; transform-origin: 15px 17px; }
+        .runner-forearm-f, .runner-forearm-b { transform-box: view-box; transform-origin: 15px 24px; }
+        .runner-thigh-f, .runner-thigh-b { transform-box: view-box; transform-origin: 15px 28px; }
+        .runner-shin-f, .runner-shin-b { transform-box: view-box; transform-origin: 15px 41px; }
+
+        .runner-thigh-f   { animation: runThigh 0.72s ease-in-out infinite; }
+        .runner-shin-f    { animation: runShin 0.72s ease-in-out infinite; }
+        .runner-arm-f     { animation: runArm 0.72s ease-in-out infinite -0.36s; }
+        .runner-forearm-f { animation: runForearm 0.72s ease-in-out infinite -0.36s; }
+        .runner-thigh-b   { animation: runThigh 0.72s ease-in-out infinite -0.36s; }
+        .runner-shin-b    { animation: runShin 0.72s ease-in-out infinite -0.36s; }
+        .runner-arm-b     { animation: runArm 0.72s ease-in-out infinite; }
+        .runner-forearm-b { animation: runForearm 0.72s ease-in-out infinite; }
+
+        @keyframes runThigh   { 0%, 100% { transform: rotate(-44deg); } 50% { transform: rotate(40deg); } }
+        @keyframes runShin    { 0% { transform: rotate(12deg); } 25% { transform: rotate(74deg); } 50% { transform: rotate(6deg); } 75% { transform: rotate(-8deg); } 100% { transform: rotate(12deg); } }
+        @keyframes runArm     { 0%, 100% { transform: rotate(-32deg); } 50% { transform: rotate(36deg); } }
+        @keyframes runForearm { 0%, 100% { transform: rotate(-14deg); } 50% { transform: rotate(16deg); } }
+        @keyframes runnerBounce {
+            0%, 100% { transform: rotate(9deg) translateY(0); }
+            50%      { transform: rotate(9deg) translateY(-2.4px); }
+        }
+        @keyframes runnerSlip {
+            0%, 100% { transform: translate(0, -94%); }
+            45%      { transform: translate(38px, -94%); }
+            58%      { transform: translate(30px, -94%); }
+            85%      { transform: translate(-6px, -94%); }
+        }
+        @media (max-width: 640px) { .marquee-runner { left: 72%; } }
         .marquee-track { display: flex; width: max-content; animation: marqueeScroll 28s linear infinite; }
         .marquee-track span {
             font-family: 'Unbounded', sans-serif;
@@ -605,9 +665,11 @@
             .nav-links { display: none; }
             .nav-toggle { display: flex; }
 
-            .hero { padding: 116px 20px 48px; text-align: center; gap: 32px; }
-            .hero-bottom { grid-template-columns: 1fr; }
-            .hero-photo-container { order: -1; }
+            .hero { padding: 116px 20px 48px; text-align: center; gap: 32px; grid-template-columns: 1fr; }
+            .hero-top { grid-column: auto; }
+            .hero-bottom { display: grid; grid-template-columns: 1fr; gap: 32px; }
+            .hero-info { grid-column: auto; }
+            .hero-photo-container { grid-column: auto; grid-row: auto; order: -1; }
             .hero-photo { width: 200px; height: 200px; border-radius: 16px; transform: rotate(0deg); filter: blur(14px) grayscale(0.5) brightness(0.85); }
             .reveal-hint { font-size: 9px; padding: 8px 10px; }
             .chip-pin { top: 12px; left: 12px; width: 7px; height: 7px; }
@@ -624,6 +686,68 @@
             .cert-name { padding-right: 0; margin-top: 20px; }
             .social-links { width: 100%; }
         }
+
+        /* ==========================================================================
+           EXTRAS — terminal / partículas / mascote / git timeline
+           ========================================================================== */
+
+        /* --- PARTÍCULAS DE FUNDO --- */
+        .particles-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        /* --- TERMINAL VIVO --- */
+        .live-terminal {
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            color: var(--accent-light);
+            letter-spacing: 0.02em;
+            margin-top: 10px;
+        }
+        .live-terminal::before { content: '❯'; color: var(--accent); margin-right: 6px; }
+        .live-cursor {
+            display: inline-block;
+            width: 7px;
+            height: 1em;
+            background: var(--accent);
+            margin-left: 2px;
+            animation: termBlink 1s step-end infinite;
+            vertical-align: text-bottom;
+        }
+        @keyframes termBlink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+
+        /* --- MASCOTE (desce a tela em zigue-zague ao rolar pra baixo, sobe ao rolar pra cima) --- */
+        .lx-mascot {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 72px;
+            height: 72px;
+            z-index: 80;
+            cursor: pointer;
+            will-change: transform;
+        }
+        .lx-mascot.walk-bob svg { animation: mascotBob 0.7s ease-in-out infinite; }
+        .lx-mascot svg { display: block; width: 100%; height: 100%; filter: drop-shadow(0 8px 16px rgba(0,0,0,0.35)); transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        @keyframes mascotBob { 0%, 100% { transform: translateY(0) rotate(-1.5deg); } 50% { transform: translateY(-3px) rotate(1.5deg); } }
+
+        /* hover: cresce e abre o bocão com dentes afiados (vai "engolir" o mouse) */
+        .lx-mascot .mascot-mouth-open { opacity: 0; transition: opacity 0.12s ease; pointer-events: none; }
+        .lx-mascot:hover svg { animation: none; transform: scale(1.45); }
+        .lx-mascot:hover .mascot-mouth-open { opacity: 1; }
+        .lx-mascot:hover #mascotMouth { opacity: 0; }
+        @media (max-width: 640px) { .lx-mascot { width: 56px; height: 56px; } }
+
+        /* --- GIT COMMIT TIMELINE (não utilizado atualmente — Formação voltou ao layout original) --- */
     </style>
 </head>
 <body>
@@ -661,6 +785,8 @@
 </div>
 
 <section class="hero">
+    <canvas class="particles-canvas" id="particlesCanvas" aria-hidden="true"></canvas>
+
     <div class="orbit-badge" aria-hidden="true">
         <svg viewBox="0 0 200 200">
             <defs><path id="circlePath" d="M 100,100 m -80,0 a 80,80 0 1,1 160,0 a 80,80 0 1,1 -160,0"/></defs>
@@ -677,6 +803,7 @@
             <span class="line solid">LUCAS</span>
             <span class="line outline">XAVIER</span>
         </h1>
+        <div class="live-terminal" id="liveTerminal" aria-hidden="true"><span id="terminalText"></span><span class="live-cursor"></span></div>
     </div>
 
     <div class="hero-bottom">
@@ -688,6 +815,7 @@
             </p>
 
             <div class="hero-stats">
+                <div class="stat"><span class="stat-num" id="ageStat" data-target="0">0</span><span class="stat-label">Anos de idade</span></div>
                 <div class="stat"><span class="stat-num" data-target="2028">0</span><span class="stat-label">Formatura</span></div>
                 <div class="stat"><span class="stat-num" data-target="6" data-pad="2">00</span><span class="stat-label">Certificações técnicas</span></div>
                 <div class="stat"><span class="stat-num" data-target="13" data-suffix="+">0+</span><span class="stat-label">Tecnologias</span></div>
@@ -738,6 +866,30 @@
             <span>Full Stack Developer</span><span>Engenharia de Software</span><span>PUC-Campinas</span><span>Disponível para Estágio</span><span>React</span><span>TypeScript</span><span>Flutter</span><span>Python</span>
             <span>Full Stack Developer</span><span>Engenharia de Software</span><span>PUC-Campinas</span><span>Disponível para Estágio</span><span>React</span><span>TypeScript</span><span>Flutter</span><span>Python</span>
         </div>
+    </div>
+    <div class="marquee-runner">
+        <svg viewBox="0 0 30 55">
+            <g stroke="var(--ink)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                <circle cx="15" cy="7" r="5.5"/>
+                <line x1="15" y1="12.5" x2="15" y2="28"/>
+                <g class="runner-arm-b">
+                    <line x1="15" y1="17" x2="15" y2="24"/>
+                    <g class="runner-forearm-b"><line x1="15" y1="24" x2="22" y2="24"/></g>
+                </g>
+                <g class="runner-thigh-b">
+                    <line x1="15" y1="28" x2="15" y2="41"/>
+                    <g class="runner-shin-b"><line x1="15" y1="41" x2="15" y2="52"/></g>
+                </g>
+                <g class="runner-thigh-f">
+                    <line x1="15" y1="28" x2="15" y2="41"/>
+                    <g class="runner-shin-f"><line x1="15" y1="41" x2="15" y2="52"/></g>
+                </g>
+                <g class="runner-arm-f">
+                    <line x1="15" y1="17" x2="15" y2="24"/>
+                    <g class="runner-forearm-f"><line x1="15" y1="24" x2="22" y2="24"/></g>
+                </g>
+            </g>
+        </svg>
     </div>
 </div>
 
@@ -868,6 +1020,32 @@
     </div>
     <div class="footer-meta">BUILT WITH HTML · CSS · JS — SEM FRAMEWORK</div>
 </footer>
+
+<div class="lx-mascot" id="lxMascot" aria-hidden="true">
+    <svg viewBox="0 0 90 90">
+        <path d="M15 45 Q15 12 45 12 Q75 12 75 45 L75 62 Q75 78 58 78 L32 78 Q15 78 15 62 Z" fill="var(--panel)" stroke="var(--accent)" stroke-width="2"/>
+        <circle cx="20" cy="55" r="4" fill="var(--accent2)" opacity="0.55"/>
+        <circle cx="70" cy="35" r="3" fill="var(--accent2)" opacity="0.55"/>
+        <path d="M30 14 L26 4 L36 12 Z" fill="var(--accent2)"/>
+        <path d="M60 14 L64 4 L54 12 Z" fill="var(--accent2)"/>
+        <g id="mascotEyeL"><circle cx="33" cy="46" r="12" fill="var(--ink)"/><circle id="mascotPupilL" cx="33" cy="46" r="5" fill="var(--bg)"/></g>
+        <g id="mascotEyeR"><circle cx="57" cy="46" r="12" fill="var(--ink)"/><circle id="mascotPupilR" cx="57" cy="46" r="5" fill="var(--bg)"/></g>
+        <path id="mascotMouth" d="M28 60 Q45 68 62 60" stroke="var(--accent)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <g class="mascot-mouth-open" aria-hidden="true">
+            <path d="M26 55 Q45 51 64 55 Q62 76 45 78 Q28 76 26 55 Z" fill="#7a1616" stroke="var(--accent)" stroke-width="2"/>
+            <ellipse cx="45" cy="72" rx="7" ry="3.5" fill="#c23b3b"/>
+            <polygon points="29,55.5 32.5,63 36,55" fill="#f8f6ef"/>
+            <polygon points="37,54.5 40.5,64 44,54.5" fill="#f8f6ef"/>
+            <polygon points="46,54.5 49.5,64 53,54.5" fill="#f8f6ef"/>
+            <polygon points="54,55 57.5,63 61,55.5" fill="#f8f6ef"/>
+            <polygon points="33,73.5 36,66.5 39,74" fill="#f8f6ef"/>
+            <polygon points="42,75 45,67.5 48,75" fill="#f8f6ef"/>
+            <polygon points="51,74 54,66.5 57,73.5" fill="#f8f6ef"/>
+        </g>
+        <path d="M15 55 Q4 58 6 68" stroke="var(--accent)" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <path d="M75 55 Q86 58 84 68" stroke="var(--accent)" stroke-width="6" fill="none" stroke-linecap="round"/>
+    </svg>
+</div>
 
 <script>
     const techGrid = document.getElementById('techGrid');
@@ -1054,6 +1232,23 @@
     navSections.forEach((sec) => { if (sec) navObserver.observe(sec); });
 
     /* ==========================================================================
+       IDADE (calculada automaticamente a partir da data de nascimento —
+       nunca precisa ser editada manualmente, atualiza sozinha a cada visita
+       e no dia do aniversário)
+       ========================================================================== */
+    const ageStatEl = document.getElementById('ageStat');
+    if (ageStatEl) {
+        const birthDate = new Date(2006, 11, 18); // 18/12/2006 (mês em JS é 0-indexado: 11 = dezembro)
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const hasHadBirthdayThisYear =
+            today.getMonth() > birthDate.getMonth() ||
+            (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
+        if (!hasHadBirthdayThisYear) age--;
+        ageStatEl.dataset.target = String(age);
+    }
+
+    /* ==========================================================================
        CONTADORES DE ESTATÍSTICA
        ========================================================================== */
     function formatStat(value, el) {
@@ -1135,6 +1330,226 @@
 
         document.addEventListener('touchstart', () => {
             techItems.forEach(item => item.classList.remove('show-tooltip'));
+        });
+    }
+
+    /* ==========================================================================
+       PARTÍCULAS DE FUNDO (grafo de rede no hero)
+       ========================================================================== */
+    const particlesCanvas = document.getElementById('particlesCanvas');
+    if (particlesCanvas && !reduceMotion) {
+        const pctx = particlesCanvas.getContext('2d');
+        let pw, ph, particles;
+
+        function resizeParticles() {
+            const rect = particlesCanvas.parentElement.getBoundingClientRect();
+            pw = particlesCanvas.width = rect.width;
+            ph = particlesCanvas.height = rect.height;
+            const count = Math.max(20, Math.floor((pw * ph) / 14000));
+            particles = Array.from({ length: count }, () => ({
+                x: Math.random() * pw,
+                y: Math.random() * ph,
+                vx: (Math.random() - 0.5) * 0.22,
+                vy: (Math.random() - 0.5) * 0.22
+            }));
+        }
+
+        function stepParticles() {
+            pctx.clearRect(0, 0, pw, ph);
+            for (const p of particles) {
+                p.x += p.vx; p.y += p.vy;
+                if (p.x < 0 || p.x > pw) p.vx *= -1;
+                if (p.y < 0 || p.y > ph) p.vy *= -1;
+            }
+            for (let i = 0; i < particles.length; i++) {
+                const a = particles[i];
+                for (let j = i + 1; j < particles.length; j++) {
+                    const b = particles[j];
+                    const dx = a.x - b.x, dy = a.y - b.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 140) {
+                        pctx.strokeStyle = `rgba(255,90,31,${0.14 * (1 - dist / 140)})`;
+                        pctx.lineWidth = 0.6;
+                        pctx.beginPath();
+                        pctx.moveTo(a.x, a.y);
+                        pctx.lineTo(b.x, b.y);
+                        pctx.stroke();
+                    }
+                }
+                pctx.fillStyle = 'rgba(255,90,31,0.35)';
+                pctx.beginPath();
+                pctx.arc(a.x, a.y, 1.3, 0, Math.PI * 2);
+                pctx.fill();
+            }
+            requestAnimationFrame(stepParticles);
+        }
+
+        resizeParticles();
+        stepParticles();
+        window.addEventListener('resize', resizeParticles);
+    }
+
+    /* ==========================================================================
+       TERMINAL VIVO (typewriter em loop)
+       ========================================================================== */
+    const terminalTextEl = document.getElementById('terminalText');
+    if (terminalTextEl) {
+        const phrases = [
+            'compilando futuro.exe',
+            'status: disponível para estágio',
+            'stack: react, typescript, flutter, python',
+            'localização: paulínia / campinas — sp'
+        ];
+
+        if (reduceMotion) {
+            terminalTextEl.textContent = phrases[0];
+        } else {
+            let phraseIndex = 0, charIndex = 0, deleting = false;
+            function typeTick() {
+                const current = phrases[phraseIndex];
+                if (!deleting) {
+                    charIndex++;
+                    terminalTextEl.textContent = current.slice(0, charIndex);
+                    if (charIndex === current.length) {
+                        deleting = true;
+                        setTimeout(typeTick, 1500);
+                        return;
+                    }
+                } else {
+                    charIndex--;
+                    terminalTextEl.textContent = current.slice(0, charIndex);
+                    if (charIndex === 0) {
+                        deleting = false;
+                        phraseIndex = (phraseIndex + 1) % phrases.length;
+                    }
+                }
+                setTimeout(typeTick, deleting ? 22 : 42);
+            }
+            typeTick();
+        }
+    }
+
+    /* ==========================================================================
+       MASCOTE (desce a tela em zigue-zague conforme rola pra baixo, sobe ao
+       rolar pra cima. Posição em coordenadas do VIEWPORT (position: fixed):
+       o scroll nunca "arrasta" o mascote pra fora da tela — só o progresso
+       da página (0 a 1) move ele suavemente entre topo e rodapé da janela.
+       Olhos seguem o cursor, pisca, reage a hover/click)
+       ========================================================================== */
+    const lxMascot = document.getElementById('lxMascot');
+    if (lxMascot) {
+        const pupilL = document.getElementById('mascotPupilL');
+        const pupilR = document.getElementById('mascotPupilR');
+        const eyeL = document.getElementById('mascotEyeL');
+        const eyeR = document.getElementById('mascotEyeR');
+
+        const EDGE_MARGIN = 16;
+        const TOP_OFFSET = 78;      // quase grudado na base do header fixo
+        const DESCENT_RANGE = 70;   // desce só isso ao longo da página inteira (devagar)
+        const ZIGZAG_CYCLES = 5.5;
+
+        let targetX = EDGE_MARGIN;
+        let targetY = TOP_OFFSET;
+        let currentX = EDGE_MARGIN;
+        let currentY = TOP_OFFSET;
+        let walking = false;
+        let walkStopTimer = null;
+
+        function updateMascotTarget() {
+            const viewportW = window.innerWidth;
+            const size = viewportW <= 640 ? 56 : 72;
+
+            const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+            const progress = Math.min(1, Math.max(0, window.scrollY / maxScroll));
+
+            // vertical: anda numa faixa estreita logo abaixo do header,
+            // descendo bem devagar conforme a página avança — nunca cruza
+            // o meio do conteúdo
+            targetY = TOP_OFFSET + progress * DESCENT_RANGE;
+
+            // horizontal: zigue-zague entre as margens conforme o progresso
+            const travelWidth = Math.max(1, viewportW - size - EDGE_MARGIN * 2);
+            const wave = (Math.sin(progress * Math.PI * ZIGZAG_CYCLES) + 1) / 2; // 0..1
+            targetX = EDGE_MARGIN + wave * travelWidth;
+        }
+
+        function renderMascot() {
+            lxMascot.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+        }
+
+        function mascotLoop() {
+            updateMascotTarget();
+            const ease = reduceMotion ? 1 : 0.045;
+            currentX += (targetX - currentX) * ease;
+            currentY += (targetY - currentY) * ease;
+            renderMascot();
+            requestAnimationFrame(mascotLoop);
+        }
+
+        function setWalking(isWalking) {
+            if (isWalking === walking) return;
+            walking = isWalking;
+            lxMascot.classList.toggle('walk-bob', isWalking && !reduceMotion);
+        }
+
+        function onScroll() {
+            updateMascotTarget();
+            if (!reduceMotion) {
+                setWalking(true);
+                clearTimeout(walkStopTimer);
+                walkStopTimer = setTimeout(() => setWalking(false), 220);
+            }
+        }
+
+        updateMascotTarget();
+        currentX = targetX;
+        currentY = targetY;
+        renderMascot();
+        requestAnimationFrame(mascotLoop);
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', updateMascotTarget);
+
+        if (!reduceMotion) {
+            window.addEventListener('mousemove', (e) => {
+                const rect = lxMascot.getBoundingClientRect();
+                const cx = rect.left + rect.width / 2;
+                const cy = rect.top + rect.height / 2;
+                const dx = e.clientX - cx;
+                const dy = e.clientY - cy;
+                const angle = Math.atan2(dy, dx);
+                const dist = Math.min(3, Math.hypot(dx, dy) / 45);
+                const px = Math.cos(angle) * dist;
+                const py = Math.sin(angle) * dist;
+                pupilL.setAttribute('cx', 33 + px);
+                pupilL.setAttribute('cy', 46 + py);
+                pupilR.setAttribute('cx', 57 + px);
+                pupilR.setAttribute('cy', 46 + py);
+            });
+
+            function mascotBlink() {
+                [eyeL, eyeR].forEach((eye) => {
+                    eye.style.transformOrigin = 'center';
+                    eye.style.transition = 'transform 0.08s';
+                    eye.style.transform = 'scaleY(0.1)';
+                });
+                setTimeout(() => {
+                    [eyeL, eyeR].forEach((eye) => { eye.style.transform = 'scaleY(1)'; });
+                }, 120);
+            }
+            setInterval(mascotBlink, 4200 + Math.random() * 1500);
+        }
+
+        lxMascot.addEventListener('click', () => {
+            if (reduceMotion) return;
+            lxMascot.animate(
+                [
+                    { transform: `translate3d(${currentX}px, ${currentY}px, 0) scale(1) rotate(0deg)` },
+                    { transform: `translate3d(${currentX}px, ${currentY}px, 0) scale(1.15) rotate(-8deg)` },
+                    { transform: `translate3d(${currentX}px, ${currentY}px, 0) scale(1) rotate(0deg)` }
+                ],
+                { duration: 350, easing: 'ease-out' }
+            );
         });
     }
 </script>
