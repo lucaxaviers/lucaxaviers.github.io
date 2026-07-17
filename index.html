@@ -526,6 +526,10 @@
             58%      { transform: translate(30px, -94%); }
             85%      { transform: translate(-6px, -94%); }
         }
+        .marquee-runner.tired svg,
+        .marquee-runner.tired g {
+            animation-play-state: paused !important;
+        }
         @media (max-width: 640px) { .marquee-runner { left: 72%; } }
         .marquee-track { display: flex; width: max-content; animation: marqueeScroll 28s linear infinite; }
         .marquee-track span {
@@ -1545,6 +1549,22 @@
                 { duration: 350, easing: 'ease-out' }
             );
         });
+    }
+
+    /* ==========================================================================
+       MARQUEE RUNNER (Efeito de cansaço na esteira)
+       ========================================================================== */
+    const marqueeRunner = document.querySelector('.marquee-runner');
+    if (marqueeRunner && !reduceMotion) {
+        function syncTired() {
+            marqueeRunner.classList.remove('tired');
+            // O ciclo total é 3.2s. Aos 45% (1440ms) ele para de correr e é arrastado
+            setTimeout(() => {
+                marqueeRunner.classList.add('tired');
+            }, 1440);
+        }
+        marqueeRunner.addEventListener('animationiteration', syncTired);
+        syncTired();
     }
 </script>
 
