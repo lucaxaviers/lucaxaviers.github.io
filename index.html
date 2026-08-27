@@ -124,8 +124,46 @@
 
         .section-title { font-size: 26px; font-weight: 800; margin-bottom: 28px; }
 
-        .stack-list { display: flex; flex-wrap: wrap; gap: 10px; }
-        .stack-tag { background: var(--panel); border: 1px solid var(--line); padding: 8px 14px; border-radius: 8px; font-size: 13px; color: var(--ink-muted); }
+        .stack-category { margin-bottom: 28px; }
+        .stack-category:last-child { margin-bottom: 0; }
+        .stack-category-title { font-family: 'Unbounded', sans-serif; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-muted); margin-bottom: 14px; }
+        .stack-list { display: flex; flex-wrap: wrap; gap: 14px; }
+        .stack-item {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .stack-item img {
+            width: 48px;
+            height: 48px;
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .stack-item:hover img,
+        .stack-item:focus-visible img {
+            transform: translateY(-6px);
+        }
+        .stack-item-name {
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translate(-50%, -100%);
+            background: var(--panel);
+            border: 1px solid var(--line);
+            color: var(--ink);
+            font-size: 11px;
+            padding: 4px 9px;
+            border-radius: 6px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+        .stack-item:hover .stack-item-name,
+        .stack-item:focus-visible .stack-item-name {
+            opacity: 1;
+            transform: translate(-50%, -110%);
+        }
 
         .cv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
         .cv-item { background: var(--panel); border: 1px solid var(--line); border-left: 3px solid var(--accent); padding: 20px; border-radius: 6px; }
@@ -201,28 +239,50 @@
 
 <section id="stack">
     <h2 class="section-title">Stack Tecnológica</h2>
-    <div class="stack-list">
-        <span class="stack-tag">TypeScript</span>
-        <span class="stack-tag">JavaScript</span>
-        <span class="stack-tag">React</span>
-        <span class="stack-tag">Next.js</span>
-        <span class="stack-tag">HTML5</span>
-        <span class="stack-tag">CSS3</span>
-        <span class="stack-tag">PHP</span>
-        <span class="stack-tag">Python</span>
-        <span class="stack-tag">MySQL</span>
-        <span class="stack-tag">C++</span>
-        <span class="stack-tag">C</span>
-        <span class="stack-tag">Dart</span>
-        <span class="stack-tag">Flutter</span>
-        <span class="stack-tag">Firebase</span>
-        <span class="stack-tag">Node.js</span>
-        <span class="stack-tag">Supabase</span>
-        <span class="stack-tag">Git</span>
-        <span class="stack-tag">GitHub</span>
-        <span class="stack-tag">Figma</span>
-        <span class="stack-tag">Vercel</span>
-        <span class="stack-tag">VS Code</span>
+
+    <div class="stack-category">
+        <div class="stack-category-title">Linguagens</div>
+        <div class="stack-list">
+            <span class="stack-item" tabindex="0"><img src="https://skillicons.dev/icons?i=ts" alt="TypeScript" loading="lazy"><span class="stack-item-name">TypeScript</span></span>
+            <span class="stack-item" tabindex="0"><img src="https://skillicons.dev/icons?i=js" alt="JavaScript" loading="lazy"><span class="stack-item-name">JavaScript</span></span>
+            <span class="stack-item" tabindex="0"><img src="https://skillicons.dev/icons?i=python" alt="Python" loading="lazy"><span class="stack-item-name">Python</span></span>
+            <span class="stack-item" tabindex="0"><img src="https://skillicons.dev/icons?i=c" alt="C" loading="lazy"><span class="stack-item-name">C</span></span>
+            <span class="stack-item" tabindex="0"><img src="https://skillicons.dev/icons?i=cpp" alt="C++" loading="lazy"><span class="stack-item-name">C++</span></span>
+            <span class="stack-item" tabindex="0"><img src="https://skillicons.dev/icons?i=dart" alt="Dart" loading="lazy"><span class="stack-item-name">Dart</span></span>
+            <span class="stack-item" tabindex="0"><img src="https://skillicons.dev/icons?i=html" alt="HTML5" loading="lazy"><span class="stack-item-name">HTML5</span></span>
+            <span class="stack-item" tabindex="0"><img src="https://skillicons.dev/icons?i=css" alt="CSS3" loading="lazy"><span class="stack-item-name">CSS3</span></span>
+            <span class="stack-item" tabindex="0"><img src="https://skillicons.dev/icons?i=php" alt="PHP" loading="lazy"><span class="stack-item-name">PHP</span></span>
+        </div>
+    </div>
+
+    <div class="stack-category">
+        <div class="stack-category-title">Frameworks & Bibliotecas</div>
+        <div class="stack-list">
+            <span class="stack-item" tabindex="0"><img src="https://skillicons.dev/icons?i=react" alt="React" loading="lazy"><span class="stack-item-name">React</span></span>
+            <span class="stack-item" tabindex="0"><img src="https://skillicons.dev/icons?i=nextjs" alt="Next.js" loading="lazy"><span class="stack-item-name">Next.js</span></span>
+            <span class="stack-item" tabindex="0"><img src="https://skillicons.dev/icons?i=flutter" alt="Flutter" loading="lazy"><span class="stack-item-name">Flutter</span></span>
+            <span class="stack-item" tabindex="0"><img src="https://skillicons.dev/icons?i=nodejs" alt="Node.js" loading="lazy"><span class="stack-item-name">Node.js</span></span>
+        </div>
+    </div>
+
+    <div class="stack-category">
+        <div class="stack-category-title">Banco de Dados & Backend</div>
+        <div class="stack-list">
+            <span class="stack-item" tabindex="0"><img src="https://skillicons.dev/icons?i=mysql" alt="MySQL" loading="lazy"><span class="stack-item-name">MySQL</span></span>
+            <span class="stack-item" tabindex="0"><img src="https://skillicons.dev/icons?i=firebase" alt="Firebase" loading="lazy"><span class="stack-item-name">Firebase</span></span>
+            <span class="stack-item" tabindex="0"><img src="https://skillicons.dev/icons?i=supabase" alt="Supabase" loading="lazy"><span class="stack-item-name">Supabase</span></span>
+        </div>
+    </div>
+
+    <div class="stack-category">
+        <div class="stack-category-title">Ferramentas</div>
+        <div class="stack-list">
+            <span class="stack-item" tabindex="0"><img src="https://skillicons.dev/icons?i=git" alt="Git" loading="lazy"><span class="stack-item-name">Git</span></span>
+            <span class="stack-item" tabindex="0"><img src="https://skillicons.dev/icons?i=github" alt="GitHub" loading="lazy"><span class="stack-item-name">GitHub</span></span>
+            <span class="stack-item" tabindex="0"><img src="https://skillicons.dev/icons?i=vscode" alt="VS Code" loading="lazy"><span class="stack-item-name">VS Code</span></span>
+            <span class="stack-item" tabindex="0"><img src="https://skillicons.dev/icons?i=figma" alt="Figma" loading="lazy"><span class="stack-item-name">Figma</span></span>
+            <span class="stack-item" tabindex="0"><img src="https://skillicons.dev/icons?i=vercel" alt="Vercel" loading="lazy"><span class="stack-item-name">Vercel</span></span>
+        </div>
     </div>
 </section>
 
