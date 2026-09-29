@@ -179,8 +179,8 @@
         .reveal.is-visible { opacity: 1; transform: translateY(0); will-change: auto; }
         @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
 
-        /* ============ Floating pill nav ============ */
-        .nav-shell { position: sticky; top: 10px; z-index: 100; display: flex; justify-content: center; padding: 0 10px; }
+        /* ============ Dynamic Island Floating Pill Nav ============ */
+        .nav-shell { position: sticky; top: 12px; z-index: 100; display: flex; justify-content: center; padding: 0 10px; perspective: 1000px; }
         nav {
             display: flex;
             align-items: center;
@@ -188,22 +188,53 @@
             gap: 8px;
             width: 100%;
             max-width: 720px;
-            padding: 6px 6px 6px 14px;
-            background: color-mix(in srgb, var(--paper) 82%, transparent);
-            backdrop-filter: saturate(180%) blur(16px);
-            -webkit-backdrop-filter: saturate(180%) blur(16px);
+            padding: 5px 6px 5px 12px;
+            background: color-mix(in srgb, var(--paper) 80%, transparent);
+            backdrop-filter: saturate(190%) blur(20px);
+            -webkit-backdrop-filter: saturate(190%) blur(20px);
             border: 1px solid var(--hairline);
             border-radius: 9999px;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-            -webkit-mask-image: linear-gradient(to right, transparent 0, black 6px, black calc(100% - 6px), transparent 100%);
-            mask-image: linear-gradient(to right, transparent 0, black 6px, black calc(100% - 6px), transparent 100%);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06), inset 0 1px 1px rgba(255,255,255,0.4);
+            transform-origin: center top;
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+                        box-shadow 0.4s ease,
+                        background 0.3s ease,
+                        border-color 0.3s ease;
+        }
+        :root[data-theme="dark"] nav {
+            background: rgba(18, 18, 18, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.16);
+        }
+        nav.nav-scrolled {
+            transform: translateY(-2px) scale(0.985);
+            background: color-mix(in srgb, var(--paper) 92%, transparent);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.12), inset 0 1px 1px rgba(255,255,255,0.5);
+        }
+        :root[data-theme="dark"] nav.nav-scrolled {
+            background: rgba(14, 14, 14, 0.88);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.7), inset 0 1px 1px rgba(255,255,255,0.2);
+        }
+        @keyframes islandPop {
+            0% { transform: scale(1); }
+            35% { transform: scale(0.965, 0.95); }
+            70% { transform: scale(1.025, 1.02); }
+            100% { transform: scale(1); }
+        }
+        nav.island-pop {
+            animation: islandPop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         .nav-logo {
             font-size: 13px; font-weight: 700; letter-spacing: -0.02em;
             color: var(--ink); text-decoration: none;
-            display: flex; align-items: center; gap: 6px;
+            display: flex; align-items: center; gap: 8px;
             flex-shrink: 0;
+            padding: 2px 4px;
+            border-radius: 9999px;
+            transition: opacity var(--dur-fast) var(--ease-out), transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
+        .nav-logo:hover { opacity: 0.9; transform: scale(1.02); }
+        .nav-logo:active { transform: scale(0.95); }
         .nav-logo .logo-mark {
             display: inline-flex;
             width: 24px; height: 24px;
@@ -212,15 +243,49 @@
             transition: transform var(--dur-mid) var(--ease-spring);
         }
         .nav-logo .logo-mark svg { width: 100%; height: 100%; }
-        .nav-logo:hover .logo-mark { transform: rotate(-6deg) scale(1.06); }
+        .nav-logo:hover .logo-mark { transform: rotate(-8deg) scale(1.1); }
         .nav-logo .label { transition: color var(--dur-fast) var(--ease-out); }
+
+        /* Liquid Track & Floating Indicator */
+        .nav-links-track {
+            position: relative;
+            display: flex;
+            align-items: center;
+            flex: 0 1 auto;
+            min-width: 0;
+        }
+        .nav-indicator {
+            position: absolute;
+            left: 0;
+            top: 0;
+            pointer-events: none;
+            z-index: 1;
+            border-radius: 9999px;
+            opacity: 0;
+            will-change: transform, width, height;
+            background: var(--cream);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06), inset 0 0 0 1px var(--hairline-strong);
+            transition: transform 0.42s cubic-bezier(0.34, 1.56, 0.64, 1),
+                        width 0.38s cubic-bezier(0.34, 1.56, 0.64, 1),
+                        height 0.25s ease,
+                        opacity 0.25s ease;
+        }
+        :root[data-theme="dark"] .nav-indicator {
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45),
+                        inset 0 1px 1px rgba(255, 255, 255, 0.25),
+                        inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
         .nav-links {
-            display: flex; gap: 2px; list-style: none;
+            display: flex; gap: 4px; list-style: none;
             overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none;
             scroll-snap-type: x proximity;
             -webkit-overflow-scrolling: touch;
-            flex: 0 1 auto;
-            min-width: 0;
+            align-items: center;
+            position: relative;
+            z-index: 2;
         }
         .nav-links::-webkit-scrollbar { display: none; }
         .nav-links li { flex-shrink: 0; scroll-snap-align: start; }
@@ -229,17 +294,21 @@
             text-decoration: none;
             font-size: 13px;
             font-weight: 500;
+            line-height: 1;
             color: var(--fog);
-            padding: 8px 12px;
+            padding: 7px 13px;
             display: inline-flex;
             align-items: center;
-            gap: 4px;
+            gap: 5px;
             border-radius: 9999px;
             white-space: nowrap;
-            transition: color 0.18s ease, background 0.18s ease, transform 0.12s ease;
+            background: transparent !important;
+            box-shadow: none !important;
+            transition: color 0.22s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        .nav-links a .nav-icon { width: 14px; height: 14px; opacity: 0.6; }
-        .nav-links a.is-active .nav-icon { opacity: 1; }
+        .nav-links a .nav-icon { width: 14px; height: 14px; opacity: 0.6; transition: opacity 0.2s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .nav-links a.is-active .nav-icon { opacity: 1; transform: scale(1.08); }
+        .nav-links a:hover .nav-icon { opacity: 0.9; transform: scale(1.05); }
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -248,16 +317,22 @@
             transform: translateY(-50%);
             height: var(--tap);
         }
-        .nav-links a.is-active { color: var(--ink); background: var(--cream); }
-        .nav-links a:hover { color: var(--ink); background: var(--cream); }
-        .nav-links a:active { transform: scale(0.95); }
+        .nav-links a:hover {
+            color: var(--ink);
+            transform: translateY(-1px);
+        }
+        .nav-links a.is-active {
+            color: var(--ink);
+            font-weight: 600;
+        }
+        .nav-links a:active { transform: scale(0.94); }
         .nav-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
         .theme-toggle {
             position: relative;
             background: transparent; border: 1px solid var(--hairline); color: var(--ink);
-            cursor: pointer; width: 36px; height: 36px; border-radius: 9999px;
+            cursor: pointer; width: 32px; height: 32px; border-radius: 9999px;
             display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
-            transition: background 0.18s ease, transform 0.12s ease, border-color 0.18s ease;
+            transition: background 0.25s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.25s ease;
         }
         .theme-toggle::after {
             content: '';
@@ -266,10 +341,11 @@
             transform: translate(-50%, -50%);
             width: var(--tap); height: var(--tap);
         }
-        .theme-toggle:hover { background: var(--cream); border-color: var(--hairline-strong); }
+        .theme-toggle:hover { background: var(--cream); border-color: var(--hairline-strong); transform: scale(1.08); }
+        :root[data-theme="dark"] .theme-toggle:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.2); }
         .theme-toggle:active { transform: scale(0.9); }
-        .theme-toggle svg { width: 15px; height: 15px; transition: transform 0.4s cubic-bezier(0.34, 1.4, 0.64, 1); }
-        .theme-toggle:hover svg { transform: rotate(30deg); }
+        .theme-toggle svg { width: 14px; height: 14px; transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .theme-toggle:hover svg { transform: rotate(45deg); }
         .theme-toggle .icon-sun { display: none; }
         .theme-toggle .icon-moon { display: block; }
         :root[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
@@ -829,8 +905,8 @@
 </button>
 
 <div class="nav-shell">
-    <nav>
-        <a class="nav-logo" href="#" aria-label="Lucas Xavier — início">
+    <nav id="main-nav">
+        <a class="nav-logo" href="#" aria-label="Lucas Xavier - início">
             <span class="logo-mark" aria-hidden="true">
                 <svg viewBox="0 0 32 32" fill="none">
                     <rect x="0.75" y="0.75" width="30.5" height="30.5" rx="9" stroke="currentColor" stroke-width="1.5"/>
@@ -840,12 +916,15 @@
             </span>
             <span class="label">Lucas Xavier</span>
         </a>
-        <ul class="nav-links">
-            <li><a href="#sobre" aria-label="Ir para Formação"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg> Formação</a></li>
-            <li><a href="#certificacoes" aria-label="Ir para Certificados"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Certificados</a></li>
-            <li><a href="#projetos" aria-label="Ir para Projetos"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg> Projetos</a></li>
-            <li><a href="#contato" aria-label="Ir para Contato"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Contato</a></li>
-        </ul>
+        <div class="nav-links-track" id="navTrack">
+            <div class="nav-indicator" id="navIndicator" aria-hidden="true"></div>
+            <ul class="nav-links" id="navLinksList">
+                <li><a href="#sobre" aria-label="Ir para Formação"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> Formação</a></li>
+                <li><a href="#certificacoes" aria-label="Ir para Certificados"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Certificados</a></li>
+                <li><a href="#projetos" aria-label="Ir para Projetos"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> Projetos</a></li>
+                <li><a href="#contato" aria-label="Ir para Contato"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Contato</a></li>
+            </ul>
+        </div>
         <div class="nav-right">
             <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema claro/escuro">
                 <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
@@ -1153,6 +1232,112 @@
     } else {
         document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('is-visible'); });
     }
+
+    // ============ Dynamic Island Fluid Nav Indicator ============
+    (function () {
+        var nav = document.getElementById('main-nav');
+        var indicator = document.getElementById('navIndicator');
+        var track = document.getElementById('navTrack');
+        var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav-links a'));
+        if (!nav || !indicator || !track || !navLinks.length) return;
+
+        var currentTarget = null;
+        var lastX = null;
+        var squishTimeout = null;
+
+        function moveIndicatorTo(el, instant) {
+            if (!el) {
+                indicator.style.opacity = '0';
+                return;
+            }
+            var trackRect = track.getBoundingClientRect();
+            var elRect = el.getBoundingClientRect();
+            var left = elRect.left - trackRect.left;
+            var top = elRect.top - trackRect.top;
+            var width = elRect.width;
+            var height = elRect.height;
+
+            if (instant || lastX === null) {
+                indicator.style.transition = 'opacity 0.25s ease';
+                indicator.style.transform = 'translate3d(' + left + 'px, ' + top + 'px, 0) scaleX(1)';
+                lastX = left;
+            } else {
+                var delta = left - lastX;
+                var squish = Math.min(Math.max(Math.abs(delta) * 0.0018, 0), 0.12);
+                lastX = left;
+
+                indicator.style.transition = 'transform 0.42s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.38s cubic-bezier(0.34, 1.56, 0.64, 1), height 0.25s ease, opacity 0.25s ease';
+                indicator.style.transform = 'translate3d(' + left + 'px, ' + top + 'px, 0) scaleX(' + (1 + squish) + ')';
+
+                clearTimeout(squishTimeout);
+                squishTimeout = setTimeout(function () {
+                    indicator.style.transform = 'translate3d(' + left + 'px, ' + top + 'px, 0) scaleX(1)';
+                }, 160);
+            }
+
+            indicator.style.width = width + 'px';
+            indicator.style.height = height + 'px';
+            indicator.style.opacity = '1';
+        }
+
+        function getActiveLink() {
+            return document.querySelector('.nav-links a.is-active') || navLinks[0];
+        }
+
+        navLinks.forEach(function (link) {
+            link.addEventListener('mouseenter', function () {
+                moveIndicatorTo(link, false);
+            });
+            link.addEventListener('click', function () {
+                nav.classList.remove('island-pop');
+                void nav.offsetWidth;
+                nav.classList.add('island-pop');
+                currentTarget = link;
+                moveIndicatorTo(link, false);
+            });
+        });
+
+        track.addEventListener('mouseleave', function () {
+            moveIndicatorTo(currentTarget || getActiveLink(), false);
+        });
+
+        var spyObserver = new MutationObserver(function () {
+            var active = getActiveLink();
+            if (active && active !== currentTarget) {
+                currentTarget = active;
+                moveIndicatorTo(active, false);
+            }
+        });
+        navLinks.forEach(function (link) {
+            spyObserver.observe(link, { attributes: true, attributeFilter: ['class'] });
+        });
+
+        window.addEventListener('resize', function () {
+            moveIndicatorTo(currentTarget || getActiveLink(), true);
+        });
+
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 40) {
+                nav.classList.add('nav-scrolled');
+            } else {
+                nav.classList.remove('nav-scrolled');
+            }
+        }, { passive: true });
+
+        var themeToggle = document.getElementById('themeToggle');
+        if (themeToggle) {
+            themeToggle.addEventListener('click', function () {
+                nav.classList.remove('island-pop');
+                void nav.offsetWidth;
+                nav.classList.add('island-pop');
+            });
+        }
+
+        setTimeout(function () {
+            currentTarget = getActiveLink();
+            moveIndicatorTo(currentTarget, true);
+        }, 80);
+    })();
 
     // ============ Botão "Voltar ao topo" ============
     var backBtn = document.getElementById('back-to-top');
