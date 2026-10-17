@@ -10,10 +10,12 @@ import Faq from "@/components/Faq";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
+import ScrollObserver from "@/components/ScrollObserver";
 
 export default function Home() {
   return (
     <>
+      <ScrollObserver />
       <Navbar />
       <main id="conteudo-principal">
         <Hero />

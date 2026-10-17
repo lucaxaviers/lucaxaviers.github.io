@@ -4,7 +4,7 @@ export default function RealProjects() {
   const [featuredProject, ...academicProjects] = REAL_PROJECTS;
 
   return (
-    <section id="projetos">
+    <section id="projetos" className="reveal-on-scroll">
       <div className="w">
         <h2>Trabalho que já está no ar.</h2>
         <p className="sub">

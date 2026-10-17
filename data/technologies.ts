@@ -65,15 +65,93 @@ export const MAIN_TECHNOLOGIES: TechItem[] = [
   },
 ];
 
-export const OTHER_TECHNOLOGIES = [
-  { name: "JavaScript", color: "#F7DF1E" },
-  { name: "Python", color: "#3776AB" },
-  { name: "C", color: "#A8B9CC" },
-  { name: "Dart", color: "#0175C2" },
-  { name: "HTML", color: "#E34F26" },
-  { name: "CSS", color: "#1572B6" },
-  { name: "Express", color: "#000000" },
-  { name: "MySQL", color: "#4479A1" },
-  { name: "Power BI", color: "#F2C811" },
-  { name: "Excel", color: "#217346" },
+export interface SecondaryTechCategory {
+  domain: string;
+  summary: string;
+  skills: {
+    name: string;
+    whatIs: string;
+    lucasConnection: string;
+    color: string;
+  }[];
+}
+
+export const SECONDARY_TECH_GROUPS: SecondaryTechCategory[] = [
+  {
+    domain: "Engenharia & Automação",
+    summary: "Base teórica e programação sólida aprendida na faculdade de Engenharia de Software",
+    skills: [
+      {
+        name: "C",
+        whatIs: "Linguagem compilada de baixo nível",
+        lucasConnection: "Base fundamental de algoritmos, ponteiros e gestão de memória na faculdade. Domínio de como o computador funciona.",
+        color: "#A8B9CC",
+      },
+      {
+        name: "Python",
+        whatIs: "Linguagem de alto nível para scripts e automações",
+        lucasConnection: "Automação de rotinas, tratamento de dados de clientes e prototipagem rápida de regras de negócio.",
+        color: "#3776AB",
+      },
+      {
+        name: "Dart",
+        whatIs: "Linguagem tipada criada pela Google",
+        lucasConnection: "Utilizada junto ao Flutter para desenvolver aplicativos móveis nativos para iOS e Android.",
+        color: "#0175C2",
+      },
+    ],
+  },
+  {
+    domain: "Web Core & Servidor",
+    summary: "Tecnologias fundamentais da web aplicadas na prática para sites rápidos e seguros",
+    skills: [
+      {
+        name: "HTML5 & CSS3",
+        whatIs: "Estrutura semântica e estilização pura",
+        lucasConnection: "Domínio de CSS puro e acessibilidade semântica, criando páginas leves sem depender de bibliotecas pesadas.",
+        color: "#E34F26",
+      },
+      {
+        name: "JavaScript",
+        whatIs: "A espinha dorsal dinâmica dos navegadores",
+        lucasConnection: "Interatividade nativa, animações leves e integração de chamadas para WhatsApp e formulários.",
+        color: "#F7DF1E",
+      },
+      {
+        name: "Express",
+        whatIs: "Framework minimalista para Node.js",
+        lucasConnection: "Criação de rotas de API ágeis e seguras para comunicação entre formulários e servidores.",
+        color: "#000000",
+      },
+      {
+        name: "MySQL",
+        whatIs: "Banco de dados relacional padrão da indústria",
+        lucasConnection: "Modelagem e consulta de dados relacionais estruturados em projetos acadêmicos e profissionais.",
+        color: "#4479A1",
+      },
+    ],
+  },
+  {
+    domain: "Dados & Gestão de Negócios",
+    summary: "Capacidade analítica para entender o impacto real do site nas vendas e processos do cliente",
+    skills: [
+      {
+        name: "Power BI",
+        whatIs: "Plataforma de inteligência e dashboards",
+        lucasConnection: "Visualização clara de dados e métricas para ajudar clientes locais a entenderem o fluxo de conversão.",
+        color: "#F2C811",
+      },
+      {
+        name: "Excel",
+        whatIs: "Planilhas analíticas e modelagem de processos",
+        lucasConnection: "Organização estruturada de informações de negócios, inventários e orçamentos comerciais.",
+        color: "#217346",
+      },
+    ],
+  },
 ];
+
+export const OTHER_TECHNOLOGIES = SECONDARY_TECH_GROUPS.flatMap((g) =>
+  g.skills.map((s) => ({ name: s.name, color: s.color }))
+);
+

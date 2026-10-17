@@ -23,19 +23,24 @@ export default function Faq() {
   ];
 
   return (
-    <section id="duvidas" className="faq-section">
-      <div className="w">
-        <div className="section-header-tag">Perguntas Frequentes</div>
-        <h2>Tudo explicado, sem letras miúdas.</h2>
-        <p className="sub">
-          Dúvidas comuns de donos de negócios antes de fecharem o site. Se precisar de algo específico, é só me chamar no WhatsApp.
-        </p>
+    <section id="duvidas" className="faq-section reveal-on-scroll">
+      <div className="w faq-w-centered">
+        <div className="faq-header-centered">
+          <div className="section-header-tag">Dúvidas Frequentes</div>
+          <h2>Tudo explicado, sem letras miúdas.</h2>
+          <p className="sub">
+            Respostas diretas para as dúvidas mais comuns de donos de negócios antes de começarmos o projeto.
+          </p>
+        </div>
 
-        <div className="faq-grid">
+        <div className="faq-grid faq-grid-differentiated">
           {faqs.map((item, idx) => (
-            <details key={idx} className="faq-item">
+            <details key={idx} className="faq-item faq-item-differentiated">
               <summary className="faq-question">
-                <span>{item.q}</span>
+                <div className="faq-question-main">
+                  <span className="faq-num">0{idx + 1}</span>
+                  <span className="faq-title">{item.q}</span>
+                </div>
                 <span className="faq-icon" aria-hidden="true">+</span>
               </summary>
               <div className="faq-answer">

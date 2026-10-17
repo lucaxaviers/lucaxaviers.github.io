@@ -34,7 +34,7 @@ export default function Demos() {
   ];
 
   return (
-    <section id="exemplos">
+    <section id="exemplos" className="reveal-on-scroll">
       <div className="w">
         <h2>Veja como o seu site pode ficar.</h2>
         <p className="sub">

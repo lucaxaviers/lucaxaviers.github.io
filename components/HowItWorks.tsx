@@ -24,7 +24,7 @@ export default function HowItWorks() {
   ];
 
   return (
-    <section id="como-funciona" className="how-section">
+    <section id="como-funciona" className="how-section reveal-on-scroll">
       <div className="w">
         <div className="section-header-tag">Processo Transparente</div>
         <h2>Como funciona do primeiro papo ao site no ar.</h2>

@@ -2,7 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { getWhatsAppUrl } from "@/lib/whatsapp";
+import {
+  getWhatsAppUrl,
+  WHATSAPP_PHONE_DISPLAY,
+  INSTAGRAM_HANDLE,
+  INSTAGRAM_URL,
+} from "@/lib/whatsapp";
 
 export default function Hero() {
   const whatsappUrl = getWhatsAppUrl(
@@ -14,7 +19,7 @@ export default function Hero() {
       <div className="w">
         <div className="hero-split">
           {/* Left Column: Monumental Value Proposition */}
-          <div className="hero-left">
+          <div className="hero-left hero-fade-in">
             <div className="hero-status-pill">
               <span className="live-pulse-dot" />
               <span>Aceitando novos projetos em Paulínia e região</span>
@@ -73,7 +78,7 @@ export default function Hero() {
           </div>
 
           {/* Right Column: Studio Card & Physical Spec Sheet */}
-          <div className="hero-right">
+          <div className="hero-right hero-fade-in-delayed">
             <div className="studio-card">
               <div className="studio-card-top">
                 <div className="studio-tag">Estúdio Web Independente</div>
@@ -84,7 +89,7 @@ export default function Hero() {
                 <div className="studio-photo-wrap">
                   <Image
                     src="/img/lucas_profile.webp"
-                    alt="Foto de Lucas Xavier, estudante de engenharia de software e desenvolvedor de sites"
+                    alt="Foto de Lucas Xavier, estudante de engenharia de software e desenvolvedor de sites em Paulínia, SP"
                     width={112}
                     height={112}
                     priority
@@ -101,8 +106,32 @@ export default function Hero() {
 
               <div className="studio-specs">
                 <div className="spec-item">
-                  <span className="spec-label">Especialidade</span>
-                  <span className="spec-value">Sites para dentistas, advogados e comércios locais</span>
+                  <span className="spec-label">WhatsApp</span>
+                  <a
+                    href={whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="spec-value font-mono spec-link spec-link-flex"
+                  >
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="spec-icon">
+                      <path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.551 4.102 1.517 5.831L0 24l6.335-1.489C8.016 23.473 9.948 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.848 0-3.57-.498-5.056-1.365l-.362-.213-3.76.884.903-3.663-.233-.377C2.57 15.77 2 13.948 2 12 2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z" />
+                    </svg>
+                    <span>{WHATSAPP_PHONE_DISPLAY}</span>
+                  </a>
+                </div>
+                <div className="spec-item">
+                  <span className="spec-label">Instagram</span>
+                  <a
+                    href={INSTAGRAM_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="spec-value spec-link spec-link-flex"
+                  >
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="spec-icon">
+                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                    </svg>
+                    <span>{INSTAGRAM_HANDLE}</span>
+                  </a>
                 </div>
                 <div className="spec-item">
                   <span className="spec-label">Stack de Produção</span>
@@ -113,8 +142,8 @@ export default function Hero() {
                   <span className="spec-value font-mono">lucas.xavier.pln@gmail.com</span>
                 </div>
                 <div className="spec-item spec-highlight">
-                  <span className="spec-label">Prazo de Entrega</span>
-                  <span className="spec-value">De 3 a 7 dias úteis com link de teste</span>
+                  <span className="spec-label">Prazo Médio</span>
+                  <span className="spec-value">De 3 a 7 dias com link de teste</span>
                 </div>
               </div>
             </div>
