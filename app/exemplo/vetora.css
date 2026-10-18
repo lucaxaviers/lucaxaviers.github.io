@@ -1,0 +1,1088 @@
+/* ==========================================================
+   VETORA - CLINICA VETERINARIA
+   Padroes de Design: Apple HIG, Vercel e Linear
+   Foco: Mobile-First, Alta Performance e Acessibilidade Intergeracional
+   ========================================================== */
+
+.vetora-page {
+  /* Tokens de Cor Institucionais */
+  --vet-teal: #0E3B3E;             /* Primaria: titulos, marcas, acentos nobres */
+  --vet-teal-dark: #082426;        /* Fundo escuro institucional */
+  --vet-sand: #F6F1E7;             /* Fundo base quente e calmo */
+  --vet-sand-subtle: #F2ECE0;      /* Secao alternada */
+  --vet-card: #FFFFFF;             /* Cartao branco puro */
+  --vet-terracotta: #C85C3D;       /* Botao de acao principal de alto contraste */
+  --vet-terracotta-hover: #B24F33; /* Estado ativo */
+  --vet-olive: #5B6F52;            /* Apoios, icones, tags semanticas (contraste > 4.5:1) */
+  --vet-olive-subtle: #E8EFE5;     /* Fundo suave de destaque */
+  --vet-dark: #0F172A;             /* Texto principal (quase preto, contraste maximo) */
+  --vet-text-muted: #334155;       /* Texto secundario de alta legibilidade (Slate 700) */
+  --vet-border: rgba(14, 59, 62, 0.12);        /* Borda fina 1px */
+  --vet-border-strong: rgba(14, 59, 62, 0.22); /* Borda de foco/interacao */
+
+  /* Sombras Direcionadas Fisicas */
+  --vet-shadow-sm: 0 1px 3px rgba(14, 59, 62, 0.05);
+  --vet-shadow-md: 0 8px 24px -4px rgba(14, 59, 62, 0.08), 0 2px 6px -1px rgba(14, 59, 62, 0.04);
+  --vet-shadow-lg: 0 20px 40px -12px rgba(14, 59, 62, 0.14);
+
+  background-color: var(--vet-sand);
+  color: var(--vet-dark);
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+.vetora-page * {
+  box-sizing: border-box;
+}
+
+/* Tipografia */
+.vet-serif {
+  font-family: var(--font-serif), Georgia, serif;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+/* Container de Leitura */
+.vet-wrap {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ==========================================================
+   BARRA SUPERIOR DE AVISO (PORTFOLIO CONTEXT)
+   ========================================================== */
+.vet-top-notice {
+  background: var(--vet-teal-dark);
+  color: #E2E8F0;
+  font-size: 0.82rem;
+  padding: 10px 16px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-weight: 500;
+}
+
+.vet-top-notice a {
+  color: #FFFFFF;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.vet-top-notice a:hover {
+  opacity: 0.85;
+}
+
+/* ==========================================================
+   HEADER / NAVBAR (DESKTOP E TABLET)
+   ========================================================== */
+.vet-header {
+  background: rgba(246, 241, 231, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid var(--vet-border);
+  width: 100%;
+}
+
+.vet-navbar {
+  display: flex !important;
+  position: static !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  transform: none !important;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+
+.vet-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--vet-teal);
+  min-height: 48px;
+}
+
+.vet-brand-symbol {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid var(--vet-border);
+  background: #FFFFFF;
+  flex-shrink: 0;
+}
+
+.vet-brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.vet-brand-name {
+  font-size: 1.45rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--vet-teal);
+  line-height: 1;
+}
+
+.vet-brand-category {
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--vet-olive);
+  font-weight: 700;
+  margin-top: 3px;
+}
+
+.vet-menu {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.vet-menu a {
+  text-decoration: none;
+  color: var(--vet-text-muted);
+  font-size: 0.94rem;
+  font-weight: 600;
+  padding: 8px 4px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.15s ease;
+}
+
+.vet-menu a:hover {
+  color: var(--vet-teal);
+}
+
+/* Botao Padrao Apple / Linear */
+.vet-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  min-height: 46px;
+  padding: 0 22px;
+  border-radius: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+  border: 1px solid transparent;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.vet-btn-primary {
+  background: var(--vet-terracotta);
+  color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(200, 92, 61, 0.25);
+}
+
+.vet-btn-primary:hover {
+  background: var(--vet-terracotta-hover);
+  transform: translateY(-1.5px);
+  box-shadow: 0 4px 14px rgba(200, 92, 61, 0.35);
+}
+
+.vet-btn-primary:active {
+  transform: translateY(0);
+}
+
+.vet-btn-secondary {
+  background: #FFFFFF;
+  color: var(--vet-teal);
+  border-color: var(--vet-border-strong);
+  box-shadow: var(--vet-shadow-sm);
+}
+
+.vet-btn-secondary:hover {
+  background: var(--vet-sand-subtle);
+  border-color: var(--vet-teal);
+  transform: translateY(-1.5px);
+}
+
+/* ==========================================================
+   HERO SECTION
+   ========================================================== */
+.vet-hero {
+  padding: 56px 0 72px;
+}
+
+.vet-hero-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.vet-kpi-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: #FFFFFF;
+  border: 1px solid var(--vet-border);
+  border-radius: 6px;
+  font-size: 0.84rem;
+  color: var(--vet-teal);
+  font-weight: 700;
+  margin-bottom: 22px;
+  box-shadow: var(--vet-shadow-sm);
+}
+
+.vet-dot-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--vet-olive);
+  flex-shrink: 0;
+}
+
+.vet-hero-h1 {
+  font-size: clamp(2.6rem, 5.2vw, 4.2rem);
+  font-weight: 700;
+  color: var(--vet-teal);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  margin: 0 0 20px;
+}
+
+.vet-hero-sub {
+  font-size: 1.15rem;
+  color: var(--vet-text-muted);
+  line-height: 1.6;
+  margin: 0 0 32px;
+  max-width: 50ch;
+}
+
+.vet-hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.vet-sla-note {
+  font-size: 0.85rem;
+  color: var(--vet-text-muted);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vet-hero-media {
+  position: relative;
+}
+
+.vet-hero-img-wrap {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--vet-shadow-lg);
+  border: 1px solid var(--vet-border);
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: #E8E0D2;
+}
+
+.vet-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.vet-card-callout {
+  position: absolute;
+  bottom: -18px;
+  left: 24px;
+  background: #FFFFFF;
+  padding: 14px 20px;
+  border-radius: 12px;
+  box-shadow: var(--vet-shadow-md);
+  border: 1px solid var(--vet-border);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.vet-callout-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: var(--vet-olive-subtle);
+  color: var(--vet-olive);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.vet-callout-text b {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--vet-teal);
+  line-height: 1.25;
+}
+
+.vet-callout-text span {
+  font-size: 0.8rem;
+  color: var(--vet-text-muted);
+}
+
+/* ==========================================================
+   METRICS GRID (SIMETRICO 2x2 NO MOBILE / 4 COLUNAS DESKTOP)
+   ========================================================== */
+.vet-metrics-section {
+  background: #FFFFFF;
+  border-top: 1px solid var(--vet-border);
+  border-bottom: 1px solid var(--vet-border);
+  padding: 36px 0;
+}
+
+.vet-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  text-align: center;
+}
+
+.vet-kpi-item {
+  padding: 8px 12px;
+}
+
+.vet-kpi-label {
+  display: block;
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--vet-olive);
+  margin-bottom: 6px;
+}
+
+.vet-kpi-number {
+  font-size: clamp(2rem, 3.8vw, 2.6rem);
+  font-weight: 800;
+  color: var(--vet-teal);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  display: block;
+}
+
+.vet-kpi-desc {
+  font-size: 0.88rem;
+  color: var(--vet-text-muted);
+  font-weight: 500;
+  margin-top: 4px;
+  display: block;
+}
+
+/* ==========================================================
+   DIFERENCIAIS (CARDS DE 1PX LIMPOS)
+   ========================================================== */
+.vet-section {
+  padding: 84px 0;
+}
+
+.vet-section-alt {
+  background: var(--vet-sand-subtle);
+  border-top: 1px solid var(--vet-border);
+  border-bottom: 1px solid var(--vet-border);
+}
+
+.vet-section-header {
+  margin-bottom: 44px;
+}
+
+.vet-section-tag {
+  display: inline-block;
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--vet-olive);
+  margin-bottom: 10px;
+}
+
+.vet-section-h2 {
+  font-size: clamp(2rem, 3.8vw, 3rem);
+  font-weight: 700;
+  color: var(--vet-teal);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin: 0 0 14px;
+}
+
+.vet-section-sub {
+  font-size: 1.1rem;
+  color: var(--vet-text-muted);
+  line-height: 1.6;
+  max-width: 58ch;
+  margin: 0;
+}
+
+.vet-diff-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.vet-diff-card {
+  background: #FFFFFF;
+  border: 1px solid var(--vet-border);
+  border-radius: 12px;
+  padding: 28px;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.vet-diff-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--vet-border-strong);
+  box-shadow: var(--vet-shadow-md);
+}
+
+.vet-diff-order {
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--vet-olive);
+  margin-bottom: 14px;
+}
+
+.vet-diff-card h3 {
+  font-size: 1.25rem;
+  color: var(--vet-teal);
+  font-weight: 700;
+  margin: 0 0 10px;
+}
+
+.vet-diff-card p {
+  color: var(--vet-text-muted);
+  font-size: 0.94rem;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* ==========================================================
+   SERVICOS E VALORES TRANSPARENTES
+   ========================================================== */
+.vet-services-layout {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 36px;
+  align-items: start;
+}
+
+.vet-pricing-table {
+  background: #FFFFFF;
+  border: 1px solid var(--vet-border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--vet-shadow-sm);
+}
+
+.vet-pricing-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 22px;
+  border-bottom: 1px solid var(--vet-border);
+  transition: background 0.15s ease;
+}
+
+.vet-pricing-row:last-child {
+  border-bottom: none;
+}
+
+.vet-pricing-row:hover {
+  background: var(--vet-sand-subtle);
+}
+
+.vet-pricing-title {
+  font-weight: 600;
+  font-size: 0.96rem;
+  color: var(--vet-dark);
+}
+
+.vet-pricing-value {
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--vet-terracotta);
+  letter-spacing: -0.02em;
+  margin-left: 16px;
+  white-space: nowrap;
+}
+
+.vet-badge-included {
+  background: var(--vet-olive-subtle);
+  color: var(--vet-teal);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.vet-services-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.vet-priority-box {
+  background: #FFFFFF;
+  border: 1px solid var(--vet-border);
+  border-radius: 14px;
+  padding: 26px;
+  box-shadow: var(--vet-shadow-sm);
+}
+
+.vet-priority-box h4 {
+  font-size: 1.2rem;
+  color: var(--vet-teal);
+  margin: 0 0 10px;
+  font-weight: 700;
+}
+
+.vet-priority-box p {
+  color: var(--vet-text-muted);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  margin: 0 0 20px;
+}
+
+.vet-sidebar-photo {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--vet-border);
+  position: relative;
+  aspect-ratio: 4 / 3;
+  box-shadow: var(--vet-shadow-sm);
+}
+
+.vet-sidebar-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ==========================================================
+   ESTRUTURA & FOTOS REAIS
+   ========================================================== */
+.vet-structure-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.vet-structure-card {
+  background: #FFFFFF;
+  border: 1px solid var(--vet-border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.18s ease, border-color 0.18s ease;
+}
+
+.vet-structure-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--vet-border-strong);
+}
+
+.vet-structure-photo {
+  aspect-ratio: 4 / 3;
+  position: relative;
+  overflow: hidden;
+  background: #E8E0D2;
+}
+
+.vet-structure-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vet-structure-meta {
+  padding: 14px 16px;
+  border-top: 1px solid var(--vet-border);
+}
+
+.vet-structure-meta b {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--vet-teal);
+  line-height: 1.25;
+}
+
+.vet-structure-meta span {
+  font-size: 0.8rem;
+  color: var(--vet-text-muted);
+  display: block;
+  margin-top: 2px;
+}
+
+/* ==========================================================
+   EQUIPE MEDICA (CARDS PADRONIZADOS)
+   ========================================================== */
+.vet-team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.vet-member-card {
+  background: #FFFFFF;
+  border: 1px solid var(--vet-border);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.18s ease, border-color 0.18s ease;
+}
+
+.vet-member-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--vet-border-strong);
+}
+
+.vet-member-photo {
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  position: relative;
+  background: #E8E0D2;
+}
+
+.vet-member-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.vet-member-content {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.vet-member-reg {
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: var(--vet-olive);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.vet-member-name {
+  font-size: 1.15rem;
+  color: var(--vet-teal);
+  font-weight: 700;
+  margin: 4px 0 0;
+}
+
+.vet-member-specialty {
+  font-size: 0.88rem;
+  color: var(--vet-dark);
+  font-weight: 600;
+  margin-top: 6px;
+  line-height: 1.35;
+}
+
+.vet-member-bio {
+  font-size: 0.85rem;
+  color: var(--vet-text-muted);
+  line-height: 1.5;
+  margin-top: 10px;
+}
+
+/* ==========================================================
+   COMO FUNCIONA (PASSOS OBVIOS)
+   ========================================================== */
+.vet-workflow-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.vet-workflow-step {
+  background: #FFFFFF;
+  border: 1px solid var(--vet-border);
+  border-radius: 12px;
+  padding: 30px 24px;
+}
+
+.vet-step-tag {
+  display: inline-block;
+  background: var(--vet-teal);
+  color: #FFFFFF;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+}
+
+.vet-workflow-step h3 {
+  font-size: 1.25rem;
+  color: var(--vet-teal);
+  margin: 0 0 10px;
+  font-weight: 700;
+}
+
+.vet-workflow-step p {
+  color: var(--vet-text-muted);
+  font-size: 0.94rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ==========================================================
+   DEPOIMENTOS COM FOTO REAL
+   ========================================================== */
+.vet-testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.vet-feedback-card {
+  background: #FFFFFF;
+  border: 1px solid var(--vet-border);
+  border-radius: 14px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.vet-rating-stars {
+  display: flex;
+  gap: 4px;
+  color: var(--vet-terracotta);
+  margin-bottom: 14px;
+}
+
+.vet-feedback-text {
+  font-size: 0.96rem;
+  color: var(--vet-dark);
+  line-height: 1.6;
+  margin: 0 0 20px;
+}
+
+.vet-tutor-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.vet-tutor-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--vet-border);
+  flex-shrink: 0;
+}
+
+.vet-tutor-details b {
+  display: block;
+  font-size: 0.92rem;
+  color: var(--vet-teal);
+  line-height: 1.25;
+}
+
+.vet-tutor-details span {
+  font-size: 0.8rem;
+  color: var(--vet-text-muted);
+}
+
+/* ==========================================================
+   FAQ ACCORDION
+   ========================================================== */
+.vet-faq-wrapper {
+  max-width: 860px;
+  margin: 0 auto;
+  display: grid;
+  gap: 10px;
+}
+
+.vet-faq-row {
+  background: #FFFFFF;
+  border: 1px solid var(--vet-border);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color 0.15s ease;
+}
+
+.vet-faq-row[open] {
+  border-color: var(--vet-teal);
+}
+
+.vet-faq-q {
+  padding: 18px 22px;
+  font-weight: 700;
+  font-size: 1.02rem;
+  color: var(--vet-teal);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+  list-style: none;
+  min-height: 48px;
+}
+
+.vet-faq-q::-webkit-details-marker {
+  display: none;
+}
+
+.vet-faq-toggle {
+  font-size: 1.3rem;
+  color: var(--vet-olive);
+  transition: transform 0.2s ease;
+  line-height: 1;
+}
+
+.vet-faq-row[open] .vet-faq-toggle {
+  transform: rotate(45deg);
+}
+
+.vet-faq-a {
+  padding: 0 22px 20px;
+  color: var(--vet-text-muted);
+  font-size: 0.94rem;
+  line-height: 1.6;
+}
+
+/* ==========================================================
+   CALL TO ACTION FINAL & RODAPE
+   ========================================================== */
+.vet-action-box {
+  background: var(--vet-teal);
+  border-radius: 20px;
+  padding: 64px 32px;
+  color: #FFFFFF;
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.vet-action-box h2 {
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  color: #FFFFFF;
+  line-height: 1.15;
+  margin: 0 0 16px;
+}
+
+.vet-action-box p {
+  color: #E2E8F0;
+  font-size: 1.1rem;
+  max-width: 52ch;
+  margin: 0 auto 32px;
+  line-height: 1.6;
+}
+
+.vet-footer {
+  background: var(--vet-teal-dark);
+  color: #CBD5E1;
+  padding: 64px 0 36px;
+  font-size: 0.9rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.vet-footer-columns {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 48px;
+}
+
+.vet-footer h5 {
+  color: #FFFFFF;
+  font-size: 1.05rem;
+  margin: 0 0 16px;
+}
+
+.vet-footer p {
+  line-height: 1.6;
+  margin: 0 0 10px;
+  color: #CBD5E1;
+}
+
+.vet-legal-line {
+  padding-top: 28px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.8rem;
+  color: #94A3B8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.vet-legal-line a {
+  color: #FFFFFF;
+  text-decoration: underline;
+}
+
+/* ==========================================================
+   MOBILE FLOATING PILL DOCK (< 768px)
+   Apple / Linear Floating Navigation
+   ========================================================== */
+.vet-mobile-dock {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .vet-mobile-dock {
+    display: flex;
+    position: fixed;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 32px);
+    max-width: 440px;
+    height: 56px;
+    background: rgba(14, 59, 62, 0.94);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 999px;
+    z-index: 100;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+    padding: 4px 8px;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .vet-dock-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    color: #E2E8F0;
+    text-decoration: none;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 6px 12px;
+    min-height: 44px;
+    border-radius: 999px;
+    transition: background 0.15s ease;
+  }
+
+  .vet-dock-link:active {
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  .vet-dock-cta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--vet-terracotta);
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 999px;
+    min-height: 44px;
+    box-shadow: 0 4px 12px rgba(200, 92, 61, 0.35);
+  }
+}
+
+/* ==========================================================
+   RESPONSIVIDADE GERAL
+   ========================================================== */
+@media (max-width: 980px) {
+  .vet-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .vet-diff-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .vet-services-layout {
+    grid-template-columns: 1fr;
+  }
+  .vet-structure-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .vet-team-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .vet-workflow-grid {
+    grid-template-columns: 1fr;
+  }
+  .vet-testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+  .vet-footer-columns {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .vet-menu {
+    display: none;
+  }
+  .vet-metrics-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .vet-card-callout {
+    position: static;
+    margin-top: 14px;
+  }
+  .vet-diff-grid {
+    grid-template-columns: 1fr;
+  }
+  .vet-structure-grid {
+    grid-template-columns: 1fr;
+  }
+  .vet-team-grid {
+    grid-template-columns: 1fr;
+  }
+  .vet-footer-columns {
+    grid-template-columns: 1fr;
+  }
+  .vet-action-box {
+    padding: 44px 20px;
+  }
+  .vet-footer {
+    padding-bottom: 100px;
+  }
+}

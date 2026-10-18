@@ -18,7 +18,7 @@ export default function Services() {
             <div className="bc-header">
               <span className="bc-badge">Mais pedido</span>
               <h3>Landing page</h3>
-              <p>Uma página só, com um único objetivo: fazer o visitante clicar e chamar no seu WhatsApp.</p>
+              <p>Uma página só, com um único objetivo: fazer o visitante clicar e chamar no seu WhatsApp (igual a essa que você está vendo).</p>
             </div>
 
             {/* Chat Thread with Avatars (Cliente vs Você) */}
@@ -105,18 +105,7 @@ export default function Services() {
             </div>
           </div>
 
-          {/* Card 4: Mobile First */}
-          <div className="bc b4">
-            <div className="b4-inner">
-              <span className="big">100%</span>
-              <div className="b4-content">
-                <h3>Feito para o celular</h3>
-                <p>Mais de 80% dos seus clientes virão pelo smartphone. O site abre rápido, ajustado ao polegar e sem quebrar em nenhuma tela.</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Card 5: Sem agência */}
+          {/* Card 4: Sem agência */}
           <div className="bc b5">
             <div className="bc-header">
               <h3>Sem agência no meio</h3>
@@ -126,6 +115,17 @@ export default function Services() {
               <span className="pill">Paulínia, SP</span>
               <span className="pill">Atendimento 1:1</span>
               <span className="pill">Suporte ágil</span>
+            </div>
+          </div>
+
+          {/* Card 5: Mobile First (Fita horizontal de destaque) */}
+          <div className="bc b4">
+            <div className="b4-inner">
+              <span className="big">100%</span>
+              <div className="b4-content">
+                <h3>Feito para o celular</h3>
+                <p>Mais de 80% dos seus clientes virão pelo smartphone. O site abre rápido, ajustado ao polegar e sem quebrar em nenhuma tela.</p>
+              </div>
             </div>
           </div>
         </div>

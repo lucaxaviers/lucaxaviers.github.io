@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { REAL_PROJECTS } from "@/data/projects";
 
 export default function RealProjects() {
@@ -24,7 +25,35 @@ export default function RealProjects() {
               </p>
             </div>
 
-            <div style={{ marginTop: "24px" }}>
+            {featuredProject.image && (
+              <a
+                href={featuredProject.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pj-preview-wrap"
+                title={`Abrir ${featuredProject.title}`}
+              >
+                <div className="pj-preview-bar">
+                  <div className="pj-preview-dots">
+                    <span className="dot dot-r"></span>
+                    <span className="dot dot-y"></span>
+                    <span className="dot dot-g"></span>
+                  </div>
+                  <span className="pj-preview-url">imoveislucasxavier.com.br</span>
+                </div>
+                <div className="pj-preview-img-box">
+                  <Image
+                    src={featuredProject.image}
+                    alt="Screenshot da plataforma Imóveis Lucas Xavier"
+                    width={1024}
+                    height={492}
+                    className="pj-preview-img"
+                  />
+                </div>
+              </a>
+            )}
+
+            <div style={{ marginTop: "20px" }}>
               <div className="pills" style={{ marginBottom: "20px" }}>
                 {featuredProject.technologies.map((t) => (
                   <span key={t} className="pill">

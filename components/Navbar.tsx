@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <nav aria-label="Navegação principal">
+    <nav className="site-nav" aria-label="Navegação principal">
       <Link href="#topo" className="mk" aria-label="Lucas Xavier início">
         Lucas Xavier<i>.</i>
       </Link>

@@ -7,6 +7,7 @@ export interface RealProject {
   technologies: string[];
   link?: string;
   linkText?: string;
+  image?: string;
 }
 
 export const REAL_PROJECTS: RealProject[] = [
@@ -19,6 +20,7 @@ export const REAL_PROJECTS: RealProject[] = [
     technologies: ["Next.js", "TypeScript", "Firebase", "Vercel"],
     link: "https://imoveislucasxavier.com.br",
     linkText: "Abrir o site no ar",
+    image: "/img/imoveis_lucasxavier.webp",
   },
   {
     id: "mesclainvest",

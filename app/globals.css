@@ -203,7 +203,7 @@ a {
 }
 
 /* Sticky Architectural Nav */
-nav {
+.site-nav {
   position: sticky;
   top: 14px;
   z-index: 50;
@@ -233,7 +233,7 @@ nav {
   color: var(--bl);
 }
 
-nav ul {
+.site-nav ul {
   display: flex;
   align-items: center;
   gap: 18px;
@@ -242,16 +242,16 @@ nav ul {
   font-weight: 600;
 }
 
-nav ul a {
+.site-nav ul a {
   color: var(--mu);
   transition: color 0.15s;
 }
 
-nav ul a:hover {
+.site-nav ul a:hover {
   color: var(--ink);
 }
 
-nav .btn {
+.site-nav .btn {
   padding: 7px 16px;
   font-size: 0.86rem;
   border-radius: var(--radius-sm);
@@ -358,11 +358,15 @@ h2 {
 }
 
 .b-manu {
-  grid-column: span 5;
+  grid-column: span 6;
+}
+
+.b5 {
+  grid-column: span 6;
 }
 
 .b4 {
-  grid-column: span 6;
+  grid-column: span 12;
   background: var(--bl);
   color: #FFFFFF;
   border-color: var(--bl);
@@ -379,29 +383,30 @@ h2 {
 .b4-inner {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 28px;
 }
 
 .b4-inner .big {
   flex-shrink: 0;
+  font-size: 3.6rem;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  line-height: 1;
 }
 
 .b4-content h3 {
-  font-size: 1.25rem;
+  font-size: 1.35rem;
   font-weight: 700;
   color: #FFFFFF;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .b4-content p {
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   color: #DCE6FF;
-  line-height: 1.45;
+  line-height: 1.5;
   margin: 0;
-}
-
-.b5 {
-  grid-column: span 6;
+  max-width: 65ch;
 }
 
 .big {
@@ -1013,6 +1018,56 @@ h2 {
   max-width: 68ch;
   font-size: 0.96rem;
   line-height: 1.5;
+}
+
+/* Demo Actions Banner Below Stage */
+.demo-actions-wrap {
+  margin-top: 24px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 22px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.demo-actions-info h4 {
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.demo-actions-info p {
+  font-size: 0.9rem;
+  color: var(--mu);
+  margin: 0;
+  max-width: 60ch;
+}
+
+.btn-demo-view-full {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  border-radius: var(--radius-sm);
+  background: var(--bl);
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 0.94rem;
+  text-decoration: none;
+  transition: transform 0.15s ease, background 0.15s ease;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+}
+
+.btn-demo-view-full:hover {
+  transform: translateY(-2px);
+  background: #1D4ED8;
+  color: #FFFFFF;
 }
 
 /* Embedded Demo Site View System (.ms) */
@@ -1651,6 +1706,76 @@ h2 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+/* Real Project Preview Mockup */
+.pj-preview-wrap {
+  display: block;
+  margin: 18px 0;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--line);
+  background: var(--card-subtle);
+  overflow: hidden;
+  text-decoration: none;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.pj-preview-wrap:hover {
+  transform: translateY(-2px);
+  border-color: var(--bl);
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.12);
+}
+
+.pj-preview-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  background: var(--pill);
+  border-bottom: 1px solid var(--line);
+}
+
+.pj-preview-dots {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.pj-preview-dots .dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.pj-preview-dots .dot-r { background: #EF4444; }
+.pj-preview-dots .dot-y { background: #F59E0B; }
+.pj-preview-dots .dot-g { background: #10B981; }
+
+.pj-preview-url {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  color: var(--so);
+  letter-spacing: -0.01em;
+}
+
+.pj-preview-img-box {
+  position: relative;
+  width: 100%;
+  line-height: 0;
+  background: #000;
+}
+
+.pj-preview-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.pj-preview-wrap:hover .pj-preview-img {
+  transform: scale(1.01);
 }
 
 /* Process Rail: How It Works (.how-section) */
@@ -2504,7 +2629,7 @@ h2 {
 
 /* Responsive Media Queries */
 @media (max-width: 900px) {
-  nav ul li:not(:last-child) {
+  .site-nav ul li:not(:last-child) {
     display: none;
   }
   .hero-split {
@@ -2525,11 +2650,14 @@ h2 {
     grid-column: span 2;
     grid-row: auto;
   }
-  .b4, .b5 {
+  .b-inst {
     grid-column: span 2;
   }
-  .b-inst, .b-manu {
+  .b-manu, .b5 {
     grid-column: span 1;
+  }
+  .b4 {
+    grid-column: span 2;
   }
   .tech-domains-grid {
     grid-template-columns: 1fr;
@@ -2584,8 +2712,13 @@ h2 {
   .bento {
     grid-template-columns: 1fr;
   }
-  .b1 {
+  .b1, .b-inst, .b-manu, .b4, .b5 {
     grid-column: auto;
+  }
+  .b4-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
   }
   .hero-ctas .btn {
     width: 100%;

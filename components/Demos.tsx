@@ -28,6 +28,7 @@ export default function Demos() {
   };
 
   const segmentDescriptions = [
+    "Clínica Veterinária (Vetora): fotografias reais da estrutura e da equipe, tabela transparente de preços, acolhimento cat-friendly e agendamento direto no WhatsApp.",
     "Clínica Odontológica: avaliações reais, corpo clínico com CRO-SP, tratamentos com preço de partida, fotos de estrutura e botão de WhatsApp sempre à mão.",
     "Advocacia & Consultoria: visual sóbrio e imponente, áreas de atuação claras, fotos executivas da equipe, sem promessas de resultado (ética da OAB) e agendamento de consulta.",
     "Estética Automotiva: tema escuro moderno, slider arrastável de antes e depois (polimento espelhado vs. riscos), vitrificação 9H com garantia e orçamento direto no WhatsApp.",
@@ -38,7 +39,7 @@ export default function Demos() {
       <div className="w">
         <h2>Veja como o seu site pode ficar.</h2>
         <p className="sub">
-          Três sites de exemplo entregues com acabamento de alto padrão. Role dentro das telas do computador e do celular para navegar em cada segmento.
+          Sites de exemplo entregues com acabamento de alto padrão. Role dentro das telas do computador e do celular para navegar ou veja o site completo da Vetora abaixo.
         </p>
 
         {/* Tab Controls */}
@@ -54,6 +55,7 @@ export default function Demos() {
               onClick={() => handleSelectTab(idx)}
               onKeyDown={(e) => handleKeyDown(e, idx)}
             >
+              {demo.id === "vet" && "Clínica Veterinária"}
               {demo.id === "dent" && "Clínica odontológica"}
               {demo.id === "law" && "Advocacia"}
               {demo.id === "car" && "Estética automotiva"}
@@ -103,6 +105,24 @@ export default function Demos() {
               No celular (role dentro do aparelho)
             </p>
           </div>
+        </div>
+
+        {/* Banner de Ação - Ver Site Completo da Vetora */}
+        <div className="demo-actions-wrap">
+          <div className="demo-actions-info">
+            <h4>Quer navegar na Vetora em tela cheia?</h4>
+            <p>
+              Acesse a landing page completa com todas as fotos reais da clínica, tabela de valores, corpo clínico e botão de WhatsApp ativo.
+            </p>
+          </div>
+          <a
+            href="/exemplo/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-demo-view-full"
+          >
+            <span>Ver site completo da Vetora →</span>
+          </a>
         </div>
 
         {/* Caption */}

@@ -17,7 +17,7 @@ export interface DemoSiteFaq {
 }
 
 export interface DemoSite {
-  id: 'dent' | 'law' | 'car';
+  id: 'vet' | 'dent' | 'law' | 'car';
   name: string;
   url: string;
   accentColor: string;
@@ -68,9 +68,133 @@ export interface DemoSite {
   footerNotice: string;
   whatsappCta: string;
   disclaimer: string;
+  fullSiteLink?: string;
 }
 
 export const DEMO_SITES: DemoSite[] = [
+  {
+    id: 'vet',
+    name: 'Vetora Clínica Veterinária',
+    url: 'vetora.com.br',
+    accentColor: '#0E3B3E',
+    bgColor: '#F6F1E7',
+    cardColor: '#FFFFFF',
+    textColor: '#1C1C1C',
+    tagline: '★ 4,9 (480 avaliações) · Paulínia, SP',
+    headline: 'Cuidar de quem te espera em casa.',
+    description: 'Consulta de 40 minutos, exames no mesmo dia e orçamento fechado antes de qualquer tratamento.',
+    ctaText: 'Agendar pelo WhatsApp',
+    responseTime: 'Resposta em até 10 minutos · Seg a Sex, 8h às 19h',
+    badgeScore: ['4,9 ★', '480 avaliações no Google'],
+    stats: [
+      ['40 min', 'Consulta sem pressa'],
+      ['No local', 'Exames de imagem'],
+      ['6.200+', 'Cães e gatos atendidos'],
+      ['15 dias', 'Retorno incluso']
+    ],
+    servicesTitle: 'Serviços & Preços de Partida',
+    services: [
+      {
+        title: 'Consulta Clínica Geral (40 min)',
+        desc: 'Exame clínico detalhado da cabeça à cauda sem pressa.',
+        priceNote: 'R$ 120 (retorno incluso)'
+      },
+      {
+        title: 'Exames de Imagem no Local',
+        desc: 'Ultrassom e raio-X digital laudados na mesma visita.',
+        priceNote: 'A partir de R$ 180'
+      },
+      {
+        title: 'Castração e Cirurgias',
+        desc: 'Anestesia inalatória e monitoramento multiparâmetro contínuo.',
+        priceNote: 'A partir de R$ 450'
+      }
+    ],
+    heroImage: {
+      src: '/img/vetora/vet_hero.jpg',
+      alt: 'Veterinária examinando Golden Retriever com carinho na Vetora'
+    },
+    gallery: [
+      {
+        title: 'Recepção e Lounge Acolhedor',
+        src: '/img/vetora/vet_reception.jpg',
+        alt: 'Recepção aconchegante da Vetora'
+      },
+      {
+        title: 'Centro Cirúrgico Equipado',
+        src: '/img/vetora/vet_surgery.jpg',
+        alt: 'Sala cirúrgica estéril e monitor multiparamétrico'
+      },
+      {
+        title: 'Manejo Cat-Friendly',
+        src: '/img/vetora/vet_cat.jpg',
+        alt: 'Atendimento calmo a felinos com feromônio'
+      }
+    ],
+    stepsTitle: 'Como funciona do primeiro papo ao pet recuperado',
+    steps: [
+      ['Agendamento rápido', 'Você manda uma mensagem e a Aline confirma o melhor horário sem espera.'],
+      ['Consulta e exames no dia', 'Consulta de 40 min com raio-X e ultrassom feitos no próprio consultório.'],
+      ['Plano por escrito e retorno', 'Orçamento aprovado antes e retorno presencial em 15 dias já incluso.']
+    ],
+    teamTitle: 'Corpo Clínico Especializado',
+    team: [
+      {
+        name: 'Dra. Marina Andrade',
+        role: 'Clínica Médica · CRMV-SP 00000',
+        image: '/img/vetora/vet_team1.jpg',
+        alt: 'Dra. Marina Andrade'
+      },
+      {
+        name: 'Dr. Rafael Nogueira',
+        role: 'Cirurgia & Ortopedia · CRMV-SP 00001',
+        image: '/img/vetora/vet_team2.jpg',
+        alt: 'Dr. Rafael Nogueira'
+      },
+      {
+        name: 'Dra. Camila Prado',
+        role: 'Dermatologia & Alergias · CRMV-SP 00002',
+        image: '/img/vetora/vet_team3.jpg',
+        alt: 'Dra. Camila Prado'
+      },
+      {
+        name: 'Dra. Beatriz Lemos',
+        role: 'Diagnóstico por Imagem · CRMV-SP 00003',
+        image: '/img/vetora/vet_team4.jpg',
+        alt: 'Dra. Beatriz Lemos'
+      }
+    ],
+    testimonial: {
+      quote: 'Levei a Nina achando que era só uma alergia. Fizeram o exame na hora, descobriram uma infecção e já saí com o tratamento. Voltei 10 dias depois e ela estava outra cachorra.',
+      author: 'Patrícia Menezes',
+      role: 'Tutora da Nina · Paulínia, SP',
+      rating: 5,
+      avatar: '/img/vetora/vet_testimonial.jpg'
+    },
+    faq: [
+      {
+        q: 'Precisa agendar ou posso chegar sem hora?',
+        a: 'Atendemos com hora marcada para garantir que cada pet receba os 40 minutos com calma. Sem agendamento, só com encaixe prévio.'
+      },
+      {
+        q: 'Quanto custa a consulta?',
+        a: 'R$ 120 para clínica médica geral e R$ 180 para especialidades. O retorno em até 15 dias já está incluso.'
+      },
+      {
+        q: 'Quanto sai uma castração?',
+        a: 'A partir de R$ 450 para cão fêmea de porte médio, com orçamento por escrito aprovado antes da cirurgia.'
+      }
+    ],
+    location: {
+      address: 'Rua das Acácias, 842 - Jardim Vista Alegre, Paulínia - SP',
+      hoursWeekday: 'Segunda a sexta: 08h às 19h',
+      hoursWeekend: 'Sábados: 08h às 13h'
+    },
+    footerNotice: 'Responsável técnica: Dra. Marina Andrade · CRMV-SP 00000 · Vetora Clínica Veterinária Ltda.',
+    whatsappCta: 'Agendar consulta no WhatsApp',
+    disclaimer: 'Site demonstrativo fictício. Empresa, marcas e dados criados para fins de portfólio.',
+    fullSiteLink: '/exemplo'
+  },
   {
     id: 'dent',
     name: 'Sorriso Prime',
