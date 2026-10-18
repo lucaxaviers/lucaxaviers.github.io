@@ -42,7 +42,7 @@ export default function Demos() {
       <div className="w">
         <h2>Veja como o seu site pode ficar.</h2>
         <p className="sub">
-          Sites de exemplo entregues com acabamento de alto padrão. Role dentro das telas do computador e do celular para navegar ou veja o site completo da Vetora abaixo.
+          Projetos entregues com acabamento de alto padrão. Interaja com a demonstração abaixo ou abra o modelo para testar na prática.
         </p>
 
         {/* Tab Controls */}
@@ -70,7 +70,7 @@ export default function Demos() {
         <div className="demo-stage-header">
           <span className="demo-live-badge">Site de exemplo · Imagens e dados ilustrativos</span>
           <span className="demo-nav-hint">
-            {isInteractive ? "Navegação interna liberada" : "Role dentro das telas para navegar"}
+            {isInteractive ? "Navegação interna liberada" : "Clique no modelo para interagir e navegar"}
           </span>
         </div>
 
@@ -80,9 +80,12 @@ export default function Demos() {
             id={`panel-${activeDemo.id}`}
             role="tabpanel"
             aria-labelledby={`tab-${activeDemo.id}`}
+            onClick={() => {
+              if (!isInteractive) setIsInteractive(true);
+            }}
           >
             {/* Desktop Laptop Mockup */}
-            <div className="dxw">
+            <div className="dxw desk-mockup-wrapper">
               <div className="laptop-wrap">
                 <div className="laptop-screen">
                   <div className="laptop-camera" />
@@ -100,11 +103,11 @@ export default function Demos() {
                   <div className="laptop-notch-cutout" />
                 </div>
               </div>
-              <p className="lb">No computador (role dentro da tela)</p>
+              <p className="lb">Versão Computador (clique para interagir)</p>
             </div>
 
             {/* Mobile Phone Mockup */}
-            <div>
+            <div className="phone-mockup-wrapper">
               <div className="phone">
                 <div className="phone-island">
                   <div className="phone-camera-lens" />
@@ -114,7 +117,7 @@ export default function Demos() {
                 </div>
               </div>
               <p className="lb" style={{ textAlign: "center" }}>
-                No celular (role dentro do aparelho)
+                Versão Celular (toque para navegar)
               </p>
             </div>
           </div>
@@ -127,9 +130,10 @@ export default function Demos() {
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
                   </svg>
-                  <span>Clique para interagir e navegar no modelo</span>
+                  <span className="demo-guard-text-desk">Clique no modelo para interagir e navegar</span>
+                  <span className="demo-guard-text-mob">Toque para interagir com o site de exemplo</span>
                 </div>
-                <span className="demo-guard-sub">Liberar rolagem interna do celular e computador</span>
+                <span className="demo-guard-sub">Liberar navegação interna do modelo</span>
               </div>
             </div>
           ) : (
@@ -141,7 +145,10 @@ export default function Demos() {
               <button
                 type="button"
                 className="btn-relock-demo"
-                onClick={() => setIsInteractive(false)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsInteractive(false);
+                }}
               >
                 Travar para rolar a página
               </button>
@@ -152,10 +159,10 @@ export default function Demos() {
         {/* Barra de Conversão Contextual com WhatsApp Dinâmico */}
         <div className="demo-conversion-bar">
           <div className="demo-conv-content">
-            <span className="demo-conv-badge">Personalizado para o seu negócio</span>
+            <span className="demo-conv-badge">Pronto em 3 a 7 dias</span>
             <h4>Gostou desse nível de acabamento?</h4>
             <p>
-              Adapto essa estrutura com a sua marca, cores e fotos em até 5 dias.
+              Adapto essa estrutura com a sua marca, cores e fotos.
             </p>
           </div>
           <div className="demo-conv-actions">
@@ -170,6 +177,9 @@ export default function Demos() {
                 <path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.551 4.102 1.517 5.831L0 24l6.335-1.489C8.016 23.473 9.948 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.848 0-3.57-.498-5.056-1.365l-.362-.213-3.76.884.903-3.663-.233-.377C2.57 15.77 2 13.948 2 12 2s10 4.486 10 10-4.486 10-10 10z" />
               </svg>
               <span>Quero um site nesse estilo</span>
+            </a>
+            <a href="#planos" className="btn-conv-plan-link">
+              <span>Ver valores e planos ↓</span>
             </a>
             {activeDemo.id === "vet" && (
               <a

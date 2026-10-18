@@ -28,7 +28,7 @@ export default function Navbar() {
           <Link href="#duvidas">Dúvidas</Link>
         </li>
         <li>
-          <Link className="btn" href="#contato">
+          <Link className="btn btn-nav-contact" href="#contato" style={{ color: "#FFFFFF" }}>
             Contato
           </Link>
         </li>
