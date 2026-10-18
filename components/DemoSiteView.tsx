@@ -48,6 +48,7 @@ export default function DemoSiteView({ demo }: DemoSiteViewProps) {
             alt={demo.heroImage.alt}
             fill
             sizes="(max-width: 768px) 100vw, 500px"
+            loading="lazy"
             style={{ objectFit: "cover" }}
           />
           <div className="fl">
@@ -97,6 +98,7 @@ export default function DemoSiteView({ demo }: DemoSiteViewProps) {
                 alt={g.alt}
                 fill
                 sizes="(max-width: 768px) 33vw, 200px"
+                loading="lazy"
                 style={{ objectFit: "cover" }}
               />
               <span>{g.title}</span>
@@ -130,6 +132,7 @@ export default function DemoSiteView({ demo }: DemoSiteViewProps) {
                 alt={m.alt}
                 fill
                 sizes="64px"
+                loading="lazy"
                 style={{ objectFit: "cover" }}
               />
             </div>

@@ -28,6 +28,7 @@ export default function BeforeAfterSlider({
         sizes="(max-width: 768px) 100vw, 600px"
         className="ba-before-img"
         priority={false}
+        loading="lazy"
       />
       <span className="ba-tag before">Antes: Opaco & Riscos</span>
 
@@ -45,6 +46,7 @@ export default function BeforeAfterSlider({
           sizes="(max-width: 768px) 100vw, 600px"
           className="ba-after-img"
           priority={false}
+          loading="lazy"
         />
         <span className="ba-tag after">Depois: Vitrificado 9H</span>
       </div>

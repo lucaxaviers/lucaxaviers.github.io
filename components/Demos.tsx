@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { DEMO_SITES } from "@/data/demos";
 import DemoSiteView from "./DemoSiteView";
 import { getWhatsAppUrl } from "@/lib/whatsapp";
@@ -8,10 +8,22 @@ import { getWhatsAppUrl } from "@/lib/whatsapp";
 export default function Demos() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isInteractive, setIsInteractive] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(true);
   const activeDemo = DEMO_SITES[activeIndex];
 
   const deskScrollRef = useRef<HTMLDivElement>(null);
   const phoneScrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const checkIsDesktop = () => {
+      setIsDesktop(window.innerWidth >= 768);
+    };
+    checkIsDesktop();
+    const mql = window.matchMedia("(min-width: 768px)");
+    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+    mql.addEventListener("change", handler);
+    return () => mql.removeEventListener("change", handler);
+  }, []);
 
   const handleSelectTab = (index: number) => {
     setActiveIndex(index);
@@ -96,7 +108,7 @@ export default function Demos() {
                     <em>https://{activeDemo.url}</em>
                   </div>
                   <div className="dsc" ref={deskScrollRef} tabIndex={0} aria-label={`Navegação computador ${activeDemo.name}`}>
-                    <DemoSiteView demo={activeDemo} />
+                    {isDesktop && <DemoSiteView demo={activeDemo} />}
                   </div>
                 </div>
                 <div className="laptop-base">

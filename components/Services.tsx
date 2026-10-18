@@ -69,6 +69,7 @@ export default function Services() {
                     alt="Foto da profissional ou empresa"
                     width={38}
                     height={38}
+                    loading="lazy"
                     className="chat-avatar-img"
                   />
                 </div>

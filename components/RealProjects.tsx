@@ -57,6 +57,7 @@ export default function RealProjects() {
                     alt="Screenshot da plataforma Imóveis Lucas Xavier"
                     width={1024}
                     height={492}
+                    loading="lazy"
                     className="pj-preview-img"
                   />
                 </div>
