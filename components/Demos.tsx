@@ -3,9 +3,11 @@
 import { useState, useRef } from "react";
 import { DEMO_SITES } from "@/data/demos";
 import DemoSiteView from "./DemoSiteView";
+import { getWhatsAppUrl } from "@/lib/whatsapp";
 
 export default function Demos() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isInteractive, setIsInteractive] = useState(false);
   const activeDemo = DEMO_SITES[activeIndex];
 
   const deskScrollRef = useRef<HTMLDivElement>(null);
@@ -13,6 +15,7 @@ export default function Demos() {
 
   const handleSelectTab = (index: number) => {
     setActiveIndex(index);
+    setIsInteractive(false);
     if (deskScrollRef.current) deskScrollRef.current.scrollTop = 0;
     if (phoneScrollRef.current) phoneScrollRef.current.scrollTop = 0;
   };
@@ -66,63 +69,119 @@ export default function Demos() {
         {/* Mockups Stage */}
         <div className="demo-stage-header">
           <span className="demo-live-badge">Site de exemplo · Imagens e dados ilustrativos</span>
-          <span className="demo-nav-hint">Role dentro das telas para navegar</span>
+          <span className="demo-nav-hint">
+            {isInteractive ? "Navegação interna liberada" : "Role dentro das telas para navegar"}
+          </span>
         </div>
-        <div className="stage" id={`panel-${activeDemo.id}`} role="tabpanel" aria-labelledby={`tab-${activeDemo.id}`}>
-          {/* Desktop Laptop Mockup */}
-          <div className="dxw">
-            <div className="laptop-wrap">
-              <div className="laptop-screen">
-                <div className="laptop-camera" />
-                <div className="bar">
-                  <s />
-                  <s />
-                  <s />
-                  <em>https://{activeDemo.url}</em>
+
+        <div className="stage-outer-wrap">
+          <div
+            className={`stage ${!isInteractive ? "is-locked" : "is-active"}`}
+            id={`panel-${activeDemo.id}`}
+            role="tabpanel"
+            aria-labelledby={`tab-${activeDemo.id}`}
+          >
+            {/* Desktop Laptop Mockup */}
+            <div className="dxw">
+              <div className="laptop-wrap">
+                <div className="laptop-screen">
+                  <div className="laptop-camera" />
+                  <div className="bar">
+                    <s />
+                    <s />
+                    <s />
+                    <em>https://{activeDemo.url}</em>
+                  </div>
+                  <div className="dsc" ref={deskScrollRef} tabIndex={0} aria-label={`Navegação computador ${activeDemo.name}`}>
+                    <DemoSiteView demo={activeDemo} />
+                  </div>
                 </div>
-                <div className="dsc" ref={deskScrollRef} tabIndex={0} aria-label={`Navegação computador ${activeDemo.name}`}>
+                <div className="laptop-base">
+                  <div className="laptop-notch-cutout" />
+                </div>
+              </div>
+              <p className="lb">No computador (role dentro da tela)</p>
+            </div>
+
+            {/* Mobile Phone Mockup */}
+            <div>
+              <div className="phone">
+                <div className="phone-island">
+                  <div className="phone-camera-lens" />
+                </div>
+                <div className="pscr" ref={phoneScrollRef} tabIndex={0} aria-label={`Navegação celular ${activeDemo.name}`}>
                   <DemoSiteView demo={activeDemo} />
                 </div>
               </div>
-              <div className="laptop-base">
-                <div className="laptop-notch-cutout" />
-              </div>
+              <p className="lb" style={{ textAlign: "center" }}>
+                No celular (role dentro do aparelho)
+              </p>
             </div>
-            <p className="lb">No computador (role dentro da tela)</p>
           </div>
 
-          {/* Mobile Phone Mockup */}
-          <div>
-            <div className="phone">
-              <div className="phone-island">
-                <div className="phone-camera-lens" />
-              </div>
-              <div className="pscr" ref={phoneScrollRef} tabIndex={0} aria-label={`Navegação celular ${activeDemo.name}`}>
-                <DemoSiteView demo={activeDemo} />
+          {/* Protective Scroll Guard Overlay for Touch / Mobile Screens */}
+          {!isInteractive ? (
+            <div className="demo-scroll-guard" onClick={() => setIsInteractive(true)}>
+              <div className="demo-guard-content">
+                <div className="demo-guard-btn">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+                  </svg>
+                  <span>Clique para interagir e navegar no modelo</span>
+                </div>
+                <span className="demo-guard-sub">Liberar rolagem interna do celular e computador</span>
               </div>
             </div>
-            <p className="lb" style={{ textAlign: "center" }}>
-              No celular (role dentro do aparelho)
-            </p>
-          </div>
+          ) : (
+            <div className="demo-unlocked-dock">
+              <span className="demo-unlocked-status">
+                <span className="live-pulse-dot" />
+                Interação interna ativa
+              </span>
+              <button
+                type="button"
+                className="btn-relock-demo"
+                onClick={() => setIsInteractive(false)}
+              >
+                Travar para rolar a página
+              </button>
+            </div>
+          )}
         </div>
 
-        {/* Banner de Ação - Ver Site Completo da Vetora */}
-        <div className="demo-actions-wrap">
-          <div className="demo-actions-info">
-            <h4>Quer navegar na Vetora em tela cheia?</h4>
+        {/* Barra de Conversão Contextual com WhatsApp Dinâmico */}
+        <div className="demo-conversion-bar">
+          <div className="demo-conv-content">
+            <span className="demo-conv-badge">Personalizado para o seu negócio</span>
+            <h4>Gostou desse nível de acabamento?</h4>
             <p>
-              Acesse a landing page completa com todas as fotos reais da clínica, tabela de valores, corpo clínico e botão de WhatsApp ativo.
+              Adapto essa estrutura com a sua marca, cores e fotos em até 5 dias.
             </p>
           </div>
-          <a
-            href="/exemplo/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-demo-view-full"
-          >
-            <span>Ver site completo da Vetora →</span>
-          </a>
+          <div className="demo-conv-actions">
+            <a
+              href={getWhatsAppUrl(`Oi Lucas! Gostei muito do modelo de site de exemplo (${activeDemo.name}) do seu portfólio e queria saber quanto fica um nesse estilo para o meu negócio.`)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary btn-conv-cta"
+              id={`cta-demo-whatsapp-${activeDemo.id}`}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.551 4.102 1.517 5.831L0 24l6.335-1.489C8.016 23.473 9.948 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.848 0-3.57-.498-5.056-1.365l-.362-.213-3.76.884.903-3.663-.233-.377C2.57 15.77 2 13.948 2 12 2s10 4.486 10 10-4.486 10-10 10z" />
+              </svg>
+              <span>Quero um site nesse estilo</span>
+            </a>
+            {activeDemo.id === "vet" && (
+              <a
+                href="/exemplo/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-secondary btn-conv-secondary"
+              >
+                <span>Ver site completo da Vetora →</span>
+              </a>
+            )}
+          </div>
         </div>
 
         {/* Caption */}

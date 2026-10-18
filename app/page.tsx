@@ -5,6 +5,7 @@ import Demos from "@/components/Demos";
 import HowItWorks from "@/components/HowItWorks";
 import RealProjects from "@/components/RealProjects";
 import TechStack from "@/components/TechStack";
+import Comparison from "@/components/Comparison";
 import Plans from "@/components/Plans";
 import Faq from "@/components/Faq";
 import Contact from "@/components/Contact";
@@ -24,6 +25,7 @@ export default function Home() {
         <HowItWorks />
         <RealProjects />
         <TechStack />
+        <Comparison />
         <Plans />
         <Faq />
         <Contact />

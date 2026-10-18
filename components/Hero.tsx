@@ -11,7 +11,7 @@ import {
 
 export default function Hero() {
   const whatsappUrl = getWhatsAppUrl(
-    "Oi Lucas! Vi seu portfólio e queria um orçamento de site para o meu negócio."
+    "Oi Lucas! Vi seu portfólio e queria saber quanto fica um site pro meu negócio."
   );
 
   return (
@@ -46,11 +46,11 @@ export default function Hero() {
                     <path d="M17.472 14.382c-.301-.15-1.78-.877-2.056-.977-.275-.1-.476-.15-.677.15-.2.3-.778.977-.954 1.178-.176.2-.351.226-.652.075s-1.272-.469-2.423-1.496c-.896-.8-1.5-1.789-1.676-2.09-.176-.3-.019-.462.132-.612.136-.135.301-.351.452-.527.15-.176.2-.301.301-.502.1-.2.05-.376-.025-.527-.075-.15-.677-1.632-.928-2.235-.245-.588-.494-.508-.677-.517-.175-.009-.376-.009-.577-.009-.2 0-.527.075-.803.376s-1.054 1.03-1.054 2.513 1.079 2.915 1.23 3.116c.15.2 2.124 3.243 5.145 4.548.718.311 1.279.497 1.716.636.723.23 1.381.197 1.902.12.58-.087 1.78-.728 2.03-1.431.25-.703.25-1.306.175-1.431-.075-.125-.276-.2-.577-.35z" />
                     <path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.551 4.102 1.517 5.831L0 24l6.335-1.489C8.016 23.473 9.948 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.848 0-3.57-.498-5.056-1.365l-.362-.213-3.76.884.903-3.663-.233-.377C2.57 15.77 2 13.948 2 12 2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z" />
                   </svg>
-                  Quero um site
+                  Ver quanto fica pro meu negócio
                 </a>
               ) : (
                 <Link className="btn btn-primary" href="#contato" id="cta-hero-contact">
-                  Quero um site
+                  Ver quanto fica pro meu negócio
                 </Link>
               )}
               <Link className="btn btn-secondary" href="#exemplos" id="cta-hero-examples">
@@ -59,6 +59,15 @@ export default function Hero() {
                   <path d="M7 17L17 7M17 7H7M17 7V17" />
                 </svg>
               </Link>
+            </div>
+
+            {/* Micro-copy de redução de atrito */}
+            <div className="hero-micro-trust">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
+              <span>Resposta em poucos minutos · Orçamento sem compromisso</span>
             </div>
 
             <div className="hero-trust-grid">
@@ -99,7 +108,7 @@ export default function Hero() {
                 </div>
                 <div className="studio-bio-text">
                   <div className="studio-name">Lucas Xavier<i>.</i></div>
-                  <div className="studio-title">Desenvolvedor & Engenharia de Software</div>
+                  <div className="studio-title">Especialista em Sites de Alta Conversão</div>
                   <div className="studio-loc">Paulínia, SP · Atendendo toda a região</div>
                 </div>
               </div>
@@ -134,8 +143,8 @@ export default function Hero() {
                   </a>
                 </div>
                 <div className="spec-item">
-                  <span className="spec-label">Stack de Produção</span>
-                  <span className="spec-value">Next.js · TypeScript · Vercel</span>
+                  <span className="spec-label">Performance & Google</span>
+                  <span className="spec-value">Carregamento em 1s · Otimizado para buscas locais</span>
                 </div>
                 <div className="spec-item">
                   <span className="spec-label">Contato Direto</span>

@@ -21,18 +21,23 @@ export default function Services() {
               <p>Uma página só, com um único objetivo: fazer o visitante clicar e chamar no seu WhatsApp (igual a essa que você está vendo).</p>
             </div>
 
-            {/* Chat Thread with Avatars (Cliente vs Você) */}
+            {/* Badge de introdução do WhatsApp */}
+            <div className="chat-badge-intro">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style={{ color: "#25D366" }}>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.551 4.102 1.517 5.831L0 24l6.335-1.489C8.016 23.473 9.948 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.848 0-3.57-.498-5.056-1.365l-.362-.213-3.76.884.903-3.663-.233-.377C2.57 15.77 2 13.948 2 12 2s10 4.486 10 10-4.486 10-10 10z" />
+              </svg>
+              <span>Simulação do seu WhatsApp com o site no ar:</span>
+            </div>
+
+            {/* Chat Thread with Avatars (Cliente vs Sua Clínica / Empresa) */}
             <div className="chat-thread" aria-label="Simulação de conversa no WhatsApp">
               {/* Message from Customer */}
               <div className="chat-msg chat-msg-client">
-                <div className="chat-avatar-wrap">
-                  <Image
-                    src="/img/dent_team3.webp"
-                    alt="Foto do cliente"
-                    width={38}
-                    height={38}
-                    className="chat-avatar-img"
-                  />
+                <div className="chat-avatar-wrap chat-avatar-neutral" title="Cliente">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
                 </div>
                 <div className="chat-content">
                   <span className="chat-author">Cliente:</span>
@@ -43,10 +48,10 @@ export default function Services() {
                 </div>
               </div>
 
-              {/* Message from You (Lucas / Empresa) */}
+              {/* Message from Company */}
               <div className="chat-msg chat-msg-you">
                 <div className="chat-content">
-                  <span className="chat-author chat-author-you">Você:</span>
+                  <span className="chat-author chat-author-you">Sua Clínica / Empresa:</span>
                   <div className="chat-bubble chat-bubble-you">
                     <span>Olá! Perfeito, temos horários na quinta às 14h e na sexta às 10h. Qual prefere?</span>
                     <span className="chat-time chat-time-you">
@@ -60,8 +65,8 @@ export default function Services() {
                 </div>
                 <div className="chat-avatar-wrap">
                   <Image
-                    src="/img/lucas_profile.webp"
-                    alt="Sua foto (empresa)"
+                    src="/img/dent_team3.webp"
+                    alt="Foto da profissional ou empresa"
                     width={38}
                     height={38}
                     className="chat-avatar-img"
