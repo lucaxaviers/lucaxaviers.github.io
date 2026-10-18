@@ -53,7 +53,7 @@ export default function Footer() {
         <div className="footer-bottom">
           <p>© {new Date().getFullYear()} Lucas Rodrigues Xavier · Paulínia, SP</p>
           <p className="footer-subtext">
-            Engenharia de Software · Next.js & TypeScript · Hospedado na Vercel
+            Lucas Xavier · Engenharia de Software · Desenvolvido com tecnologia de alta performance (Next.js & TypeScript) em Paulínia, SP
           </p>
         </div>
       </div>

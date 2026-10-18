@@ -2566,19 +2566,123 @@ h2 {
   align-items: center;
   gap: 8px;
   padding: 10px 18px;
-  border-radius: var(--radius-md);
+  border-radius: 999px;
   background: var(--gr);
   color: #FFFFFF;
   font-weight: 700;
   font-size: 0.88rem;
-  box-shadow: 0 4px 18px rgba(22, 163, 74, 0.35);
+  box-shadow: 0 4px 20px rgba(22, 163, 74, 0.4);
   text-decoration: none;
-  transition: transform 0.15s ease;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+  animation: floatEntrance 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes floatEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .float-whatsapp:hover {
   transform: translateY(-2px);
   background: #15803D;
+  color: #FFFFFF;
+}
+
+/* Commercial Badges for Projects */
+.comm-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--bl);
+  background: var(--tint);
+  border: 1px solid rgba(37, 99, 235, 0.22);
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+
+/* Projects Bottom CTA Banner */
+.projects-cta-banner {
+  margin-top: 36px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.projects-cta-text h4 {
+  font-size: 1.18rem;
+  font-weight: 800;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.projects-cta-text p {
+  font-size: 0.92rem;
+  color: var(--mu);
+  margin: 0;
+}
+
+.projects-cta-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Guarantee / Risco Zero 50-50 in Plans */
+.pl-guarantee-box {
+  margin-top: 32px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--gr);
+  border-radius: var(--radius-md);
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 820px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pl-guarantee-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(22, 163, 74, 0.12);
+  color: var(--gr);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pl-guarantee-text strong {
+  display: block;
+  font-size: 0.98rem;
+  color: var(--ink);
+  margin-bottom: 3px;
+}
+
+.pl-guarantee-text p {
+  font-size: 0.88rem;
+  color: var(--mu);
+  margin: 0;
+  line-height: 1.45;
 }
 
 /* Reveal On Scroll Animation */
@@ -3178,13 +3282,33 @@ h2 {
     gap: 10px;
   }
   .float-whatsapp span {
-    display: none;
+    display: inline;
+    font-size: 0.82rem;
   }
   .float-whatsapp {
-    padding: 12px;
-    border-radius: var(--radius-sm);
+    padding: 9px 15px;
+    border-radius: 999px;
     bottom: 18px;
     right: 18px;
+  }
+  .projects-cta-banner {
+    padding: 20px 18px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .projects-cta-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+  .projects-cta-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .pl-guarantee-box {
+    padding: 16px 18px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
   }
 }
 

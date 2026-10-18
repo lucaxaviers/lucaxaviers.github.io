@@ -1,8 +1,10 @@
 import Image from "next/image";
 import { REAL_PROJECTS } from "@/data/projects";
+import { getWhatsAppUrl } from "@/lib/whatsapp";
 
 export default function RealProjects() {
   const [featuredProject, ...academicProjects] = REAL_PROJECTS;
+  const whatsappUrl = getWhatsAppUrl("Oi Lucas! Vi o projeto da Imóveis Lucas Xavier no seu portfólio e queria um projeto parecido pro meu negócio.");
 
   return (
     <section id="projetos" className="reveal-on-scroll">
@@ -16,7 +18,15 @@ export default function RealProjects() {
           {/* Main Featured Production Project */}
           <div className="bc l">
             <div>
-              <span className="st2 on">{featuredProject.badge}</span>
+              <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
+                <span className="st2 on">{featuredProject.badge}</span>
+                {featuredProject.commercialTags?.map((tag) => (
+                  <span key={tag} className="comm-badge">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
               <h3 style={{ fontSize: "2.1rem", marginTop: "14px", letterSpacing: "-0.04em" }}>
                 {featuredProject.title}
               </h3>
@@ -83,7 +93,14 @@ export default function RealProjects() {
           {academicProjects.map((proj) => (
             <div key={proj.id} className="bc">
               <div>
-                <span className="st2">{proj.badge}</span>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
+                  <span className="st2">{proj.badge}</span>
+                  {proj.commercialTags?.map((tag) => (
+                    <span key={tag} className="comm-badge">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
                 <h3 style={{ marginTop: "12px", fontSize: "1.4rem" }}>{proj.title}</h3>
                 <p style={{ marginTop: "6px" }}>{proj.desc}</p>
               </div>
@@ -97,6 +114,31 @@ export default function RealProjects() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* CTA Banner ao fim de Projetos */}
+        <div className="projects-cta-banner">
+          <div className="projects-cta-text">
+            <h4>Gostou desse nível de acabamento?</h4>
+            <p>Construo a presença digital do seu negócio com a mesma velocidade e tecnologia.</p>
+          </div>
+          <div className="projects-cta-actions">
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary"
+              id="cta-projects-whatsapp"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.551 4.102 1.517 5.831L0 24l6.335-1.489C8.016 23.473 9.948 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.848 0-3.57-.498-5.056-1.365l-.362-.213-3.76.884.903-3.663-.233-.377C2.57 15.77 2 13.948 2 12 2s10 4.486 10 10-4.486 10-10 10z" />
+              </svg>
+              <span>Quero um projeto parecido</span>
+            </a>
+            <a href="#planos" className="btn-conv-plan-link">
+              <span>Ver planos e valores ↓</span>
+            </a>
+          </div>
         </div>
       </div>
     </section>

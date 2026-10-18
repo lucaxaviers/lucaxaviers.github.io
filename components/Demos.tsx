@@ -42,7 +42,7 @@ export default function Demos() {
       <div className="w">
         <h2>Veja como o seu site pode ficar.</h2>
         <p className="sub">
-          Projetos entregues com acabamento de alto padrão. Interaja com a demonstração abaixo ou abra o modelo para testar na prática.
+          Projetos entregues com acabamento de alto padrão. Interaja com a demonstração abaixo ou veja como adaptamos essa estrutura para o seu negócio.
         </p>
 
         {/* Tab Controls */}
@@ -162,12 +162,12 @@ export default function Demos() {
             <span className="demo-conv-badge">Pronto em 3 a 7 dias</span>
             <h4>Gostou desse nível de acabamento?</h4>
             <p>
-              Adapto essa estrutura com a sua marca, cores e fotos.
+              Adapto essa estrutura com a sua marca, cores e informações em até 5 dias.
             </p>
           </div>
           <div className="demo-conv-actions">
             <a
-              href={getWhatsAppUrl(`Oi Lucas! Gostei muito do modelo de site de exemplo (${activeDemo.name}) do seu portfólio e queria saber quanto fica um nesse estilo para o meu negócio.`)}
+              href={getWhatsAppUrl(`Oi Lucas! Gostei muito do site de exemplo do seu portfólio e quero saber quanto fica um nesse estilo pro meu negócio.`)}
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-primary btn-conv-cta"
@@ -179,18 +179,8 @@ export default function Demos() {
               <span>Quero um site nesse estilo</span>
             </a>
             <a href="#planos" className="btn-conv-plan-link">
-              <span>Ver valores e planos ↓</span>
+              <span>Ver planos e valores ↓</span>
             </a>
-            {activeDemo.id === "vet" && (
-              <a
-                href="/exemplo/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-secondary btn-conv-secondary"
-              >
-                <span>Ver site completo da Vetora →</span>
-              </a>
-            )}
           </div>
         </div>
 

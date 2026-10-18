@@ -1,24 +1,24 @@
 export default function Faq() {
   const faqs = [
     {
+      q: "Não tenho fotos profissionais nem textos prontos. E agora?",
+      a: "Não se preocupe. Eu mesmo ajudo a estruturar todos os textos persuasivos focados em vendas para o seu negócio. Caso você ainda não tenha fotos profissionais do espaço ou da equipe, seleciono imagens profissionais de alta qualidade do seu segmento ou aproveito os melhores materiais que você já tiver no seu Instagram.",
+    },
+    {
+      q: "Tem mesmo zero mensalidade? Não pago nada depois?",
+      a: "Transparência total: o meu trabalho é de pagamento único, sem mensalidade nem pegadinhas de aluguel. A única despesa que qualquer site na internet possui é a anuidade do domínio próprio (cerca de R$ 40 por ano pagos diretamente ao Registro.br em seu próprio nome/CNPJ). A hospedagem de alta performance eu configuro em plano gratuito vitalício para o volume de acessos da sua empresa.",
+    },
+    {
+      q: "E se eu precisar mudar um telefone, preço ou foto no futuro?",
+      a: "Mudanças pontuais simples você resolve rapidinho me chamando direto no WhatsApp, sem abrir chamados, sem robôs e sem burocracia. O site é desenvolvido com arquitetura limpa e moderna, permitindo alterações ágeis sempre que seu negócio precisar.",
+    },
+    {
       q: "Quanto tempo leva para o site ficar pronto?",
-      a: "Uma landing page direta costuma ficar pronta entre 3 a 5 dias úteis. Sites institucionais completos (com 4 a 5 páginas) levam de 7 a 12 dias úteis, dependendo do envio de fotos e textos.",
+      a: "Uma landing page focada em conversão fica pronta de 3 a 5 dias úteis. Você recebe um link provisório navegável no celular e no computador para testar tudo antes de publicarmos no seu domínio oficial.",
     },
     {
-      q: "O que eu preciso mandar para começar?",
-      a: "Apenas o básico: o logotipo da sua empresa (se tiver), fotos do seu espaço/trabalho e uma lista simples dos seus serviços com telefone de contato. Se não tiver fotos profissionais ou textos prontos, eu te ajudo a estruturar tudo.",
-    },
-    {
-      q: "O domínio e o site ficam no meu nome?",
-      a: "Sim, 100%. O domínio (ex: suarempresa.com.br) é registrado em seu nome ou CPF/CNPJ. Você é o dono oficial do seu endereço na internet e do código do site, sem amarras.",
-    },
-    {
-      q: "Como funciona a manutenção? Tem taxa mensal obrigatória?",
-      a: "Não cobro nenhuma taxa mensal obrigatória. O site publicado é seu. Se daqui a 6 meses você quiser trocar uma foto, número ou preço, pode me chamar e combinamos a atualização avulsa, ou optar pelo acompanhamento mensal se preferir suporte contínuo.",
-    },
-    {
-      q: "Quais são as formas de pagamento? Aceita Pix?",
-      a: "Aceito Pix e transferência bancária, com condição padrão de 50% de entrada no início do projeto e os 50% restantes apenas quando você aprovar o site no ar. Também é possível parcelar no cartão.",
+      q: "Como funciona a forma de pagamento?",
+      a: "Trabalhamos no modelo de Risco Zero com 50% / 50%: você dá 50% de entrada para darmos início à criação e só paga os outros 50% quando o site estiver totalmente pronto no link de teste e você aprovar. Aceito Pix e cartão.",
     },
   ];
 

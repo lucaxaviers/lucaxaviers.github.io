@@ -3,22 +3,22 @@ export default function HowItWorks() {
     {
       num: "01",
       badge: "Início",
-      title: "A gente conversa e você me manda logo e fotos.",
-      desc: "Falamos pelo WhatsApp para entender o que seu negócio precisa. Você me manda seu logotipo, fotos do seu espaço ou serviço e os dados de contato. Se não tiver fotos profissionais ou textos prontos, eu te ajudo.",
+      title: "Alinhamento rápido no WhatsApp",
+      desc: "Você me conta em 5 minutos o que faz, quais serviços quer destacar e me manda o que já tiver (logo, fotos ou Instagram).",
       deliverable: "Alinhamento de objetivo e briefing sem complicação",
     },
     {
       num: "02",
       badge: "Criação",
-      title: "Eu mostro o site num link provisório e você pede ajustes.",
-      desc: "Desenvolvo a página completa, rápida e com versão para celular. Você recebe um link de teste funcional no seu navegador para navegar, testar os botões e pedir as alterações que desejar.",
+      title: "Criação completa + Textos persuasivos",
+      desc: "Eu monto toda a estrutura, escrevo os textos focados em vendas e crio o visual. Você acompanha tudo por um link de teste exclusivo.",
       deliverable: "Link navegável no celular e no computador antes de publicar",
     },
     {
       num: "03",
       badge: "No Ar",
-      title: "Você aprova, eu publico no seu domínio.",
-      desc: "Com tudo revisado e aprovado, configuro o domínio oficial (.com.br), ativo o certificado de segurança SSL e deixo seu botão de WhatsApp pronto para receber clientes todos os dias.",
+      title: "Aprovação e Publicação",
+      desc: "Ajustamos os detalhes que você pedir, colocamos no ar no seu domínio (.com.br) e você só paga a segunda metade após aprovar.",
       deliverable: "Site publicado, seguro, veloz e sob seu controle",
     },
   ];

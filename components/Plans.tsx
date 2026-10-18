@@ -75,7 +75,23 @@ export default function Plans() {
           })}
         </div>
 
-        <p style={{ marginTop: "24px", textAlign: "center", color: "var(--mu)", fontSize: "0.88rem" }}>
+        {/* Bloco de Risco Zero / Garantia 50/50 */}
+        <div className="pl-guarantee-box">
+          <div className="pl-guarantee-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              <path d="M9 12l2 2 4-4" />
+            </svg>
+          </div>
+          <div className="pl-guarantee-text">
+            <strong>Garantia de Satisfação e Risco Zero</strong>
+            <p>
+              Pagamento seguro 50% / 50%: Você dá 50% para iniciarmos e só paga os outros 50% quando ver o site pronto no link de teste e aprovar.
+            </p>
+          </div>
+        </div>
+
+        <p style={{ marginTop: "20px", textAlign: "center", color: "var(--mu)", fontSize: "0.88rem" }}>
           {PRICING_CONFIG.paymentTerms}
         </p>
       </div>
